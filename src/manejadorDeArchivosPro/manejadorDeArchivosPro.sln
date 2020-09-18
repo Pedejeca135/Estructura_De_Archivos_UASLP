@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "manejadorDeArchivosPro", "manejadorDeArchivosPro\manejadorDeArchivosPro.csproj", "{AF88CECA-C0ED-40EF-8988-B35F5FB36FFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF88CECA-C0ED-40EF-8988-B35F5FB36FFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF88CECA-C0ED-40EF-8988-B35F5FB36FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF88CECA-C0ED-40EF-8988-B35F5FB36FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF88CECA-C0ED-40EF-8988-B35F5FB36FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56CBDA26-6BAC-47AA-B6AA-D08207BA084C}
+	EndGlobalSection
+EndGlobal
