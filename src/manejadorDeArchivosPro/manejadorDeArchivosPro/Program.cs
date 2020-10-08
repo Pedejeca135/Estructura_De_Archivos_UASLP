@@ -16,7 +16,7 @@ namespace manejadorDeArchivosPro
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ManejadorDeArchivos());
+            Application.Run(new ManejadorDeArchivos_Form());
         }
     }
 }

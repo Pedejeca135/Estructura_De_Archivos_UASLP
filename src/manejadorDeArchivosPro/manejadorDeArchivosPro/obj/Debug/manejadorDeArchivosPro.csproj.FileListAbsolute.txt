@@ -1,5 +1,4 @@
 S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.csprojAssemblyReference.cache
-S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.ManejadorDeArchivos.resources
 S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.Properties.Resources.resources
 S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.csproj.GenerateResource.cache
 S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.csproj.CoreCompileInputs.cache
@@ -8,3 +7,7 @@ S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\
 S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\bin\Debug\manejadorDeArchivosPro.pdb
 S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.exe
 S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.pdb
+S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.Aviso_Form.resources
+S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.CambiarNombreArchivo_Form.resources
+S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.ManejadorDeArchivos_Form.resources
+S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.NuevoArchivo_Form.resources
