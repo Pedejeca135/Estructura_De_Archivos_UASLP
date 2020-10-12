@@ -106,8 +106,8 @@ namespace manejadorDeArchivosPro
                                                 nombreArchivo = pathDirectorio + "\\" + nuevoArchivoF.Nombre + ".dd";//Crea el nombre del archivo
                                             }
 
-                                            this.archivoDeTrabajo = new Archivo(nombreArchivo);//Construye el objeto archivo
-                                            this.Text = Path.GetFileNameWithoutExtension(this.archivoDeTrabajo.Nombre) + " - Manejador de Archivos Pro";
+                                            this.archivoDeTrabajo = new Archivo(nombreArchivo,true);//Construye el objeto archivo
+                                            this.Text = Path.GetFileNameWithoutExtension(this.archivoDeTrabajo.Nombre) +".dd"+ " - Manejador de Archivos Pro";
                                             this.Update();
                                         }
                                         catch
@@ -141,16 +141,17 @@ namespace manejadorDeArchivosPro
                     {
                         if (File.Exists(openFileDialog1.FileName))//si el archivo que se quiere abrir existe
                         {
+                            if(archivoDeTrabajo == null)
+                            {
+                                archivoDeTrabajo = new Archivo();
+                            }
                             nuevo_SB.Enabled = false;//Deshabilita la opcion de crear un nuevo archivo
                             abrir_SB.Enabled = false;//Des habilita la opcion de abrir un nuevo archivo
                             renombrar_SB.Enabled = true;//habilita la opcion de renombrar archivo
                             cerrar_SB.Enabled = true;//Habilita la opcion de cerrar el archivo
-
-                            archivoDeTrabajo = new Archivo(openFileDialog1.FileName);//Crea el objeto archivo que se abrio
-                            this.pathNombreArchivo = Path.GetDirectoryName(openFileDialog1.FileName);
-                            this.pathDirectorio = Path.GetDirectoryName(pathNombreArchivo);
-                            this.archivoDeTrabajo.Abrir(pathNombreArchivo);//Abre el archivo
-                            this.Text = Path.GetFileNameWithoutExtension(this.archivoDeTrabajo.Nombre) + " - Manejador de Archivos Pro";
+                           
+                            this.archivoDeTrabajo.Abrir(openFileDialog1.FileName);//Abre el archivo
+                            this.Text = Path.GetFileName(openFileDialog1.FileName) + " - Manejador de Archivos Pro";
                             this.Reload();//Recarga todo en la forma. //Manda actualizar los combo box y los data grid
                         }
                         else
@@ -208,7 +209,7 @@ namespace manejadorDeArchivosPro
                                 File.Move(this.archivoDeTrabajo.Nombre, nuevoNombreFinal);
                                 File.Delete(this.archivoDeTrabajo.Nombre);
                                 this.archivoDeTrabajo.Nombre = nuevoNombreFinal;
-                                this.Text = Path.GetFileNameWithoutExtension(this.archivoDeTrabajo.Nombre) + " - Manejador de Archivos Pro";
+                                this.Text = Path.GetFileNameWithoutExtension(this.archivoDeTrabajo.Nombre) + ".dd" + " - Manejador de Archivos Pro";
                             }
                             else
                             {
@@ -254,10 +255,28 @@ namespace manejadorDeArchivosPro
                 switch (e.ClickedItem.AccessibleName)
                 {
                     case "Alta":
-                        #region Alta
-                        archivoDeTrabajo.altaEntidad(nombre_TB.Text);
-                        #endregion
-                        break;
+                        #region Alta                       
+                        if (this.nombre_TB.Text.Contains('/') || this.nombre_TB.Text.Contains(':')
+                                   || this.nombre_TB.Text.Contains('*') || this.nombre_TB.Text.Contains('?')
+                                   || this.nombre_TB.Text.Contains('"') || this.nombre_TB.Text.Contains('<')
+                                   || this.nombre_TB.Text.Contains('>') || this.nombre_TB.Text.Contains('|') 
+                                   || this.nombre_TB.Text.Contains(@"\") || this.nombre_TB.Text.Contains(" "))
+                        {
+                            MessageBox.Show("Hay caracteres invalidos en el nombre la Entidad que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
+                        }
+                        else if (this.nombre_TB.Text == " " || this.nombre_TB.Text =="")
+                        {
+                            MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //break;
+                        }
+                        else
+                        {
+                            this.archivoDeTrabajo.altaEntidad(nombre_TB.Text);  
+                        }
+                            #endregion
+                            this.nombre_TB.Text = "";
+                            break;
                     case "Modificar":
                         #region Modoficar
                         #endregion
@@ -287,8 +306,16 @@ namespace manejadorDeArchivosPro
         #region MetodosForm
         public void Reload()
         {
+            foreach (Entidad en in archivoDeTrabajo.Entidades)
+            {
+                this.comboBox2.Items.Add(en.Nombre);
+                Object[] Row = { en.IDString , en.Nombre, en.Direccion, en.DireccionAtributos, en.DireccionRegistros, en.DireccionSiguiente };
+                dataGridEntidades.Rows.Add(Row);
+                //dataGridEntidades.Rows.
+            }
 
         } 
+
         public void Cierra()
         {
 

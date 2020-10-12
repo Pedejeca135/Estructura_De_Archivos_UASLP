@@ -38,11 +38,12 @@
             // textBoxNombre
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(12, 25);
-            this.textBoxNombre.Multiline = true;
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(259, 29);
+            this.textBoxNombre.ShortcutsEnabled = false;
+            this.textBoxNombre.Size = new System.Drawing.Size(259, 20);
             this.textBoxNombre.TabIndex = 1;
-            this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
+            //this.textBoxNombre.TextChanged += new System.EventHandler(this.textBoxNombre_TextChanged);
+            this.textBoxNombre.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxNombre_KeyDown);
             // 
             // cancelarBT
             // 
@@ -86,6 +87,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NuevoArchivo_Form";
             this.Text = "Nuevo Archivo";
+            this.Load += new System.EventHandler(this.NuevoArchivo_Form_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NuevoArchivo_Form_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -94,8 +97,8 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBoxNombre;
-        private System.Windows.Forms.Button cancelarBT;
         private System.Windows.Forms.Button crearBT;
+        private System.Windows.Forms.Button cancelarBT;        
         private System.Windows.Forms.Label label1;
     }
 }

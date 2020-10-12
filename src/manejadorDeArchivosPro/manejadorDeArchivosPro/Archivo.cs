@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -16,10 +17,9 @@ namespace manejadorDeArchivosPro
          * Enumerables 
          * funcionan para tener en cuenta el tamaño de la entidad
          preferible cambiarlos a un lugar mas global */
-        int en_Cabecera = 8;
         int en_Nombre = 30;
         int en_Tipo = 1;
-        int en_direcciones = 8;
+        int en_direccion = 8;
 
         long directionDefault = -1;
 
@@ -32,31 +32,44 @@ namespace manejadorDeArchivosPro
         private string nombre;
         private String pathName;
         private List<Entidad> entidades;
-
         private FileStream archivo;
 
         private BinaryReader lector;
         private BinaryWriter escritor;
         private long length = 0;
 
-
-
         #endregion
 
         #region Constructores
-        public Archivo(string path)
+        public Archivo()
         {
             this.cabecera = cabeceraAtributosDesperdiciados = cabeceraEntidadesDesperdiciadas = -1;
-            this.pathName = path;
-            this.nombre = Path.GetFileNameWithoutExtension(path);
             this.entidades = new List<Entidad>();
-            archivo = new FileStream(path, FileMode.Create);//Crea el archivo en disco
-            archivo.Close();
-            this.Init();
+        }
+
+        public Archivo(string path, Boolean nuevo)
+        {
+            if (nuevo)
+            {
+                this.cabecera = cabeceraAtributosDesperdiciados = cabeceraEntidadesDesperdiciadas = -1;
+                this.pathName = path;
+                this.nombre = Path.GetFileNameWithoutExtension(path);
+                this.entidades = new List<Entidad>();
+                this.Init();
+            }
+            else
+            {
+                if (this.pathName != path)
+                {
+                    this.PathName = path;
+                    this.Abrir(this.pathName);
+                }
+            }
         }
         public void Init()
         {
-            //archivo = File.Open(pathName, FileMode.Open, FileAccess.Write, FileShare.None);
+            archivo = new FileStream(this.pathName, FileMode.Create);//Crea el archivo en disco
+            archivo.Close();
             this.abreElArchivo();
             archivo.Seek(0, SeekOrigin.Begin);
             escritor = new BinaryWriter(archivo);
@@ -65,6 +78,70 @@ namespace manejadorDeArchivosPro
             escritor.Write(cabeceraAtributosDesperdiciados);
             this.cierraElArchivo();
         }
+
+        
+        /**
+        * Metodo que se encarga de leer las entidades guardadas
+        * en el diccionario de datos utilizando un BinaryReader
+        * y una secuencia con un while para que se detenga cuando
+        * el valor de la dirección siguiente sea igual a -1
+        */
+        public void Abrir(String path)
+        {
+            this.pathName = path;//cambia el nombre del archivo
+            entidades.Clear();//borra todas las entidades de la lista
+
+            long dirSiguienteEntidad = 0;//Crea un long que servira como iterador
+            byte[] identificador = new byte[5];
+
+            long dirActual;
+            string nombre;
+            long dirAtributo;
+            long dirRegistros;
+            Entidad entidad;
+
+            while (dirSiguienteEntidad != -1)//Se cicla mientras
+            {
+                using (this.lector = new BinaryReader(new FileStream(this.PathName, FileMode.Open)))//Abre el archivo con el BinaryReader
+                {
+                    if ((int)dirSiguienteEntidad == 0)//Si es 0 o lo que es lo mismo entrar por primera vez
+                    {
+                        this.cabecera = dirSiguienteEntidad = lector.ReadInt64();//La cabecera y el iterador  son iguales al resultado de leer un long
+                        this.cabeceraEntidadesDesperdiciadas = lector.ReadInt64();
+                        this.cabeceraAtributosDesperdiciados = lector.ReadInt64();
+                        continue;
+                    }
+                    lector.BaseStream.Seek(dirSiguienteEntidad, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                    identificador = lector.ReadBytes(5);
+                    nombre = getNombreEnString(lector.ReadBytes(30));//Lee el string del nombre
+                    dirActual = lector.ReadInt64();//Lee un long que de la dirección actual
+                    dirAtributo = lector.ReadInt64();//Lee un long que de la dirección de los atributos
+                    dirRegistros = lector.ReadInt64();//Lee un long que de la dirección de los registros
+                    dirSiguienteEntidad = lector.ReadInt64();////Lee un long que de la dirección de la siguiente entidad
+
+
+                    entidad = new Entidad(identificador,nombre, dirActual, dirAtributo, dirRegistros, dirSiguienteEntidad);//Crea una nueva entidad con los datos leidos
+
+                    while (dirAtributo != -1)
+                    {
+                        lector.BaseStream.Seek(dirAtributo, SeekOrigin.Begin);
+                        byte[] ID = lector.ReadBytes(5).ToArray();
+                        String nombreAtributo = getNombreEnString(lector.ReadChars(30));//Lee el string del nombre
+                        char tipo = lector.ReadChar();
+                        int longitud = lector.ReadInt32();
+                        long direccionDelAtributo = lector.ReadInt64();
+                        int tipoIndice = lector.ReadInt32();
+                        long dirIn = lector.ReadInt64();
+                        long dirSiguienteAtributo = lector.ReadInt64();
+                        Atributo at = new Atributo(ID,nombreAtributo,tipo,longitud,direccionDelAtributo,tipoIndice,dirIn,dirSiguienteAtributo);
+                        dirAtributo = dirSiguienteAtributo;
+                        entidad.addAtributo(at);
+                    }                    
+                    entidades.Add(entidad);//Añade la entidad a la lista de entidades
+                }
+            }
+        }
+
         #endregion
 
         #region Geters&Seters
@@ -86,6 +163,12 @@ namespace manejadorDeArchivosPro
         {
             get { return length; }
         }
+        public List<Entidad> Entidades
+        {
+            get { return this.entidades; }
+        }
+
+        
         #endregion
 
         /*
@@ -102,14 +185,13 @@ namespace manejadorDeArchivosPro
 
 
         public void altaEntidad(String nombre)
-        {
-            
+        {            
             if (!existeEntidad(nombre))
-            {
-                
+            {                
                 List<byte> entidadAlta = new List<byte>();
+                byte[] ID = creaID();
 
-                foreach (byte b in creaID())//para ID
+                foreach (byte b in ID)//para ID
                 {
                     entidadAlta.Add(b);
                 }
@@ -134,7 +216,7 @@ namespace manejadorDeArchivosPro
                         entidadAlta.Add(b);
                     }
                     direccionParaEntidad = cabeceraEntidadesDesperdiciadas;
-                    //cabeceraEntidadesDesperdiciadas = getNextEntidadesDesperdiciadas;
+                    //cabeceraEntidadesDesperdiciadas = getNextEntidadesDesperdiciadas();
                 }
                 foreach (byte b in BitConverter.GetBytes(directionDefault))//direccion a los atributos.
                 {
@@ -145,19 +227,22 @@ namespace manejadorDeArchivosPro
                     entidadAlta.Add(b);
                 }
 
-                Entidad aux = new Entidad(nombre, direccionParaEntidad, directionDefault, directionDefault, directionDefault);
+                Entidad aux = new Entidad(ID,nombre, direccionParaEntidad, directionDefault, directionDefault, directionDefault);
+                
                 long direccionSiguienteEntidad = getSiguienteDireccionDeEntidadConInsersion(ref aux);
 
                 foreach (byte b in BitConverter.GetBytes(direccionSiguienteEntidad))
                 {
                     entidadAlta.Add(b);
                 }
-                this.abreElArchivo();
-                this.archivo.Seek(this.archivo.Length, SeekOrigin.Begin);
+
+                this.abreElArchivo();                
+                long sPos = this.archivo.Seek(this.Length, SeekOrigin.Current);
                 escritor = new BinaryWriter(archivo);
                 this.escritor.Write(entidadAlta.ToArray());
-                this.cierraElArchivo();
-               
+                 sPos = this.archivo.Seek(0, SeekOrigin.Begin);
+                this.escritor.Write(this.cabecera);
+                this.cierraElArchivo();              
             }
             else
             {
@@ -198,7 +283,7 @@ namespace manejadorDeArchivosPro
                 {
                     entidad.DireccionSiguiente = entidades[i].DireccionSiguiente;
                     entidades[i].DireccionSiguiente = entidad.Direccion;
-                    entidades.Insert(i,entidad);
+                    entidades.Insert(i+1,entidad);
                     break;
                 }
             }
@@ -206,6 +291,12 @@ namespace manejadorDeArchivosPro
             {
                 entidad.DireccionSiguiente = entidades[0].Direccion;
                 entidades.Insert(0, entidad);
+                cabecera = entidad.Direccion;
+            }
+            else if(entidades.Count() == 0)
+            {
+                entidades.Add(entidad);
+                cabecera = entidad.Direccion;
             }
             return entidad.DireccionSiguiente;
         }
@@ -220,11 +311,16 @@ namespace manejadorDeArchivosPro
 
         }
 
-
-        public void Abrir(String path)
+        public long combierteALong(byte[]  by)
         {
-
-        }
+            long res = 0;
+            for (int i = 0; i < by.Length; i++)
+            {
+                res = (res << 8) + (by[i] & 0xff);
+            }
+            return res;
+        }   
+        
         List<byte[]> idList = new List<byte[]>();
 
        
@@ -294,7 +390,7 @@ namespace manejadorDeArchivosPro
 
         public String getNombreEnString(byte[] nombre)
         {
-            List<byte> aux = new List<byte>();
+            List<char> aux = new List<char>();
 
             foreach(byte b in nombre)
             {
@@ -302,9 +398,17 @@ namespace manejadorDeArchivosPro
                 {
                     break;
                 }
-                aux.Add(b);
+                aux.Add(Convert.ToChar(b));
+                
             }
-            return aux.ToArray().ToString();
+
+            String res = new string(aux.ToArray());
+            return res;
+        }
+
+        public String getNombreEnString(char[] nombre)
+        {
+            return nombre.ToString();
         }
 
 

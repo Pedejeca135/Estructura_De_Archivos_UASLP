@@ -15,6 +15,9 @@ namespace manejadorDeArchivosPro
         public NuevoArchivo_Form()
         {
             InitializeComponent();
+            this.textBoxNombre.Select();
+
+            
         }
         private void textBoxNombre_TextChanged(object sender, EventArgs e)
         {
@@ -43,6 +46,25 @@ namespace manejadorDeArchivosPro
             get { return this.textBoxNombre.Text; }
         }
 
-        
+        private void NuevoArchivo_Form_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NuevoArchivo_Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                this.crearBT_Click(sender ,e);
+            }
+        }
+
+        private void textBoxNombre_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                this.crearBT_Click(sender ,e);
+            }
+        }
     }
 }
