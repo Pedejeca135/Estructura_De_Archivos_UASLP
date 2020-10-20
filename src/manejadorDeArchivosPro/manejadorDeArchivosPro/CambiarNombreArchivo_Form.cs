@@ -15,6 +15,8 @@ namespace manejadorDeArchivosPro
         public CambiarNombreArchivo_Form()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterParent;
+            this.textBoxNombre.Select();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -24,7 +26,7 @@ namespace manejadorDeArchivosPro
 
         private void aceptar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBoxNombre.Text))
+            if (!string.IsNullOrEmpty(textBoxNombre.Text) || textBoxNombre.Text == ".dd")
             {
                 this.DialogResult = DialogResult.OK;
                 this.Close();

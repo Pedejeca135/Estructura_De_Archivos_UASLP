@@ -15,10 +15,13 @@ namespace manejadorDeArchivosPro
         public NuevoArchivo_Form()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterParent;
             this.textBoxNombre.Select();
+
 
             
         }
+
         private void textBoxNombre_TextChanged(object sender, EventArgs e)
         {
 

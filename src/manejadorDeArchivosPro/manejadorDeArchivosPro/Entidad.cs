@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace manejadorDeArchivosPro
 {
@@ -18,15 +19,15 @@ namespace manejadorDeArchivosPro
         private long dirRegistros;
         private long dirSiguiente;
 
-        int en_id_Entidad = 5;
-        int en_nombre = 30;
-        int direcciones = 8;
+        
 
         public List<Atributo> atributos { get; set; }
 
 
 
         #endregion
+
+
 
         #region Constructores
         public Entidad(byte[] ID, String nombre, long direccion, long dirAtributos, long dirResistros, long dirSiguiente)
@@ -86,6 +87,10 @@ namespace manejadorDeArchivosPro
         {
             get { return this.IDToString(); }
         }
+
+
+        
+
         #endregion
 
 
@@ -106,6 +111,27 @@ namespace manejadorDeArchivosPro
             return res;
         }
 
+
+        public Boolean Equals(Entidad entidad)
+        {
+            if (entidad.Nombre == this.Nombre && entidad.ID == this.ID && entidad.Direccion == this.Direccion)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public Boolean existeAtributo(String nombre)
+        {
+            foreach (Atributo at in this.atributos)
+            {
+                if(at.Nombre == nombre)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         #endregion
 
     }

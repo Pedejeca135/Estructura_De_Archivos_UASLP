@@ -67,6 +67,12 @@
     <Compile Include="ManejadorDeArchivos_Form.Designer.cs">
       <DependentUpon>ManejadorDeArchivos_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModificarEntidad_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModificarEntidad_Form.Designer.cs">
+      <DependentUpon>ModificarEntidad_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="NuevoArchivo_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util.cs" />
     <EmbeddedResource Include="Aviso_Form.resx">
       <DependentUpon>Aviso_Form.cs</DependentUpon>
     </EmbeddedResource>
@@ -83,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManejadorDeArchivos_Form.resx">
       <DependentUpon>ManejadorDeArchivos_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModificarEntidad_Form.resx">
+      <DependentUpon>ModificarEntidad_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NuevoArchivo_Form.resx">
       <DependentUpon>NuevoArchivo_Form.cs</DependentUpon>

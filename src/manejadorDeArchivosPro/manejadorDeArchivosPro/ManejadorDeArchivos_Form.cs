@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;//para el uso del filestream
-
 using System.Windows.Forms;
 
 namespace manejadorDeArchivosPro
@@ -20,14 +19,26 @@ namespace manejadorDeArchivosPro
         public ManejadorDeArchivos_Form()
         {
             InitializeComponent();
+            /*
+             * 0-> Sin ndice
+             * 1-> Organizacion Secuencial
+             * 2-> OS Indice Primario
+             * 3-> OS Indice Secundario
+             * 4-> Arbol B+             * 
+             * */
+           
         }
         #endregion
-
+        #region Constantes
+        String NombrePorDefectoArchivo = "nuevoArchivo.dd";
+        #endregion
         #region Variables_De_Instancia
         private Archivo archivoDeTrabajo;
 
         private String pathDirectorio;
         private String pathNombreArchivo;
+        private List<int> listaLongitud;
+        
         #endregion
 
 
@@ -40,6 +51,12 @@ namespace manejadorDeArchivosPro
             {
                 Directory.CreateDirectory(pathDirectorio);
             }
+            listaLongitud = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+            foreach(int i in listaLongitud)
+            {
+                ComboB_LongitudAtributo.Items.Add(i);
+            }
+            
 
         }
 
@@ -51,76 +68,64 @@ namespace manejadorDeArchivosPro
                     #region Nuevo
                     if (this.archivoDeTrabajo == null)//Verifica que no exista un archivo abierto
                     {
-                        NuevoArchivo_Form nuevoArchivoF;
-                        String nombreArchivo;
-                        FileStream file;
-                        nuevoArchivoF = new NuevoArchivo_Form();
+                           SaveFileDialog SFD = new SaveFileDialog();
+                           SFD.FileName = NombrePorDefectoArchivo;
+                           SFD.InitialDirectory = pathDirectorio;
+                           SFD.Title = "Crear Archivo";
+                           SFD.DefaultExt = ".dd";
+                           SFD.Filter = "Diccionario de Datos|*.dd";//(.idx)|*.idx|(.dat)|*.dat";
+                           SFD.AddExtension = true;
+                            String nuevoArchivoNombre;
 
-                        folderBrowserDialog1.SelectedPath = pathDirectorio;
+                        if (SFD.ShowDialog().Equals(DialogResult.OK))
+                        {                           
+                                nuevoArchivoNombre = Path.GetFileName(SFD.FileName);
 
-                        if (folderBrowserDialog1.ShowDialog().Equals(DialogResult.OK))
-                        {
-                            //this.upDirectorio = this.directorio = SelectFolder.SelectedPath;
-                            if (nuevoArchivoF.ShowDialog().Equals(DialogResult.OK))
-                            {
-                                if (nuevoArchivoF.Nombre.Contains('/') || nuevoArchivoF.Nombre.Contains(':')
-                                    || nuevoArchivoF.Nombre.Contains('*') || nuevoArchivoF.Nombre.Contains('?')
-                                    || nuevoArchivoF.Nombre.Contains('"') || nuevoArchivoF.Nombre.Contains('<')
-                                    || nuevoArchivoF.Nombre.Contains('>') || nuevoArchivoF.Nombre.Contains('|') || nuevoArchivoF.Nombre.Contains(@"\"))
+                                if (!Util.ValidacionDeNombre(nuevoArchivoNombre))
                                 {
                                     MessageBox.Show("Hay caracteres invalidos en el nombre de archivo que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    
                                     break;
                                 }
-                                else if (nuevoArchivoF.Nombre == ".dd")
+                                else if (nuevoArchivoNombre == ".dd")
                                 {
                                     MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    //break;
+                                   
+                                    break;
                                 }
                                 else
                                 {
-                                    pathNombreArchivo += @"\" + nuevoArchivoF.Nombre;//Crea la dirección del archivo
-                                    if (!File.Exists(pathNombreArchivo))//Verifica si el archivo ya existe
+                                    if (nuevoArchivoNombre.Contains(".dd"))
                                     {
-                                        try
+                                        if (nuevoArchivoNombre.Substring(nuevoArchivoNombre.Length - 3, 3) != ".dd")//si el nombre ya contiene el .dd
                                         {
-                                            Directory.CreateDirectory(pathNombreArchivo);//Si no existe La crea.
-                                            nuevo_SB.Enabled = false;//Deshabilita la opcion de crear un nuevo archivo.
-                                            abrir_SB.Enabled = false;//Deshabilita la opcion de abrir un nuevo archivo.
-                                            renombrar_SB.Enabled = true;//habiolita la opcion de renombrar un archivo.
-                                            cerrar_SB.Enabled = true;//Habilita la opcion de cerrar el archivo.                                   
+                                            nuevoArchivoNombre = nuevoArchivoNombre + ".dd";//Crea el nombre del archivo
 
-
-                                            if (nuevoArchivoF.Nombre.Contains(".dd"))
-                                            {
-                                                if (nuevoArchivoF.Nombre.Substring(nuevoArchivoF.Nombre.Length - 3, 3) == ".dd")//si el nombre ya contiene el .dd
-                                                {
-                                                    nombreArchivo = pathDirectorio + "\\" + nuevoArchivoF.Nombre;
-                                                }
-                                                else
-                                                {
-                                                    nombreArchivo = pathDirectorio + "\\" + nuevoArchivoF.Nombre + ".dd";//Crea el nombre del archivo
-                                                }
-                                            }
-                                            else
-                                            {
-                                                nombreArchivo = pathDirectorio + "\\" + nuevoArchivoF.Nombre + ".dd";//Crea el nombre del archivo
-                                            }
-
-                                            this.archivoDeTrabajo = new Archivo(nombreArchivo,true);//Construye el objeto archivo
-                                            this.Text = Path.GetFileNameWithoutExtension(this.archivoDeTrabajo.Nombre) +".dd"+ " - Manejador de Archivos Pro";
-                                            this.Update();
+                                            String auxPathFileName = Path.GetDirectoryName(SFD.FileName);
+                                            pathNombreArchivo = auxPathFileName + "\\" + nuevoArchivoNombre;
                                         }
-                                        catch
+                                        else
                                         {
-                                            MessageBox.Show("Algo salio mal al crear el archivo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            pathNombreArchivo = SFD.FileName;
                                         }
                                     }
                                     else
                                     {
-                                        MessageBox.Show("El archivo que intenta crear ya existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        nuevoArchivoNombre = nuevoArchivoNombre + ".dd";//Crea el nombre del archivo
+
+                                        String auxPathFileName = Path.GetDirectoryName(SFD.FileName);
+                                        pathNombreArchivo = auxPathFileName + "\\" + nuevoArchivoNombre;
                                     }
-                                }
-                            }
+                                    nuevo_SB.Enabled = false;//Deshabilita la opcion de crear un nuevo archivo.
+                                    abrir_SB.Enabled = false;//Deshabilita la opcion de abrir un nuevo archivo.
+                                    renombrar_SB.Enabled = true;//habiolita la opcion de renombrar un archivo.
+                                    cerrar_SB.Enabled = true;//Habilita la opcion de cerrar el archivo.
+                                    
+
+                                    this.archivoDeTrabajo = new Archivo(pathNombreArchivo, true);//Construye el objeto archivo
+                                    this.Text = Path.GetFileName(this.archivoDeTrabajo.PathName) + " - Manejador de Archivos Pro";
+                                    this.Reload();
+                                }                           
                         }
                     }
                     else
@@ -133,7 +138,7 @@ namespace manejadorDeArchivosPro
                     #region Abrir                   
                     openFileDialog1.Title = "Abrir Archivo";
                     openFileDialog1.DefaultExt = ".dd";
-                    openFileDialog1.Filter = "(*.dd) | *.dd";
+                    openFileDialog1.Filter = "(*.dd)|*.dd";
                     openFileDialog1.AddExtension = true;
                     openFileDialog1.RestoreDirectory = true;
                     openFileDialog1.InitialDirectory = pathDirectorio;//Redirecciona la carpeta del directorio inicial al directorio donde se encuentra el ejecutable
@@ -151,7 +156,7 @@ namespace manejadorDeArchivosPro
                             cerrar_SB.Enabled = true;//Habilita la opcion de cerrar el archivo
                            
                             this.archivoDeTrabajo.Abrir(openFileDialog1.FileName);//Abre el archivo
-                            this.Text = Path.GetFileName(openFileDialog1.FileName) + " - Manejador de Archivos Pro";
+                            this.Text = Path.GetFileName(this.archivoDeTrabajo.PathName) + " - Manejador de Archivos Pro";
                             this.Reload();//Recarga todo en la forma. //Manda actualizar los combo box y los data grid
                         }
                         else
@@ -174,10 +179,7 @@ namespace manejadorDeArchivosPro
 
                     if (nuevoNombre.ShowDialog().Equals(DialogResult.OK))
                     {
-                        if (nuevoNombre.Nombre.Contains('/') || nuevoNombre.Nombre.Contains(':')
-                            || nuevoNombre.Nombre.Contains('*') || nuevoNombre.Nombre.Contains('?')
-                            || nuevoNombre.Nombre.Contains('"') || nuevoNombre.Nombre.Contains('<')
-                            || nuevoNombre.Nombre.Contains('>') || nuevoNombre.Nombre.Contains('|') || nuevoNombre.Nombre.Contains(@"\"))
+                        if(!Util.ValidacionDeNombre(nuevoNombre.Nombre))
                         {
                             MessageBox.Show("Hay caracteres invalidos en el nombre al que intenda cambiar.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
@@ -185,7 +187,7 @@ namespace manejadorDeArchivosPro
                         else if(nuevoNombre.Nombre == ".dd" || nuevoNombre.Nombre == "")
                         {
                             MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            //break;
+                            break;
                         }
                         else
                         {
@@ -193,27 +195,27 @@ namespace manejadorDeArchivosPro
                             {
                                 if (nuevoNombre.Nombre.Substring(nuevoNombre.Nombre.Length - 3, 3) == ".dd")
                                 {
-                                    nuevoNombreFinal = pathDirectorio + "\\" + nuevoNombre.Nombre;
+                                    nuevoNombreFinal = Path.GetDirectoryName(this.archivoDeTrabajo.PathName) + "\\" + nuevoNombre.Nombre;
                                 }
                                 else
                                 {
-                                    nuevoNombreFinal = pathDirectorio + "\\" + nuevoNombre.Nombre + ".dd";//Crea el nombre del archivo
+                                    nuevoNombreFinal = Path.GetDirectoryName(this.archivoDeTrabajo.PathName) + "\\" + nuevoNombre.Nombre + ".dd";//Crea el nombre del archivo
                                 }
                             }
                             else
                             {
-                                nuevoNombreFinal = pathDirectorio + "\\" + nuevoNombre.Nombre + ".dd";//Crea el nombre del archivo
+                                nuevoNombreFinal = Path.GetDirectoryName(this.archivoDeTrabajo.PathName) + "\\" + nuevoNombre.Nombre + ".dd";//Crea el nombre del archivo
                             }
                             if (!File.Exists(nuevoNombreFinal))
                             {
-                                File.Move(this.archivoDeTrabajo.Nombre, nuevoNombreFinal);
-                                File.Delete(this.archivoDeTrabajo.Nombre);
-                                this.archivoDeTrabajo.Nombre = nuevoNombreFinal;
-                                this.Text = Path.GetFileNameWithoutExtension(this.archivoDeTrabajo.Nombre) + ".dd" + " - Manejador de Archivos Pro";
+                                File.Move(this.archivoDeTrabajo.PathName, nuevoNombreFinal);
+                                File.Delete(this.archivoDeTrabajo.PathName);
+                                this.archivoDeTrabajo.PathName = nuevoNombreFinal;
+                                this.Text = Path.GetFileName(this.archivoDeTrabajo.PathName) + " - Manejador de Archivos Pro"; ;
                             }
                             else
                             {
-                                MessageBox.Show("El archivo" + nuevoNombre.Nombre + " ya existe, Elija otro nombre", "Error : Archivo Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("El archivo " + nuevoNombre.Nombre + " ya existe, Elija otro nombre", "Error : Archivo Existente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
                         }
@@ -225,14 +227,16 @@ namespace manejadorDeArchivosPro
                     if (this.archivoDeTrabajo != null)
                     {
                         pathDirectorio = Environment.CurrentDirectory + @"\Archivos";
+                        this.archivoDeTrabajo.Close();
                         this.archivoDeTrabajo = null;
                         nuevo_SB.Enabled = true;//Habilita la opcion de crear un nuevo archivo
                         abrir_SB.Enabled = true;//Habilita la opcion de abrir un nuevo archivo
                         renombrar_SB.Enabled = false;
                         cerrar_SB.Enabled = false;//Deshabilita la opcion de cerrar el archivo
                         this.Text = "Manejador de Archivos Pro";
-                        this.Cierra();
                     }
+                    this.Cierra();
+                    this.Reload();
                     #endregion
                     break;
                 default:
@@ -240,13 +244,7 @@ namespace manejadorDeArchivosPro
                     break;
             }
         }
-
-
-        private void NuevoArchivoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        #region menuEntidades
 
         private void menuEntidades_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -255,30 +253,40 @@ namespace manejadorDeArchivosPro
                 switch (e.ClickedItem.AccessibleName)
                 {
                     case "Alta":
-                        #region Alta                       
-                        if (this.nombre_TB.Text.Contains('/') || this.nombre_TB.Text.Contains(':')
-                                   || this.nombre_TB.Text.Contains('*') || this.nombre_TB.Text.Contains('?')
-                                   || this.nombre_TB.Text.Contains('"') || this.nombre_TB.Text.Contains('<')
-                                   || this.nombre_TB.Text.Contains('>') || this.nombre_TB.Text.Contains('|') 
-                                   || this.nombre_TB.Text.Contains(@"\") || this.nombre_TB.Text.Contains(" "))
-                        {
-                            MessageBox.Show("Hay caracteres invalidos en el nombre la Entidad que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            break;
-                        }
-                        else if (this.nombre_TB.Text == " " || this.nombre_TB.Text =="")
+                        #region Alta 
+                        if (this.NombreEntidad_Combo.Text == " " || this.NombreEntidad_Combo.Text == "")
                         {
                             MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            //break;
+                            break;
+                        }
+                        else if (!Util.ValidacionDeNombre(this.NombreEntidad_Combo.Text))
+                        {
+                            MessageBox.Show("Hay caracteres invalidos en el nombre de la Entidad que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
                         }
                         else
                         {
-                            this.archivoDeTrabajo.altaEntidad(nombre_TB.Text);  
+                            this.archivoDeTrabajo.altaEntidad(NombreEntidad_Combo.Text);
+                            this.Reload();
                         }
-                            #endregion
-                            this.nombre_TB.Text = "";
+                        #endregion
+                        this.NombreEntidad_Combo.Text = "";
                             break;
                     case "Modificar":
-                        #region Modoficar
+                        #region Modificar
+                        if (this.archivoDeTrabajo.existeEntidad(NombreEntidad_Combo.Text))
+                        {
+                            ModificarEntidad_Form modificador = new ModificarEntidad_Form(Combo_entidadesParaAtributos.Text);
+                            if (modificador.ShowDialog().Equals(DialogResult.OK))
+                            {
+                                archivoDeTrabajo.ModificarEntidad(Combo_entidadesParaAtributos.Text, modificador.NuevoNombre);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("La entidad que desea modificar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        
                         #endregion
                         break;
                     case "Consulta":
@@ -287,112 +295,225 @@ namespace manejadorDeArchivosPro
                         break;
                     case "Eliminar":
                         #region Eliminar
+                        if (this.archivoDeTrabajo.existeEntidad(NombreEntidad_Combo.Text))
+                        {
+                            this.archivoDeTrabajo.eliminaEntidad(NombreEntidad_Combo.Text);
+                            this.Reload();
+                        }
+                        else
+                        {
+                            MessageBox.Show("La entidad que desea eliminar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
                         #endregion
                         break;
                     default:
-                        MessageBox.Show("Opción incorrecta o no implementada", "Atención");
+                        MessageBox.Show("Opcion no implementada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
             }
             else
             {
-                MessageBox.Show("Por favor abra una base de datos", "Error");
+                MessageBox.Show("Por favor abra un archivo", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-        }
-
-
-        #endregion
-
-        #region MetodosForm
-        public void Reload()
-        {
-            foreach (Entidad en in archivoDeTrabajo.Entidades)
-            {
-                this.comboBox2.Items.Add(en.Nombre);
-                Object[] Row = { en.IDString , en.Nombre, en.Direccion, en.DireccionAtributos, en.DireccionRegistros, en.DireccionSiguiente };
-                dataGridEntidades.Rows.Add(Row);
-                //dataGridEntidades.Rows.
-            }
-
-        } 
-
-        public void Cierra()
-        {
-
-        }
-        public void Update()
-        {
-
         }
         #endregion
 
-
-        
-
+    #region menuAtributos
         private void menuAtributos_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            if (this.archivoDeTrabajo != null)
+            {
+                switch (e.ClickedItem.AccessibleName)
+                {
+                    case "Alta":
+                        #region Alta 
+                        if (this.comboNombreAtributo.Text == " " || this.comboNombreAtributo.Text == "")
+                        {
+                            MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;                            
+                        }
+                        else if (!Util.ValidacionDeNombre(this.comboNombreAtributo.Text))
+                        {
+                            MessageBox.Show("Hay caracteres invalidos en el nombre del atributo que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            break;
+                        }
+                        else
+                        {
+                            int longitudNuevoAtributo = 1;
+                            if (Int32.TryParse(ComboB_LongitudAtributo.Text, out longitudNuevoAtributo))
+                            {
 
+                                if (!listaLongitud.Contains(longitudNuevoAtributo))
+                                {
+                                    listaLongitud.Add(longitudNuevoAtributo);
+                                }
+
+                                this.archivoDeTrabajo.altaAtributo(Combo_entidadesParaAtributos.Text, comboNombreAtributo.Text, ComboB_TipoAtributo.Text, longitudNuevoAtributo, ComboB_TipoIndiceAtributo.Text);
+                                this.Reload();
+                            }
+                            else
+                            {
+                                MessageBox.Show("La longitud tiene un formato incorrecto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        #endregion
+                        this.NombreEntidad_Combo.Text = "";
+                        break;
+                    case "Modificar":
+                        #region Modificar
+                        if (this.archivoDeTrabajo.existeEntidad(NombreEntidad_Combo.Text))
+                        {
+                            ModificarEntidad_Form modificador = new ModificarEntidad_Form(Combo_entidadesParaAtributos.Text);
+                            if (modificador.ShowDialog().Equals(DialogResult.OK))
+                            {
+                                archivoDeTrabajo.ModificarEntidad(Combo_entidadesParaAtributos.Text, modificador.NuevoNombre);
+
+
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("La entidad que desea modificar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        #endregion
+                        break;
+                    case "Consulta":
+                        #region Consulta
+                        #endregion
+                        break;
+                    case "Eliminar":
+                        #region Eliminar
+                        if (this.archivoDeTrabajo.existeEntidad(NombreEntidad_Combo.Text))
+                        {
+                            this.archivoDeTrabajo.eliminaAtributo(NombreEntidad_Combo.Text);
+                            this.Reload();
+                        }
+                        else
+                        {
+                            MessageBox.Show("La entidad que desea eliminar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        #endregion
+                        break;
+                    default:
+                        MessageBox.Show("Opcion no implementada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor abra un archivo", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
+        #endregion
 
-        private void menuRegistros_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+#endregion
+
+        #region MetodosForm
+        private void Cierra()
         {
-
+            NombreEntidad_Combo.Items.Clear();
+            comboNombreAtributo.Items.Clear();
+            Combo_entidadesParaAtributos.Items.Clear();
         }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        public void Reload()
         {
+            this.dataGridEntidades.Rows.Clear();            
+            this.dataGridAtributos.Rows.Clear();
+            this.NombreEntidad_Combo.Items.Clear();
+            this.ComboB_LongitudAtributo.Items.Clear();
+
+            int auxComboAtributos = Combo_entidadesParaAtributos.SelectedIndex;
+            this.Combo_entidadesParaAtributos.Items.Clear();
+
+
+            foreach (int i in listaLongitud)
+            {
+                ComboB_LongitudAtributo.Items.Add(i);
+            }                
+
+            if (this.archivoDeTrabajo != null) 
+            {
+                foreach (Entidad en in archivoDeTrabajo.Entidades)
+                {
+                    this.Combo_entidadesParaAtributos.Items.Add(en.Nombre);
+                    this.NombreEntidad_Combo.Items.Add(en.Nombre);
+                    
+                    Object[] Row = { en.IDString, en.Nombre, en.Direccion, en.DireccionAtributos, en.DireccionRegistros, en.DireccionSiguiente };
+                    dataGridEntidades.Rows.Add(Row);
+                }
+                this.Text = Path.GetFileName(this.archivoDeTrabajo.PathName) + "- Manejador de Archivos Pro";
+                //NombreArchivoLabel.Text = "Cabecera: "+ this.archivoDeTrabajo.Cabecera.ToString();
+                
+                tam_label.Text = "Tamaño: " + this.archivoDeTrabajo.Length.ToString();
+                Cabecera.Text = "Cabecera: " + this.archivoDeTrabajo.Cabecera.ToString();
+                CabeceraEntidadesDesperdiciadas.Text = "CabEntidadesDes: " + this.archivoDeTrabajo.CabeceraEntidadesDesperdiciadas.ToString(); ;
+                cabeceraAtributosDesperdiciados.Text = "CabAtributosDes: " + this.archivoDeTrabajo.CabeceraAtributosDesperdiciados.ToString();
+
+                tam_label.Visible = true;
+                Cabecera.Visible = true;
+                CabeceraEntidadesDesperdiciadas.Visible = true;
+                cabeceraAtributosDesperdiciados.Visible = true;
+
+            }
+            else
+            {
+                this.Text = "- Manejador de Archivos Pro";
+                //NombreArchivoLabel.Visible = false;
+                tam_label.Visible = false;
+                Cabecera.Visible = false;
+                CabeceraEntidadesDesperdiciadas.Visible = false;
+                cabeceraAtributosDesperdiciados.Visible = false;
+
+
+            }
+
+            Combo_entidadesParaAtributos.SelectedIndex = auxComboAtributos;
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+
+        #endregion
+
+
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            comboNombreAtributo.Items.Clear();
+            if (this.archivoDeTrabajo != null)
+            {this.Reload();
+                if(this.archivoDeTrabajo.ContainsName(Combo_entidadesParaAtributos.Text))
+                {
+                    foreach(Atributo at in this.archivoDeTrabajo.getEntidad(Combo_entidadesParaAtributos.Text).atributos)
+                    {
+                        comboNombreAtributo.Items.Add(at.Nombre);
+                    }
+                }
+            }
         }
 
-        private void label1_Click(object sender, EventArgs e)
+
+        private void Combo_entidadesParaAtributos_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-
+            dataGridAtributos.Rows.Clear();
+            this.CargaGridAtributos(Combo_entidadesParaAtributos.Text);
         }
 
-        private void tabPage2_Click(object sender, EventArgs e)
+        private void CargaGridAtributos(String nameEntidad)
         {
+            Entidad aux = this.archivoDeTrabajo.getEntidad(nameEntidad);
+            if ( aux != null)
+            {
+                foreach(Atributo at in aux.atributos)
+                {
+                    Object[] RowAt = { at.IDToString(), at.Nombre, at.Tipo, at.Longitud, at.Direccion, at.TipoIndice, at.DirIn, at.DirSiguiente };
+                    dataGridAtributos.Rows.Add(RowAt);
+                }
+            }
 
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-            byte a = Convert.ToByte(':');
-            byte b = Convert.ToByte(255);
-            String r=" ";
-
-            String sa = a.ToString();
-            String sb = b.ToString();
-
-            char ca = Convert.ToChar(b);
-           char cb= Convert.ToChar(a);
-
-            
-
-
-
-
-
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
