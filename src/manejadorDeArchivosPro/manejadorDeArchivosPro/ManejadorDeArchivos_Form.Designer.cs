@@ -42,70 +42,70 @@
             this.cerrar_SB = new System.Windows.Forms.ToolStripButton();
             this.Cabecera = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tam_label = new System.Windows.Forms.Label();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.CabeceraEntidadesDesperdiciadas = new System.Windows.Forms.Label();
             this.cabeceraAtributosDesperdiciados = new System.Windows.Forms.Label();
+            this.CabeceraEntidadesDesperdiciadas = new System.Windows.Forms.Label();
+            this.tam_label = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.NombreEntidad_Combo = new System.Windows.Forms.ComboBox();
+            this.NombreArchivoLabel = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dataGridEntidades = new System.Windows.Forms.DataGridView();
+            this.ID_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Direccion_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DreccionAtributo_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DireccionDatos_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SiguienteDireccion_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuEntidades = new System.Windows.Forms.MenuStrip();
+            this.altaMenuEntidades = new System.Windows.Forms.ToolStripMenuItem();
+            this.modofocarMenuEntidades = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultaMenuEntidades = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarMenuEntidades = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Combo_entidadesParaAtributos = new System.Windows.Forms.ComboBox();
+            this.ComboB_LongitudAtributo = new System.Windows.Forms.ComboBox();
+            this.longitud = new System.Windows.Forms.Label();
+            this.comboNombreAtributo = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tipo_label = new System.Windows.Forms.Label();
+            this.LB_TipoIndiceAtributo = new System.Windows.Forms.Label();
+            this.ComboB_TipoIndiceAtributo = new System.Windows.Forms.ComboBox();
+            this.ComboB_TipoAtributo = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dataGridAtributos = new System.Windows.Forms.DataGridView();
+            this.ID_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoDato_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.longitud_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Direccion_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TipoIndice_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DireccionIndice_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Siguiente_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.menuAtributos = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.menuRegistros = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.menuAtributos = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridAtributos = new System.Windows.Forms.DataGridView();
-            this.Siguiente_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DireccionIndice_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TipoIndice_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Direccion_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.longitud_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoDato_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID_Atributo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label2 = new System.Windows.Forms.Label();
-            this.ComboB_TipoAtributo = new System.Windows.Forms.ComboBox();
-            this.ComboB_TipoIndiceAtributo = new System.Windows.Forms.ComboBox();
-            this.LB_TipoIndiceAtributo = new System.Windows.Forms.Label();
-            this.tipo_label = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboNombreAtributo = new System.Windows.Forms.ComboBox();
-            this.longitud = new System.Windows.Forms.Label();
-            this.ComboB_LongitudAtributo = new System.Windows.Forms.ComboBox();
-            this.Combo_entidadesParaAtributos = new System.Windows.Forms.ComboBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.menuEntidades = new System.Windows.Forms.MenuStrip();
-            this.altaMenuEntidades = new System.Windows.Forms.ToolStripMenuItem();
-            this.modofocarMenuEntidades = new System.Windows.Forms.ToolStripMenuItem();
-            this.consultaMenuEntidades = new System.Windows.Forms.ToolStripMenuItem();
-            this.eliminarMenuEntidades = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridEntidades = new System.Windows.Forms.DataGridView();
-            this.SiguienteDireccion_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DireccionDatos_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DreccionAtributo_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Direccion_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID_Entidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label4 = new System.Windows.Forms.Label();
-            this.NombreArchivoLabel = new System.Windows.Forms.Label();
-            this.NombreEntidad_Combo = new System.Windows.Forms.ComboBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolBar.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEntidades)).BeginInit();
+            this.menuEntidades.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAtributos)).BeginInit();
+            this.menuAtributos.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.menuRegistros.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.menuAtributos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridAtributos)).BeginInit();
-            this.tabPage1.SuspendLayout();
-            this.menuEntidades.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEntidades)).BeginInit();
-            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolBar
@@ -211,19 +211,15 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
-            // tam_label
+            // cabeceraAtributosDesperdiciados
             // 
-            this.tam_label.AutoSize = true;
-            this.tam_label.Location = new System.Drawing.Point(423, 14);
-            this.tam_label.Name = "tam_label";
-            this.tam_label.Size = new System.Drawing.Size(49, 13);
-            this.tam_label.TabIndex = 4;
-            this.tam_label.Text = "Tamaño:";
-            this.tam_label.Visible = false;
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.cabeceraAtributosDesperdiciados.AutoSize = true;
+            this.cabeceraAtributosDesperdiciados.Location = new System.Drawing.Point(276, 14);
+            this.cabeceraAtributosDesperdiciados.Name = "cabeceraAtributosDesperdiciados";
+            this.cabeceraAtributosDesperdiciados.Size = new System.Drawing.Size(92, 13);
+            this.cabeceraAtributosDesperdiciados.TabIndex = 8;
+            this.cabeceraAtributosDesperdiciados.Text = "CabAtributosDes :";
+            this.cabeceraAtributosDesperdiciados.Visible = false;
             // 
             // CabeceraEntidadesDesperdiciadas
             // 
@@ -235,15 +231,417 @@
             this.CabeceraEntidadesDesperdiciadas.Text = "CabEntidadesDes :";
             this.CabeceraEntidadesDesperdiciadas.Visible = false;
             // 
-            // cabeceraAtributosDesperdiciados
+            // tam_label
             // 
-            this.cabeceraAtributosDesperdiciados.AutoSize = true;
-            this.cabeceraAtributosDesperdiciados.Location = new System.Drawing.Point(276, 14);
-            this.cabeceraAtributosDesperdiciados.Name = "cabeceraAtributosDesperdiciados";
-            this.cabeceraAtributosDesperdiciados.Size = new System.Drawing.Size(92, 13);
-            this.cabeceraAtributosDesperdiciados.TabIndex = 8;
-            this.cabeceraAtributosDesperdiciados.Text = "CabAtributosDes :";
-            this.cabeceraAtributosDesperdiciados.Visible = false;
+            this.tam_label.AutoSize = true;
+            this.tam_label.Location = new System.Drawing.Point(423, 14);
+            this.tam_label.Name = "tam_label";
+            this.tam_label.Size = new System.Drawing.Size(49, 13);
+            this.tam_label.TabIndex = 4;
+            this.tam_label.Text = "Tamaño:";
+            this.tam_label.Visible = false;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.Location = new System.Drawing.Point(6, 30);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1036, 452);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl1.TabIndex = 2;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.NombreEntidad_Combo);
+            this.tabPage1.Controls.Add(this.NombreArchivoLabel);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.dataGridEntidades);
+            this.tabPage1.Controls.Add(this.menuEntidades);
+            this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1028, 424);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Entidades";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // NombreEntidad_Combo
+            // 
+            this.NombreEntidad_Combo.FormattingEnabled = true;
+            this.NombreEntidad_Combo.Location = new System.Drawing.Point(58, 36);
+            this.NombreEntidad_Combo.Name = "NombreEntidad_Combo";
+            this.NombreEntidad_Combo.Size = new System.Drawing.Size(121, 21);
+            this.NombreEntidad_Combo.TabIndex = 4;
+            // 
+            // NombreArchivoLabel
+            // 
+            this.NombreArchivoLabel.AutoSize = true;
+            this.NombreArchivoLabel.Location = new System.Drawing.Point(266, 36);
+            this.NombreArchivoLabel.Name = "NombreArchivoLabel";
+            this.NombreArchivoLabel.Size = new System.Drawing.Size(46, 13);
+            this.NombreArchivoLabel.TabIndex = 3;
+            this.NombreArchivoLabel.Text = "Archivo:";
+            this.NombreArchivoLabel.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(5, 41);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Nombre:";
+            // 
+            // dataGridEntidades
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridEntidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridEntidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridEntidades.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID_Entidad,
+            this.Nombre_Entidad,
+            this.Direccion_Entidad,
+            this.DreccionAtributo_Entidad,
+            this.DireccionDatos_Entidad,
+            this.SiguienteDireccion_Entidad});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridEntidades.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridEntidades.Location = new System.Drawing.Point(3, 63);
+            this.dataGridEntidades.Name = "dataGridEntidades";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridEntidades.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridEntidades.Size = new System.Drawing.Size(1016, 370);
+            this.dataGridEntidades.TabIndex = 1;
+            // 
+            // ID_Entidad
+            // 
+            this.ID_Entidad.HeaderText = "ID";
+            this.ID_Entidad.Name = "ID_Entidad";
+            // 
+            // Nombre_Entidad
+            // 
+            this.Nombre_Entidad.HeaderText = "Nombre";
+            this.Nombre_Entidad.Name = "Nombre_Entidad";
+            // 
+            // Direccion_Entidad
+            // 
+            this.Direccion_Entidad.HeaderText = "Dirección";
+            this.Direccion_Entidad.Name = "Direccion_Entidad";
+            // 
+            // DreccionAtributo_Entidad
+            // 
+            this.DreccionAtributo_Entidad.HeaderText = "DirecciónAtributo";
+            this.DreccionAtributo_Entidad.Name = "DreccionAtributo_Entidad";
+            // 
+            // DireccionDatos_Entidad
+            // 
+            this.DireccionDatos_Entidad.HeaderText = "Dirección Datos";
+            this.DireccionDatos_Entidad.Name = "DireccionDatos_Entidad";
+            // 
+            // SiguienteDireccion_Entidad
+            // 
+            this.SiguienteDireccion_Entidad.HeaderText = "Siguiente Dirección";
+            this.SiguienteDireccion_Entidad.Name = "SiguienteDireccion_Entidad";
+            // 
+            // menuEntidades
+            // 
+            this.menuEntidades.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuEntidades.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.altaMenuEntidades,
+            this.modofocarMenuEntidades,
+            this.consultaMenuEntidades,
+            this.eliminarMenuEntidades});
+            this.menuEntidades.Location = new System.Drawing.Point(3, 3);
+            this.menuEntidades.Name = "menuEntidades";
+            this.menuEntidades.Size = new System.Drawing.Size(1022, 24);
+            this.menuEntidades.TabIndex = 0;
+            this.menuEntidades.Text = "menuStrip1";
+            this.menuEntidades.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuEntidades_ItemClicked);
+            // 
+            // altaMenuEntidades
+            // 
+            this.altaMenuEntidades.AccessibleName = "Alta";
+            this.altaMenuEntidades.BackColor = System.Drawing.Color.Transparent;
+            this.altaMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.altaMenuEntidades.Name = "altaMenuEntidades";
+            this.altaMenuEntidades.Size = new System.Drawing.Size(40, 20);
+            this.altaMenuEntidades.Text = "Alta";
+            // 
+            // modofocarMenuEntidades
+            // 
+            this.modofocarMenuEntidades.AccessibleName = "Modificar";
+            this.modofocarMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modofocarMenuEntidades.Name = "modofocarMenuEntidades";
+            this.modofocarMenuEntidades.Size = new System.Drawing.Size(70, 20);
+            this.modofocarMenuEntidades.Text = "Modificar";
+            // 
+            // consultaMenuEntidades
+            // 
+            this.consultaMenuEntidades.AccessibleName = "Consulta";
+            this.consultaMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.consultaMenuEntidades.Name = "consultaMenuEntidades";
+            this.consultaMenuEntidades.Size = new System.Drawing.Size(66, 20);
+            this.consultaMenuEntidades.Text = "Consulta";
+            // 
+            // eliminarMenuEntidades
+            // 
+            this.eliminarMenuEntidades.AccessibleName = "Eliminar";
+            this.eliminarMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.eliminarMenuEntidades.Name = "eliminarMenuEntidades";
+            this.eliminarMenuEntidades.Size = new System.Drawing.Size(62, 20);
+            this.eliminarMenuEntidades.Text = "Eliminar";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.Combo_entidadesParaAtributos);
+            this.tabPage2.Controls.Add(this.ComboB_LongitudAtributo);
+            this.tabPage2.Controls.Add(this.longitud);
+            this.tabPage2.Controls.Add(this.comboNombreAtributo);
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.tipo_label);
+            this.tabPage2.Controls.Add(this.LB_TipoIndiceAtributo);
+            this.tabPage2.Controls.Add(this.ComboB_TipoIndiceAtributo);
+            this.tabPage2.Controls.Add(this.ComboB_TipoAtributo);
+            this.tabPage2.Controls.Add(this.label2);
+            this.tabPage2.Controls.Add(this.dataGridAtributos);
+            this.tabPage2.Controls.Add(this.menuAtributos);
+            this.tabPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1028, 424);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Atributos";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // Combo_entidadesParaAtributos
+            // 
+            this.Combo_entidadesParaAtributos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Combo_entidadesParaAtributos.FormattingEnabled = true;
+            this.Combo_entidadesParaAtributos.Location = new System.Drawing.Point(64, 31);
+            this.Combo_entidadesParaAtributos.Name = "Combo_entidadesParaAtributos";
+            this.Combo_entidadesParaAtributos.Size = new System.Drawing.Size(121, 23);
+            this.Combo_entidadesParaAtributos.TabIndex = 17;
+            this.Combo_entidadesParaAtributos.SelectedIndexChanged += new System.EventHandler(this.Combo_entidadesParaAtributos_SelectedIndexChanged_1);
+            // 
+            // ComboB_LongitudAtributo
+            // 
+            this.ComboB_LongitudAtributo.FormattingEnabled = true;
+            this.ComboB_LongitudAtributo.Location = new System.Drawing.Point(551, 30);
+            this.ComboB_LongitudAtributo.Name = "ComboB_LongitudAtributo";
+            this.ComboB_LongitudAtributo.Size = new System.Drawing.Size(121, 23);
+            this.ComboB_LongitudAtributo.TabIndex = 16;
+            // 
+            // longitud
+            // 
+            this.longitud.AutoSize = true;
+            this.longitud.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.longitud.Location = new System.Drawing.Point(490, 31);
+            this.longitud.Name = "longitud";
+            this.longitud.Size = new System.Drawing.Size(55, 15);
+            this.longitud.TabIndex = 14;
+            this.longitud.Text = "Longitud";
+            // 
+            // comboNombreAtributo
+            // 
+            this.comboNombreAtributo.FormattingEnabled = true;
+            this.comboNombreAtributo.Location = new System.Drawing.Point(267, 31);
+            this.comboNombreAtributo.Name = "comboNombreAtributo";
+            this.comboNombreAtributo.Size = new System.Drawing.Size(121, 23);
+            this.comboNombreAtributo.TabIndex = 13;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(6, 31);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 15);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Entidad:";
+            // 
+            // tipo_label
+            // 
+            this.tipo_label.AutoSize = true;
+            this.tipo_label.Location = new System.Drawing.Point(403, 31);
+            this.tipo_label.Name = "tipo_label";
+            this.tipo_label.Size = new System.Drawing.Size(34, 15);
+            this.tipo_label.TabIndex = 10;
+            this.tipo_label.Text = "Tipo:";
+            // 
+            // LB_TipoIndiceAtributo
+            // 
+            this.LB_TipoIndiceAtributo.AutoSize = true;
+            this.LB_TipoIndiceAtributo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_TipoIndiceAtributo.Location = new System.Drawing.Point(691, 31);
+            this.LB_TipoIndiceAtributo.Name = "LB_TipoIndiceAtributo";
+            this.LB_TipoIndiceAtributo.Size = new System.Drawing.Size(70, 15);
+            this.LB_TipoIndiceAtributo.TabIndex = 9;
+            this.LB_TipoIndiceAtributo.Text = "Tipo Indice:";
+            // 
+            // ComboB_TipoIndiceAtributo
+            // 
+            this.ComboB_TipoIndiceAtributo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboB_TipoIndiceAtributo.FormattingEnabled = true;
+            this.ComboB_TipoIndiceAtributo.Items.AddRange(new object[] {
+            "0 - Sin tipo de índice",
+            "1 - Secuencial",
+            "2 - Indice Primario",
+            "3 - Indice Secundario",
+            "4 - Indice Arbol B+"});
+            this.ComboB_TipoIndiceAtributo.Location = new System.Drawing.Point(767, 30);
+            this.ComboB_TipoIndiceAtributo.Name = "ComboB_TipoIndiceAtributo";
+            this.ComboB_TipoIndiceAtributo.Size = new System.Drawing.Size(121, 23);
+            this.ComboB_TipoIndiceAtributo.TabIndex = 8;
+            // 
+            // ComboB_TipoAtributo
+            // 
+            this.ComboB_TipoAtributo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboB_TipoAtributo.FormattingEnabled = true;
+            this.ComboB_TipoAtributo.Items.AddRange(new object[] {
+            "E",
+            "C"});
+            this.ComboB_TipoAtributo.Location = new System.Drawing.Point(443, 30);
+            this.ComboB_TipoAtributo.Name = "ComboB_TipoAtributo";
+            this.ComboB_TipoAtributo.Size = new System.Drawing.Size(32, 23);
+            this.ComboB_TipoAtributo.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(206, 33);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 15);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Nombre:";
+            // 
+            // dataGridAtributos
+            // 
+            this.dataGridAtributos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridAtributos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID_Atributo,
+            this.Nombre_Atributo,
+            this.tipoDato_Atributo,
+            this.longitud_Atributo,
+            this.Direccion_Atributo,
+            this.TipoIndice_Atributo,
+            this.DireccionIndice_Atributo,
+            this.Siguiente_Atributo});
+            this.dataGridAtributos.Location = new System.Drawing.Point(6, 58);
+            this.dataGridAtributos.Name = "dataGridAtributos";
+            this.dataGridAtributos.Size = new System.Drawing.Size(1016, 375);
+            this.dataGridAtributos.TabIndex = 2;
+            // 
+            // ID_Atributo
+            // 
+            this.ID_Atributo.HeaderText = "ID";
+            this.ID_Atributo.Name = "ID_Atributo";
+            // 
+            // Nombre_Atributo
+            // 
+            this.Nombre_Atributo.HeaderText = "Nombre";
+            this.Nombre_Atributo.Name = "Nombre_Atributo";
+            // 
+            // tipoDato_Atributo
+            // 
+            this.tipoDato_Atributo.HeaderText = "Tipo de Dato";
+            this.tipoDato_Atributo.Name = "tipoDato_Atributo";
+            // 
+            // longitud_Atributo
+            // 
+            this.longitud_Atributo.HeaderText = "Longitud";
+            this.longitud_Atributo.Name = "longitud_Atributo";
+            // 
+            // Direccion_Atributo
+            // 
+            this.Direccion_Atributo.HeaderText = "Dirección";
+            this.Direccion_Atributo.Name = "Direccion_Atributo";
+            // 
+            // TipoIndice_Atributo
+            // 
+            this.TipoIndice_Atributo.HeaderText = "Tipo de Índice";
+            this.TipoIndice_Atributo.Name = "TipoIndice_Atributo";
+            // 
+            // DireccionIndice_Atributo
+            // 
+            this.DireccionIndice_Atributo.HeaderText = "Dirección de Índice";
+            this.DireccionIndice_Atributo.Name = "DireccionIndice_Atributo";
+            // 
+            // Siguiente_Atributo
+            // 
+            this.Siguiente_Atributo.HeaderText = "Siguiente Atributo";
+            this.Siguiente_Atributo.Name = "Siguiente_Atributo";
+            // 
+            // menuAtributos
+            // 
+            this.menuAtributos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuAtributos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4});
+            this.menuAtributos.Location = new System.Drawing.Point(3, 3);
+            this.menuAtributos.Name = "menuAtributos";
+            this.menuAtributos.Size = new System.Drawing.Size(1022, 24);
+            this.menuAtributos.TabIndex = 1;
+            this.menuAtributos.Text = "menuStrip2";
+            this.menuAtributos.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuAtributos_ItemClicked);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.AccessibleName = "Alta";
+            this.toolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(40, 20);
+            this.toolStripMenuItem1.Text = "Alta";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.AccessibleName = "Modificar";
+            this.toolStripMenuItem2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(70, 20);
+            this.toolStripMenuItem2.Text = "Modificar";
+            //this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.AccessibleName = "Consulta";
+            this.toolStripMenuItem3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(66, 20);
+            this.toolStripMenuItem3.Text = "Consulta";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.AccessibleName = "Eliminar";
+            this.toolStripMenuItem4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(62, 20);
+            this.toolStripMenuItem4.Text = "Eliminar";
             // 
             // tabPage3
             // 
@@ -299,407 +697,9 @@
             this.toolStripMenuItem8.Size = new System.Drawing.Size(62, 20);
             this.toolStripMenuItem8.Text = "Eliminar";
             // 
-            // tabPage2
+            // openFileDialog1
             // 
-            this.tabPage2.Controls.Add(this.Combo_entidadesParaAtributos);
-            this.tabPage2.Controls.Add(this.ComboB_LongitudAtributo);
-            this.tabPage2.Controls.Add(this.longitud);
-            this.tabPage2.Controls.Add(this.comboNombreAtributo);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.tipo_label);
-            this.tabPage2.Controls.Add(this.LB_TipoIndiceAtributo);
-            this.tabPage2.Controls.Add(this.ComboB_TipoIndiceAtributo);
-            this.tabPage2.Controls.Add(this.ComboB_TipoAtributo);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.dataGridAtributos);
-            this.tabPage2.Controls.Add(this.menuAtributos);
-            this.tabPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1028, 424);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Atributos";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // menuAtributos
-            // 
-            this.menuAtributos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.menuAtributos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem4});
-            this.menuAtributos.Location = new System.Drawing.Point(3, 3);
-            this.menuAtributos.Name = "menuAtributos";
-            this.menuAtributos.Size = new System.Drawing.Size(1022, 24);
-            this.menuAtributos.TabIndex = 1;
-            this.menuAtributos.Text = "menuStrip2";
-            this.menuAtributos.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuAtributos_ItemClicked);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.AccessibleName = "Alta";
-            this.toolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(40, 20);
-            this.toolStripMenuItem1.Text = "Alta";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.AccessibleName = "Modificar";
-            this.toolStripMenuItem2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(70, 20);
-            this.toolStripMenuItem2.Text = "Modificar";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.AccessibleName = "Consulta";
-            this.toolStripMenuItem3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(66, 20);
-            this.toolStripMenuItem3.Text = "Consulta";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.AccessibleName = "Eliminar";
-            this.toolStripMenuItem4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(62, 20);
-            this.toolStripMenuItem4.Text = "Eliminar";
-            // 
-            // dataGridAtributos
-            // 
-            this.dataGridAtributos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridAtributos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID_Atributo,
-            this.Nombre_Atributo,
-            this.tipoDato_Atributo,
-            this.longitud_Atributo,
-            this.Direccion_Atributo,
-            this.TipoIndice_Atributo,
-            this.DireccionIndice_Atributo,
-            this.Siguiente_Atributo});
-            this.dataGridAtributos.Location = new System.Drawing.Point(6, 58);
-            this.dataGridAtributos.Name = "dataGridAtributos";
-            this.dataGridAtributos.Size = new System.Drawing.Size(1016, 375);
-            this.dataGridAtributos.TabIndex = 2;
-            // 
-            // Siguiente_Atributo
-            // 
-            this.Siguiente_Atributo.HeaderText = "Siguiente Atributo";
-            this.Siguiente_Atributo.Name = "Siguiente_Atributo";
-            // 
-            // DireccionIndice_Atributo
-            // 
-            this.DireccionIndice_Atributo.HeaderText = "Dirección de Índice";
-            this.DireccionIndice_Atributo.Name = "DireccionIndice_Atributo";
-            // 
-            // TipoIndice_Atributo
-            // 
-            this.TipoIndice_Atributo.HeaderText = "Tipo de Índice";
-            this.TipoIndice_Atributo.Name = "TipoIndice_Atributo";
-            // 
-            // Direccion_Atributo
-            // 
-            this.Direccion_Atributo.HeaderText = "Dirección";
-            this.Direccion_Atributo.Name = "Direccion_Atributo";
-            // 
-            // longitud_Atributo
-            // 
-            this.longitud_Atributo.HeaderText = "Longitud";
-            this.longitud_Atributo.Name = "longitud_Atributo";
-            // 
-            // tipoDato_Atributo
-            // 
-            this.tipoDato_Atributo.HeaderText = "Tipo de Dato";
-            this.tipoDato_Atributo.Name = "tipoDato_Atributo";
-            // 
-            // Nombre_Atributo
-            // 
-            this.Nombre_Atributo.HeaderText = "Nombre";
-            this.Nombre_Atributo.Name = "Nombre_Atributo";
-            // 
-            // ID_Atributo
-            // 
-            this.ID_Atributo.HeaderText = "ID";
-            this.ID_Atributo.Name = "ID_Atributo";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(206, 33);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 15);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Nombre:";
-            // 
-            // ComboB_TipoAtributo
-            // 
-            this.ComboB_TipoAtributo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboB_TipoAtributo.FormattingEnabled = true;
-            this.ComboB_TipoAtributo.Items.AddRange(new object[] {
-            "E",
-            "C"});
-            this.ComboB_TipoAtributo.Location = new System.Drawing.Point(443, 30);
-            this.ComboB_TipoAtributo.Name = "ComboB_TipoAtributo";
-            this.ComboB_TipoAtributo.Size = new System.Drawing.Size(32, 23);
-            this.ComboB_TipoAtributo.TabIndex = 7;
-            // 
-            // ComboB_TipoIndiceAtributo
-            // 
-            this.ComboB_TipoIndiceAtributo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboB_TipoIndiceAtributo.FormattingEnabled = true;
-            this.ComboB_TipoIndiceAtributo.Items.AddRange(new object[] {
-            "0 - Sin tipo de índice",
-            "1 - Secuencial",
-            "2 - Indice Primario",
-            "3 - Indice Secundario",
-            "4 - Indice Arbol B+"});
-            this.ComboB_TipoIndiceAtributo.Location = new System.Drawing.Point(767, 30);
-            this.ComboB_TipoIndiceAtributo.Name = "ComboB_TipoIndiceAtributo";
-            this.ComboB_TipoIndiceAtributo.Size = new System.Drawing.Size(121, 23);
-            this.ComboB_TipoIndiceAtributo.TabIndex = 8;
-            // 
-            // LB_TipoIndiceAtributo
-            // 
-            this.LB_TipoIndiceAtributo.AutoSize = true;
-            this.LB_TipoIndiceAtributo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_TipoIndiceAtributo.Location = new System.Drawing.Point(691, 31);
-            this.LB_TipoIndiceAtributo.Name = "LB_TipoIndiceAtributo";
-            this.LB_TipoIndiceAtributo.Size = new System.Drawing.Size(70, 15);
-            this.LB_TipoIndiceAtributo.TabIndex = 9;
-            this.LB_TipoIndiceAtributo.Text = "Tipo Indice:";
-            // 
-            // tipo_label
-            // 
-            this.tipo_label.AutoSize = true;
-            this.tipo_label.Location = new System.Drawing.Point(403, 31);
-            this.tipo_label.Name = "tipo_label";
-            this.tipo_label.Size = new System.Drawing.Size(34, 15);
-            this.tipo_label.TabIndex = 10;
-            this.tipo_label.Text = "Tipo:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 31);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 15);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Entidad:";
-            // 
-            // comboNombreAtributo
-            // 
-            this.comboNombreAtributo.FormattingEnabled = true;
-            this.comboNombreAtributo.Location = new System.Drawing.Point(267, 31);
-            this.comboNombreAtributo.Name = "comboNombreAtributo";
-            this.comboNombreAtributo.Size = new System.Drawing.Size(121, 23);
-            this.comboNombreAtributo.TabIndex = 13;
-            this.comboNombreAtributo.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
-            // 
-            // longitud
-            // 
-            this.longitud.AutoSize = true;
-            this.longitud.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.longitud.Location = new System.Drawing.Point(490, 31);
-            this.longitud.Name = "longitud";
-            this.longitud.Size = new System.Drawing.Size(55, 15);
-            this.longitud.TabIndex = 14;
-            this.longitud.Text = "Longitud";
-            // 
-            // ComboB_LongitudAtributo
-            // 
-            this.ComboB_LongitudAtributo.FormattingEnabled = true;
-            this.ComboB_LongitudAtributo.Location = new System.Drawing.Point(551, 30);
-            this.ComboB_LongitudAtributo.Name = "ComboB_LongitudAtributo";
-            this.ComboB_LongitudAtributo.Size = new System.Drawing.Size(121, 23);
-            this.ComboB_LongitudAtributo.TabIndex = 16;
-            // 
-            // Combo_entidadesParaAtributos
-            // 
-            this.Combo_entidadesParaAtributos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Combo_entidadesParaAtributos.FormattingEnabled = true;
-            this.Combo_entidadesParaAtributos.Location = new System.Drawing.Point(64, 31);
-            this.Combo_entidadesParaAtributos.Name = "Combo_entidadesParaAtributos";
-            this.Combo_entidadesParaAtributos.Size = new System.Drawing.Size(121, 23);
-            this.Combo_entidadesParaAtributos.TabIndex = 17;
-            this.Combo_entidadesParaAtributos.SelectedIndexChanged += new System.EventHandler(this.Combo_entidadesParaAtributos_SelectedIndexChanged_1);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.NombreEntidad_Combo);
-            this.tabPage1.Controls.Add(this.NombreArchivoLabel);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.dataGridEntidades);
-            this.tabPage1.Controls.Add(this.menuEntidades);
-            this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1028, 424);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Entidades";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // menuEntidades
-            // 
-            this.menuEntidades.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.menuEntidades.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.altaMenuEntidades,
-            this.modofocarMenuEntidades,
-            this.consultaMenuEntidades,
-            this.eliminarMenuEntidades});
-            this.menuEntidades.Location = new System.Drawing.Point(3, 3);
-            this.menuEntidades.Name = "menuEntidades";
-            this.menuEntidades.Size = new System.Drawing.Size(1022, 24);
-            this.menuEntidades.TabIndex = 0;
-            this.menuEntidades.Text = "menuStrip1";
-            this.menuEntidades.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuEntidades_ItemClicked);
-            // 
-            // altaMenuEntidades
-            // 
-            this.altaMenuEntidades.AccessibleName = "Alta";
-            this.altaMenuEntidades.BackColor = System.Drawing.Color.Transparent;
-            this.altaMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.altaMenuEntidades.Name = "altaMenuEntidades";
-            this.altaMenuEntidades.Size = new System.Drawing.Size(40, 20);
-            this.altaMenuEntidades.Text = "Alta";
-            // 
-            // modofocarMenuEntidades
-            // 
-            this.modofocarMenuEntidades.AccessibleName = "Modificar";
-            this.modofocarMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.modofocarMenuEntidades.Name = "modofocarMenuEntidades";
-            this.modofocarMenuEntidades.Size = new System.Drawing.Size(70, 20);
-            this.modofocarMenuEntidades.Text = "Modificar";
-            // 
-            // consultaMenuEntidades
-            // 
-            this.consultaMenuEntidades.AccessibleName = "Consulta";
-            this.consultaMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.consultaMenuEntidades.Name = "consultaMenuEntidades";
-            this.consultaMenuEntidades.Size = new System.Drawing.Size(66, 20);
-            this.consultaMenuEntidades.Text = "Consulta";
-            // 
-            // eliminarMenuEntidades
-            // 
-            this.eliminarMenuEntidades.AccessibleName = "Eliminar";
-            this.eliminarMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.eliminarMenuEntidades.Name = "eliminarMenuEntidades";
-            this.eliminarMenuEntidades.Size = new System.Drawing.Size(62, 20);
-            this.eliminarMenuEntidades.Text = "Eliminar";
-            // 
-            // dataGridEntidades
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridEntidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridEntidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridEntidades.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID_Entidad,
-            this.Nombre_Entidad,
-            this.Direccion_Entidad,
-            this.DreccionAtributo_Entidad,
-            this.DireccionDatos_Entidad,
-            this.SiguienteDireccion_Entidad});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridEntidades.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridEntidades.Location = new System.Drawing.Point(3, 63);
-            this.dataGridEntidades.Name = "dataGridEntidades";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridEntidades.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridEntidades.Size = new System.Drawing.Size(1016, 370);
-            this.dataGridEntidades.TabIndex = 1;
-            // 
-            // SiguienteDireccion_Entidad
-            // 
-            this.SiguienteDireccion_Entidad.HeaderText = "Siguiente Dirección";
-            this.SiguienteDireccion_Entidad.Name = "SiguienteDireccion_Entidad";
-            // 
-            // DireccionDatos_Entidad
-            // 
-            this.DireccionDatos_Entidad.HeaderText = "Dirección Datos";
-            this.DireccionDatos_Entidad.Name = "DireccionDatos_Entidad";
-            // 
-            // DreccionAtributo_Entidad
-            // 
-            this.DreccionAtributo_Entidad.HeaderText = "DirecciónAtributo";
-            this.DreccionAtributo_Entidad.Name = "DreccionAtributo_Entidad";
-            // 
-            // Direccion_Entidad
-            // 
-            this.Direccion_Entidad.HeaderText = "Dirección";
-            this.Direccion_Entidad.Name = "Direccion_Entidad";
-            // 
-            // Nombre_Entidad
-            // 
-            this.Nombre_Entidad.HeaderText = "Nombre";
-            this.Nombre_Entidad.Name = "Nombre_Entidad";
-            // 
-            // ID_Entidad
-            // 
-            this.ID_Entidad.HeaderText = "ID";
-            this.ID_Entidad.Name = "ID_Entidad";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(5, 41);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Nombre:";
-            // 
-            // NombreArchivoLabel
-            // 
-            this.NombreArchivoLabel.AutoSize = true;
-            this.NombreArchivoLabel.Location = new System.Drawing.Point(266, 36);
-            this.NombreArchivoLabel.Name = "NombreArchivoLabel";
-            this.NombreArchivoLabel.Size = new System.Drawing.Size(46, 13);
-            this.NombreArchivoLabel.TabIndex = 3;
-            this.NombreArchivoLabel.Text = "Archivo:";
-            this.NombreArchivoLabel.Visible = false;
-            // 
-            // NombreEntidad_Combo
-            // 
-            this.NombreEntidad_Combo.FormattingEnabled = true;
-            this.NombreEntidad_Combo.Location = new System.Drawing.Point(58, 36);
-            this.NombreEntidad_Combo.Name = "NombreEntidad_Combo";
-            this.NombreEntidad_Combo.Size = new System.Drawing.Size(121, 21);
-            this.NombreEntidad_Combo.TabIndex = 4;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(6, 30);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1036, 452);
-            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabControl1.TabIndex = 2;
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // ManejadorDeArchivos_Form
             // 
@@ -717,21 +717,21 @@
             this.toolBar.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEntidades)).EndInit();
+            this.menuEntidades.ResumeLayout(false);
+            this.menuEntidades.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridAtributos)).EndInit();
+            this.menuAtributos.ResumeLayout(false);
+            this.menuAtributos.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.menuRegistros.ResumeLayout(false);
             this.menuRegistros.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.menuAtributos.ResumeLayout(false);
-            this.menuAtributos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridAtributos)).EndInit();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.menuEntidades.ResumeLayout(false);
-            this.menuEntidades.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEntidades)).EndInit();
-            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

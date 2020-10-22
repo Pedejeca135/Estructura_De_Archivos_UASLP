@@ -38,7 +38,6 @@
             // 
             // Combo_entidadesParaAtributos
             // 
-            this.Combo_entidadesParaAtributos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Combo_entidadesParaAtributos.FormattingEnabled = true;
             this.Combo_entidadesParaAtributos.Location = new System.Drawing.Point(115, 12);
             this.Combo_entidadesParaAtributos.Name = "Combo_entidadesParaAtributos";
@@ -73,6 +72,7 @@
             this.button2.TabIndex = 15;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
             // 

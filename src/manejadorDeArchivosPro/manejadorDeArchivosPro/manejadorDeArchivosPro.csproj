@@ -67,6 +67,12 @@
     <Compile Include="ManejadorDeArchivos_Form.Designer.cs">
       <DependentUpon>ManejadorDeArchivos_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModificarAtributo_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModificarAtributo_Form.Designer.cs">
+      <DependentUpon>ModificarAtributo_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModificarEntidad_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ManejadorDeArchivos_Form.resx">
       <DependentUpon>ManejadorDeArchivos_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModificarAtributo_Form.resx">
+      <DependentUpon>ModificarAtributo_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModificarEntidad_Form.resx">
       <DependentUpon>ModificarEntidad_Form.cs</DependentUpon>

@@ -124,7 +124,7 @@ namespace manejadorDeArchivosPro
 
                                     this.archivoDeTrabajo = new Archivo(pathNombreArchivo, true);//Construye el objeto archivo
                                     this.Text = Path.GetFileName(this.archivoDeTrabajo.PathName) + " - Manejador de Archivos Pro";
-                                    this.Reload();
+                                     this.Reload();
                                 }                           
                         }
                     }
@@ -276,10 +276,11 @@ namespace manejadorDeArchivosPro
                         #region Modificar
                         if (this.archivoDeTrabajo.existeEntidad(NombreEntidad_Combo.Text))
                         {
-                            ModificarEntidad_Form modificador = new ModificarEntidad_Form(Combo_entidadesParaAtributos.Text);
+                            ModificarEntidad_Form modificador = new ModificarEntidad_Form(NombreEntidad_Combo.Text,ref this.archivoDeTrabajo);
                             if (modificador.ShowDialog().Equals(DialogResult.OK))
                             {
-                                archivoDeTrabajo.ModificarEntidad(Combo_entidadesParaAtributos.Text, modificador.NuevoNombre);
+                                archivoDeTrabajo.CambiaNombreEntidad(modificador.Nombre, modificador.NuevoNombre);
+                                this.Reload();
                             }
                         }
                         else
@@ -348,7 +349,6 @@ namespace manejadorDeArchivosPro
                                 {
                                     listaLongitud.Add(longitudNuevoAtributo);
                                 }
-
                                 this.archivoDeTrabajo.altaAtributo(Combo_entidadesParaAtributos.Text, comboNombreAtributo.Text, ComboB_TipoAtributo.Text, longitudNuevoAtributo, ComboB_TipoIndiceAtributo.Text);
                                 this.Reload();
                             }
@@ -364,10 +364,10 @@ namespace manejadorDeArchivosPro
                         #region Modificar
                         if (this.archivoDeTrabajo.existeEntidad(NombreEntidad_Combo.Text))
                         {
-                            ModificarEntidad_Form modificador = new ModificarEntidad_Form(Combo_entidadesParaAtributos.Text);
+                            ModificarAtributo_Form modificador = new ModificarAtributo_Form(comboNombreAtributo.Text,this.archivoDeTrabajo.getEntidad(Combo_entidadesParaAtributos.Text));
                             if (modificador.ShowDialog().Equals(DialogResult.OK))
                             {
-                                archivoDeTrabajo.ModificarEntidad(Combo_entidadesParaAtributos.Text, modificador.NuevoNombre);
+                                archivoDeTrabajo.CambiaNombreAtributo(Combo_entidadesParaAtributos.Text,modificador.Nombre, modificador.NuevoNombre);
 
 
                             }
@@ -385,14 +385,21 @@ namespace manejadorDeArchivosPro
                         break;
                     case "Eliminar":
                         #region Eliminar
-                        if (this.archivoDeTrabajo.existeEntidad(NombreEntidad_Combo.Text))
+                        if (this.archivoDeTrabajo.existeEntidad(Combo_entidadesParaAtributos.Text))
                         {
-                            this.archivoDeTrabajo.eliminaAtributo(NombreEntidad_Combo.Text);
-                            this.Reload();
+                            if(this.archivoDeTrabajo.getEntidad(Combo_entidadesParaAtributos.Text).existeAtributo(comboNombreAtributo.Text))
+                            {
+                                this.archivoDeTrabajo.eliminaAtributo(Combo_entidadesParaAtributos.Text, comboNombreAtributo.Text);
+                                this.Reload();
+                            }
+                            else
+                            {
+                                MessageBox.Show("El atributo " + comboNombreAtributo.Text + " no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }                            
                         }
                         else
                         {
-                            MessageBox.Show("La entidad que desea eliminar no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("La entidad "+ Combo_entidadesParaAtributos.Text + " no existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         #endregion
@@ -498,6 +505,7 @@ namespace manejadorDeArchivosPro
         private void Combo_entidadesParaAtributos_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             dataGridAtributos.Rows.Clear();
+            comboNombreAtributo.Items.Clear();
             this.CargaGridAtributos(Combo_entidadesParaAtributos.Text);
         }
 
@@ -508,6 +516,7 @@ namespace manejadorDeArchivosPro
             {
                 foreach(Atributo at in aux.atributos)
                 {
+                    comboNombreAtributo.Items.Add(at.Nombre);
                     Object[] RowAt = { at.IDToString(), at.Nombre, at.Tipo, at.Longitud, at.Direccion, at.TipoIndice, at.DirIn, at.DirSiguiente };
                     dataGridAtributos.Rows.Add(RowAt);
                 }
@@ -515,5 +524,9 @@ namespace manejadorDeArchivosPro
 
         }
 
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

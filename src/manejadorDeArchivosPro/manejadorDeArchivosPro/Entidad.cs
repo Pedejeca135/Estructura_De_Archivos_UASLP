@@ -88,9 +88,6 @@ namespace manejadorDeArchivosPro
             get { return this.IDToString(); }
         }
 
-
-        
-
         #endregion
 
 
@@ -98,6 +95,15 @@ namespace manejadorDeArchivosPro
         public void addAtributo(Atributo at)
         {
             this.atributos.Add(at);
+        }
+
+        public void eliminaAtributo(String nombre)
+        {
+            Atributo at = getAtributo(nombre);
+            if(at != null)
+            {
+                this.atributos.Remove(at);
+            }            
         }
 
         private String IDToString()
@@ -131,6 +137,38 @@ namespace manejadorDeArchivosPro
                 }
             }
             return false;
+        }
+
+        public Atributo getAtributo(String nombre)
+        {
+            foreach(Atributo at in this.atributos)
+            {
+                if(at.Nombre == nombre)
+                {
+                    return at;
+                }
+            }
+            return null;
+        }
+        public void Remove(Atributo at)
+        {
+            this.atributos.Remove(at);
+        }
+
+        public Atributo apuntaA(Atributo inAt)
+        {
+            Atributo res = null;
+
+            foreach(Atributo at in this.atributos)
+            {
+                if(at.DirSiguiente == inAt.Direccion)
+                {
+                    return at;
+                }
+            }
+
+
+            return res;
         }
         #endregion
 

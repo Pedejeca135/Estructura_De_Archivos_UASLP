@@ -182,14 +182,6 @@ namespace manejadorDeArchivosPro
         
         #endregion
 
-        /*
-        public long getLength()
-        {
-            archivo = File.Open(pathName, FileMode.Open, FileAccess.Write, FileShare.None);
-            long res = archivo.Length;
-            archivo.Close();
-            return res;
-        }*/
 
         #region Metodos
 
@@ -464,64 +456,85 @@ namespace manejadorDeArchivosPro
             entidades.RemoveAt(indexEnt);
         }
 
-        public void eliminaAtributo(String nombre)
+        public void eliminaAtributo(String nombreEntidad, String nombre)
         {
-            /*
-            int indexEnt = -1;
-            foreach (Entidad en in this.entidades)
+            Entidad en = getEntidad(nombreEntidad);
+            Atributo at = getEntidad(nombreEntidad).getAtributo(nombre);
+
+            Atributo enAuxApuntaAtributos = en.apuntaA(at);
+            if (enAuxApuntaAtributos == null)
             {
-                if (en.Nombre == nombre)
-                {
-                    indexEnt = entidades.IndexOf(en);
-                    if (indexEnt == 0)
-                    {
-                        cabecera = en.DireccionSiguiente;
-                        this.abreElArchivo();
-                        escritor = new BinaryWriter(archivo);
-                        this.archivo.Seek(0, SeekOrigin.Begin);
-                        this.escritor.Write(cabecera);
-                        this.cierraElArchivo();
-                    }
-                    else
-                    {
-                        entidades.ElementAt(indexEnt - 1).DireccionSiguiente = en.DireccionSiguiente;
-                        this.abreElArchivo();
-                        escritor = new BinaryWriter(archivo);
-                        this.archivo.Seek(entidades.ElementAt(indexEnt - 1).Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
-                        this.escritor.Write(entidades.ElementAt(indexEnt - 1).DireccionSiguiente);
-                        this.cierraElArchivo();
-                    }
-                    long auxEntDesp = cabeceraEntidadesDesperdiciadas;
-                    cabeceraEntidadesDesperdiciadas = en.Direccion;
-
-                    this.abreElArchivo();
-                    escritor = new BinaryWriter(archivo);
-                    this.archivo.Seek(en.Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
-                    this.escritor.Write(auxEntDesp);
-                    this.archivo.Seek(Util.Enum_Direccion, SeekOrigin.Begin);
-                    this.escritor.Write(cabeceraEntidadesDesperdiciadas);
-                    this.cierraElArchivo();
-
-                    if (en.atributos.Count() > 0)
-                    {
-                        en.atributos.ElementAt(en.atributos.Count() - 1).DirSiguiente = cabeceraAtributosDesperdiciados;
-                        cabeceraAtributosDesperdiciados = en.atributos.ElementAt(en.atributos.Count() - 1).Direccion;
-                        this.abreElArchivo();
-                        escritor = new BinaryWriter(archivo);
-                        this.archivo.Seek(Util.Enum_Direccion * 2, SeekOrigin.Begin);
-                        this.escritor.Write(cabeceraAtributosDesperdiciados);
-                        this.archivo.Seek(cabeceraAtributosDesperdiciados, SeekOrigin.Begin);
-                        this.escritor.Write(en.atributos.ElementAt(en.atributos.Count() - 1).DirSiguiente);
-                        this.cierraElArchivo();
-                    }
-                    break;
-                }
-
+                en.DireccionAtributos = at.DirSiguiente;
+                this.abreElArchivo();
+                escritor = new BinaryWriter(archivo);
+                this.archivo.Seek(en.Direccion + Util.offset_Entidad_direccionAtrib, SeekOrigin.Begin);
+                this.escritor.Write(en.DireccionAtributos);
+                this.cierraElArchivo();
             }
-            if (indexEnt > -1)
-                entidades.RemoveAt(indexEnt);
-            */
+            else
+            {
+                enAuxApuntaAtributos.DirSiguiente = at.DirSiguiente;
+                this.abreElArchivo();
+                escritor = new BinaryWriter(archivo);
+                this.archivo.Seek(enAuxApuntaAtributos.Direccion + Util.offset_Atributo_DirSigAtributo, SeekOrigin.Begin);
+                this.escritor.Write(enAuxApuntaAtributos.DirSiguiente);
+                this.cierraElArchivo();
+            }
+
+
+                at.DirSiguiente = cabeceraAtributosDesperdiciados;                
+                cabeceraAtributosDesperdiciados = at.Direccion;
+
+                this.abreElArchivo();
+                escritor = new BinaryWriter(archivo);
+                this.archivo.Seek(Util.Enum_Direccion * 2, SeekOrigin.Begin);
+                this.escritor.Write(cabeceraAtributosDesperdiciados);
+                this.archivo.Seek(cabeceraAtributosDesperdiciados, SeekOrigin.Begin);
+                this.escritor.Write(at.DirSiguiente);
+                this.cierraElArchivo();
+                en.Remove(at);
         }
+
+        public void CambiaNombreAtributo( String nombreEntidad, String nombreAtributo, String nuevoNombre)
+        {
+            Atributo at = getEntidad(nombreEntidad).getAtributo(nombre);
+            at.Nombre = nuevoNombre;
+
+
+            List<byte> atributoNuevoNombre = new List<byte>();
+
+            foreach (byte b in getNombreEnByteArray(nuevoNombre))//para nombre
+            {
+                atributoNuevoNombre.Add(b);
+            }
+
+            this.abreElArchivo();
+            escritor = new BinaryWriter(archivo);
+            this.archivo.Seek(at.Direccion + Util.offset_Atributo_Nombre, SeekOrigin.Begin);
+            this.escritor.Write(atributoNuevoNombre.ToArray());
+            this.cierraElArchivo();
+
+        }
+
+        public void CambiaNombreEntidad(String nombre, String nuevoNombre)
+        {
+            Entidad en = getEntidad(nombre);
+            en.Nombre = nuevoNombre;
+            List<byte> entidadNuevoNombre = new List<byte>();
+
+            foreach (byte b in getNombreEnByteArray(nuevoNombre))//para nombre
+            {
+                entidadNuevoNombre.Add(b);
+            }
+
+            this.abreElArchivo();
+            escritor = new BinaryWriter(archivo);
+            this.archivo.Seek(en.Direccion + Util.offset_Entidad_nombre, SeekOrigin.Begin);
+            this.escritor.Write(entidadNuevoNombre.ToArray());
+            this.cierraElArchivo();
+
+        }
+
 
 
         public Boolean existeEntidad(String name)
@@ -683,7 +696,7 @@ namespace manejadorDeArchivosPro
         {
             List<byte> result = new List<byte>();
             int i;
-            for (i = 0; i < nombre.Length; i++)
+            for (i = 0; i < nombre.Length && i < 30 ; i++)
             {
                 result.Add(Convert.ToByte(nombre[i]));
             }
@@ -740,10 +753,6 @@ namespace manejadorDeArchivosPro
         }
 
         public void ModificarEntidad(String nombre, String nuevoNombre)
-        {
-
-        }
-        public void ModificarEntidad(Entidad entidad, Entidad nuevaEntidad)
         {
 
         }
