@@ -341,7 +341,11 @@ namespace manejadorDeArchivosPro
                         }
                         else
                         {
-                            int longitudNuevoAtributo = 1;
+                            if (ComboB_TipoAtributo.Text == "E")
+                            {
+                                ComboB_LongitudAtributo.Text = 4.ToString();
+                            }
+                                int longitudNuevoAtributo = 1;
                             if (Int32.TryParse(ComboB_LongitudAtributo.Text, out longitudNuevoAtributo))
                             {
 
@@ -362,13 +366,21 @@ namespace manejadorDeArchivosPro
                         break;
                     case "Modificar":
                         #region Modificar
-                        if (this.archivoDeTrabajo.existeEntidad(NombreEntidad_Combo.Text))
+                        if (this.archivoDeTrabajo.existeEntidad(Combo_entidadesParaAtributos.Text))
                         {
                             ModificarAtributo_Form modificador = new ModificarAtributo_Form(comboNombreAtributo.Text,this.archivoDeTrabajo.getEntidad(Combo_entidadesParaAtributos.Text));
                             if (modificador.ShowDialog().Equals(DialogResult.OK))
                             {
-                                archivoDeTrabajo.CambiaNombreAtributo(Combo_entidadesParaAtributos.Text,modificador.Nombre, modificador.NuevoNombre);
-
+                                if (modificador.NuevoNombre == "" || modificador.NuevoNombre == " ")
+                                {
+                                    archivoDeTrabajo.CambiaAtributo(Combo_entidadesParaAtributos.Text, modificador.Nombre, modificador.NuevoNombre, modificador.Tipo, modificador.Longitud, modificador.TipoIndice,false);
+                                    
+                                }
+                                else
+                                {
+                                    archivoDeTrabajo.CambiaAtributo(Combo_entidadesParaAtributos.Text, modificador.Nombre, modificador.NuevoNombre, modificador.Tipo, modificador.Longitud, modificador.TipoIndice,true );
+                                }
+                                this.Reload();
 
                             }
                         }
@@ -525,6 +537,24 @@ namespace manejadorDeArchivosPro
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ComboB_TipoAtributo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ComboB_TipoAtributo.Text == "E")
+            {
+                ComboB_LongitudAtributo.Text = 4.ToString();
+            }
+        }
+
+        private void ComboB_LongitudAtributo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

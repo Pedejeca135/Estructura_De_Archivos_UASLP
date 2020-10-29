@@ -14,27 +14,43 @@ namespace manejadorDeArchivosPro
     {
         public String Nombre { get; set; }
         public String NuevoNombre { get; set; }
-        Entidad enti;
+
+        public char Tipo { get; set; }
+        public int Longitud { get; set; }
+        public int TipoIndice { get; set; }
+
+
+       Entidad enti;
         public ModificarAtributo_Form(String SelectedYet, Entidad en)
         {
             InitializeComponent();
-            foreach (Atributo at in en.atributos)
+            this.Text = "Modificar Atributos de : " + en.Nombre;
+            enti = en;
+            foreach (Atributo at in enti.atributos)
             {
                 Combo_Atributos.Items.Add(at.Nombre);
             }
             this.Combo_Atributos.Text = SelectedYet;
             Modificar.Select();
-            enti = en;
+            
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
             Nombre = Combo_Atributos.Text;
             NuevoNombre = TB_ModificaAtributoNewName.Text;
-            if (enti.existeAtributo(Nombre) && !enti.existeAtributo(NuevoNombre))
+
+            if (enti.existeAtributo(Nombre) && !enti.existeAtributo(NuevoNombre) && Util.ValidacionDeNombreLight(NuevoNombre))
             {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                    this.Tipo = ComboB_TipoAtributo.Text.ElementAt(0);
+                    int longitudAux;
+                    Int32.TryParse(ComboB_LongitudAtributo.Text, out longitudAux);
+                    this.Longitud = longitudAux;
+                    this.TipoIndice = Util.getTipoIndice(ComboB_TipoIndiceAtributo.Text);
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();                
             }
             else
             {
@@ -46,6 +62,31 @@ namespace manejadorDeArchivosPro
         {
             Nombre = NuevoNombre = "";
             this.Close();
+        }
+
+        private void longitud_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Combo_Atributos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Atributo atribu = this.enti.getAtributo(Combo_Atributos.Text);
+            if (atribu != null)
+            {
+                ComboB_TipoAtributo.Text = atribu.Tipo.ToString();
+                ComboB_LongitudAtributo.Text = atribu.Longitud.ToString();
+                ComboB_TipoIndiceAtributo.SelectedIndex = atribu.TipoIndice;
+                TB_ModificaAtributoNewName.Select();
+            }
+        }
+
+        private void ComboB_TipoAtributo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ComboB_TipoAtributo.Text == "E")
+            {
+                ComboB_LongitudAtributo.Text = 4.ToString();
+            }
         }
     }
 }

@@ -56,6 +56,22 @@ namespace manejadorDeArchivosPro
             }
         }
 
+        public static Boolean ValidacionDeNombreLight(String nombre)
+        {
+            if (nombre.Contains('/') || nombre.Contains(':')
+             || nombre.Contains('*') || nombre.Contains('?')
+             || nombre.Contains('"') || nombre.Contains('<')
+             || nombre.Contains('>') || nombre.Contains('|')
+             || nombre.Contains(@"\"))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public static byte[] getByteArrayAFull(uint num)
             {
                 byte[] res = new byte[num];
@@ -129,5 +145,33 @@ namespace manejadorDeArchivosPro
             get { return offset_Atributo_DireccionIndice + Util.Enum_Direccion; }
         }
         #endregion
+
+        public static int getTipoIndice(String tipondice)
+        {
+            int res = 0;
+            if(tipondice.Contains('0'))
+            {
+                res = 0;
+            }
+            else if(tipondice.Contains('1'))
+            {
+                res = 1;
+            }
+            else if(tipondice.Contains('2'))
+            {
+                res = 2;
+            }
+            else if (tipondice.Contains('3'))
+            {
+                res = 3;
+            }
+            else if (tipondice.Contains('4'))
+            {
+                res = 4;
+            }
+            return res;
+        }
     }
+   
+
 }

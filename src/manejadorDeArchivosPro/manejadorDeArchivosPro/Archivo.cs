@@ -102,6 +102,7 @@ namespace manejadorDeArchivosPro
             long dirRegistros;
             Entidad entidad;
 
+            
             while (dirSiguienteEntidad != -1)//Se cicla mientras
             {
                 using (this.lector = new BinaryReader(new FileStream(this.PathName, FileMode.Open)))//Abre el archivo con el BinaryReader
@@ -481,7 +482,6 @@ namespace manejadorDeArchivosPro
                 this.cierraElArchivo();
             }
 
-
                 at.DirSiguiente = cabeceraAtributosDesperdiciados;                
                 cabeceraAtributosDesperdiciados = at.Direccion;
 
@@ -497,7 +497,7 @@ namespace manejadorDeArchivosPro
 
         public void CambiaNombreAtributo( String nombreEntidad, String nombreAtributo, String nuevoNombre)
         {
-            Atributo at = getEntidad(nombreEntidad).getAtributo(nombre);
+            Atributo at = getEntidad(nombreEntidad).getAtributo(nombreAtributo);
             at.Nombre = nuevoNombre;
 
 
@@ -516,6 +516,49 @@ namespace manejadorDeArchivosPro
 
         }
 
+        public void CambiaAtributo(String entidadNombre, String atributoNombre, String atributoNuevoNombre, char tipo, int longitud, int tipoIndice, Boolean cambiarNombre)
+        {
+            Atributo at = getEntidad(entidadNombre).getAtributo(atributoNombre);
+            if(cambiarNombre)
+            at.Nombre = atributoNuevoNombre;
+            at.Tipo = tipo;
+            at.Longitud = longitud;
+            at.TipoIndice = tipoIndice;
+
+
+            List<byte> atributoNuevoNombreByteList = new List<byte>();
+
+            foreach (byte b in getNombreEnByteArray(atributoNuevoNombre))//para nombre
+            {
+                atributoNuevoNombreByteList.Add(b);
+            }
+
+            this.abreElArchivo();
+            escritor = new BinaryWriter(archivo);
+            if (cambiarNombre)
+            {
+                this.archivo.Seek(at.Direccion + Util.offset_Atributo_Nombre, SeekOrigin.Begin);
+                this.escritor.Write(atributoNuevoNombreByteList.ToArray());
+            }
+
+            this.archivo.Seek(at.Direccion + Util.offset_Atributo_TipoDato, SeekOrigin.Begin);
+            this.escritor.Write(at.Tipo);
+
+            this.archivo.Seek(at.Direccion + Util.offset_Atributo_Longitud, SeekOrigin.Begin);
+            this.escritor.Write(at.Longitud);
+
+            this.archivo.Seek(at.Direccion + Util.offset_Atributo_TipoIndice, SeekOrigin.Begin);
+            this.escritor.Write(at.TipoIndice);
+            this.cierraElArchivo();
+        }
+
+
+
+
+
+
+
+
         public void CambiaNombreEntidad(String nombre, String nuevoNombre)
         {
             Entidad en = getEntidad(nombre);
@@ -533,6 +576,133 @@ namespace manejadorDeArchivosPro
             this.escritor.Write(entidadNuevoNombre.ToArray());
             this.cierraElArchivo();
 
+            cambiaDireccionesParaNuevoNombre(en);
+
+        }
+
+        public void cambiaDireccionesParaNuevoNombre(Entidad en)
+        {
+            Entidad apuntando = getEntidadApuntando(en);
+
+            if(apuntando == null)
+            {
+                cabecera = en.DireccionSiguiente;
+
+                this.abreElArchivo();
+                escritor = new BinaryWriter(archivo);
+                this.archivo.Seek(0, SeekOrigin.Begin);
+                this.escritor.Write(cabecera);
+                this.cierraElArchivo();
+
+            }
+            else
+            {
+                apuntando.DireccionSiguiente = en.DireccionSiguiente;
+                this.abreElArchivo();
+                escritor = new BinaryWriter(archivo);
+                this.archivo.Seek(apuntando.Direccion, SeekOrigin.Begin);
+                this.escritor.Write(apuntando.DireccionSiguiente);
+                this.cierraElArchivo();
+            }
+                        
+            int i;
+            entidades.Remove(en);
+
+            for ( i = entidades.Count() - 1; i >= 0; i--)
+            {
+                if (en.Nombre.CompareTo(entidades[i].Nombre) > 0 )//se encontro alguno entones va a la derecha
+                {
+                    en.DireccionSiguiente = entidades[i].DireccionSiguiente;
+                    entidades[i].DireccionSiguiente = en.Direccion;
+
+
+                    entidades.Insert(i + 1, en);
+
+                    this.abreElArchivo();
+                    escritor = new BinaryWriter(archivo);
+                    
+                    this.archivo.Seek(entidades[i].Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
+                    this.escritor.Write(entidades[i].DireccionSiguiente);
+
+                    this.archivo.Seek(en.Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
+                    this.escritor.Write(en.DireccionSiguiente);
+
+                    this.cierraElArchivo();
+                    break;
+                }
+                else if (en.Nombre.CompareTo(entidades[i].Nombre) == 0)// si es igual se pone a la izquierda
+                {
+                    Entidad entidadAlaIzquierda = getEntidadApuntando(entidades[i]);
+                    if (entidadAlaIzquierda == null)
+                    {
+                        en.DireccionSiguiente = cabecera;
+                        cabecera = en.Direccion;
+                        entidades.Insert(0, en);
+
+                        this.abreElArchivo();
+                        escritor = new BinaryWriter(archivo);
+
+                        this.archivo.Seek(0, SeekOrigin.Begin);
+                        this.escritor.Write(cabecera);
+
+
+                        this.archivo.Seek(en.Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
+                        this.escritor.Write(en.DireccionSiguiente);
+                        this.cierraElArchivo();
+
+                    }
+                    else
+                    {
+                        en.DireccionSiguiente = entidadAlaIzquierda.DireccionSiguiente;
+                        entidadAlaIzquierda.DireccionSiguiente = en.Direccion;
+                        entidades.Insert(i - 1, en);
+
+                        this.abreElArchivo();
+                        escritor = new BinaryWriter(archivo);
+                        this.archivo.Seek(entidadAlaIzquierda.Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
+                        this.escritor.Write(entidadAlaIzquierda.DireccionSiguiente);
+                        this.archivo.Seek(en.Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
+                        this.escritor.Write(en.DireccionSiguiente);
+                        this.cierraElArchivo();
+
+                    }
+                    break;
+                }
+            }
+            if (i == -1 && entidades.Count() > 0)//se inserta al inicio
+            {
+                en.DireccionSiguiente = cabecera;
+                cabecera = en.Direccion;
+                entidades.Insert(0, en);
+
+                this.abreElArchivo();
+                escritor = new BinaryWriter(archivo);
+
+                this.archivo.Seek(0, SeekOrigin.Begin);
+                this.escritor.Write(cabecera);
+
+
+                this.archivo.Seek(en.Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
+                this.escritor.Write(en.DireccionSiguiente);
+                this.cierraElArchivo();
+
+
+            }
+
+
+        }
+
+        private Entidad getEntidadApuntando(Entidad enApuntaPasiva)
+        {
+            Entidad res = null;
+            foreach(Entidad en in this.entidades)
+            {
+                if(en.DireccionSiguiente == enApuntaPasiva.Direccion)
+                {
+                    return en;
+                }
+            }
+            return null;            
         }
 
 
@@ -574,7 +744,7 @@ namespace manejadorDeArchivosPro
             entidad.DireccionSiguiente = -1;
             for (i = entidades.Count()-1; i>= 0; i--)
             {
-                if(entidad.Nombre.CompareTo(entidades[i].Nombre) >= 0)//se encontro alguno entones va a la derecha
+                if(entidad.Nombre.CompareTo(entidades[i].Nombre) > 0)//se encontro alguno entones va a la derecha
                 {
                     entidad.DireccionSiguiente = entidades[i].DireccionSiguiente;
                     entidades[i].DireccionSiguiente = entidad.Direccion;
@@ -583,8 +753,45 @@ namespace manejadorDeArchivosPro
                     this.abreElArchivo();
                     escritor = new BinaryWriter(archivo);
                     this.archivo.Seek(entidades[i].Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
-                    this.escritor.Write(entidad.Direccion);
+                    this.escritor.Write(entidades[i].DireccionSiguiente);
                     this.cierraElArchivo();
+                    break;
+                }
+                else if(entidad.Nombre.CompareTo(entidades[i].Nombre) == 0)
+                {
+                    Entidad entidadAlaIzquierda = getEntidadApuntando(entidades[i]);
+                    if(entidadAlaIzquierda  == null)
+                    {
+                        entidad.DireccionSiguiente = cabecera;
+                        cabecera = entidad.Direccion;
+                        entidades.Insert(0,entidad);
+
+                        this.abreElArchivo();
+                        escritor = new BinaryWriter(archivo);
+                        this.archivo.Seek(0, SeekOrigin.Begin);
+                        this.escritor.Write(cabecera);
+                        this.archivo.Seek(entidad.Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
+                        this.escritor.Write(entidad.DireccionSiguiente);
+                        this.cierraElArchivo();
+
+                    }
+                    else
+                    {
+                        entidad.DireccionSiguiente = entidades[i].Direccion;
+                        entidadAlaIzquierda.DireccionSiguiente = entidad.Direccion;
+                        entidades.Insert(i-1, entidad);
+
+                        this.abreElArchivo();
+                        escritor = new BinaryWriter(archivo);
+                        this.archivo.Seek(entidadAlaIzquierda.Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
+                        this.escritor.Write(entidadAlaIzquierda.DireccionSiguiente);
+                        this.archivo.Seek(entidad.Direccion + Util.offset_Entidad_sigDir, SeekOrigin.Begin);
+                        this.escritor.Write(entidad.DireccionSiguiente);
+                        this.cierraElArchivo();
+
+                    }                   
+
+                    
                     break;
                 }
             }
@@ -605,10 +812,6 @@ namespace manejadorDeArchivosPro
             return entidad.DireccionSiguiente;
         }
 
-        public void renombraEntidad(String anterior, String nuevo)
-        {
-
-        }
 
         public Entidad getEntidad(long direccion)
         {
@@ -751,11 +954,7 @@ namespace manejadorDeArchivosPro
             }
             return false;
         }
-
-        public void ModificarEntidad(String nombre, String nuevoNombre)
-        {
-
-        }
+        
         #endregion
     }
 }
