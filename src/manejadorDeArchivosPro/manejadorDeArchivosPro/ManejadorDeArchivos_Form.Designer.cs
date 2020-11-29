@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManejadorDeArchivos_Form));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolBar = new System.Windows.Forms.ToolStrip();
             this.nuevo_SB = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -95,6 +92,14 @@
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.toolBar.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -122,7 +127,7 @@
             this.cerrar_SB});
             this.toolBar.Location = new System.Drawing.Point(0, 0);
             this.toolBar.Name = "toolBar";
-            this.toolBar.Size = new System.Drawing.Size(1066, 31);
+            this.toolBar.Size = new System.Drawing.Size(1421, 35);
             this.toolBar.TabIndex = 1;
             this.toolBar.Text = "Menu";
             this.toolBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolBar_ItemClicked);
@@ -135,13 +140,13 @@
             this.nuevo_SB.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.nuevo_SB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.nuevo_SB.Name = "nuevo_SB";
-            this.nuevo_SB.Size = new System.Drawing.Size(84, 28);
+            this.nuevo_SB.Size = new System.Drawing.Size(98, 32);
             this.nuevo_SB.Text = "Nuevo";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 35);
             // 
             // renombrar_SB
             // 
@@ -152,13 +157,13 @@
             this.renombrar_SB.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.renombrar_SB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.renombrar_SB.Name = "renombrar_SB";
-            this.renombrar_SB.Size = new System.Drawing.Size(117, 28);
+            this.renombrar_SB.Size = new System.Drawing.Size(137, 32);
             this.renombrar_SB.Text = "Renombrar";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 35);
             // 
             // abrir_SB
             // 
@@ -168,13 +173,13 @@
             this.abrir_SB.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.abrir_SB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.abrir_SB.Name = "abrir_SB";
-            this.abrir_SB.Size = new System.Drawing.Size(73, 28);
+            this.abrir_SB.Size = new System.Drawing.Size(84, 32);
             this.abrir_SB.Text = "Abrir";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 35);
             // 
             // cerrar_SB
             // 
@@ -185,15 +190,16 @@
             this.cerrar_SB.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cerrar_SB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.cerrar_SB.Name = "cerrar_SB";
-            this.cerrar_SB.Size = new System.Drawing.Size(82, 28);
+            this.cerrar_SB.Size = new System.Drawing.Size(93, 32);
             this.cerrar_SB.Text = "Cerrar";
             // 
             // Cabecera
             // 
             this.Cabecera.AutoSize = true;
-            this.Cabecera.Location = new System.Drawing.Point(6, 14);
+            this.Cabecera.Location = new System.Drawing.Point(8, 17);
+            this.Cabecera.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Cabecera.Name = "Cabecera";
-            this.Cabecera.Size = new System.Drawing.Size(59, 13);
+            this.Cabecera.Size = new System.Drawing.Size(77, 17);
             this.Cabecera.TabIndex = 2;
             this.Cabecera.Text = "Cabecera :";
             this.Cabecera.Visible = false;
@@ -205,18 +211,21 @@
             this.groupBox1.Controls.Add(this.tam_label);
             this.groupBox1.Controls.Add(this.tabControl1);
             this.groupBox1.Controls.Add(this.Cabecera);
-            this.groupBox1.Location = new System.Drawing.Point(0, 29);
+            this.groupBox1.Location = new System.Drawing.Point(0, 36);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1066, 487);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(1421, 599);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             // 
             // cabeceraAtributosDesperdiciados
             // 
             this.cabeceraAtributosDesperdiciados.AutoSize = true;
-            this.cabeceraAtributosDesperdiciados.Location = new System.Drawing.Point(276, 14);
+            this.cabeceraAtributosDesperdiciados.Location = new System.Drawing.Point(368, 17);
+            this.cabeceraAtributosDesperdiciados.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.cabeceraAtributosDesperdiciados.Name = "cabeceraAtributosDesperdiciados";
-            this.cabeceraAtributosDesperdiciados.Size = new System.Drawing.Size(92, 13);
+            this.cabeceraAtributosDesperdiciados.Size = new System.Drawing.Size(122, 17);
             this.cabeceraAtributosDesperdiciados.TabIndex = 8;
             this.cabeceraAtributosDesperdiciados.Text = "CabAtributosDes :";
             this.cabeceraAtributosDesperdiciados.Visible = false;
@@ -224,9 +233,10 @@
             // CabeceraEntidadesDesperdiciadas
             // 
             this.CabeceraEntidadesDesperdiciadas.AutoSize = true;
-            this.CabeceraEntidadesDesperdiciadas.Location = new System.Drawing.Point(115, 14);
+            this.CabeceraEntidadesDesperdiciadas.Location = new System.Drawing.Point(153, 17);
+            this.CabeceraEntidadesDesperdiciadas.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CabeceraEntidadesDesperdiciadas.Name = "CabeceraEntidadesDesperdiciadas";
-            this.CabeceraEntidadesDesperdiciadas.Size = new System.Drawing.Size(98, 13);
+            this.CabeceraEntidadesDesperdiciadas.Size = new System.Drawing.Size(129, 17);
             this.CabeceraEntidadesDesperdiciadas.TabIndex = 5;
             this.CabeceraEntidadesDesperdiciadas.Text = "CabEntidadesDes :";
             this.CabeceraEntidadesDesperdiciadas.Visible = false;
@@ -234,9 +244,10 @@
             // tam_label
             // 
             this.tam_label.AutoSize = true;
-            this.tam_label.Location = new System.Drawing.Point(423, 14);
+            this.tam_label.Location = new System.Drawing.Point(564, 17);
+            this.tam_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tam_label.Name = "tam_label";
-            this.tam_label.Size = new System.Drawing.Size(49, 13);
+            this.tam_label.Size = new System.Drawing.Size(64, 17);
             this.tam_label.TabIndex = 4;
             this.tam_label.Text = "Tamaño:";
             this.tam_label.Visible = false;
@@ -247,10 +258,11 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(6, 30);
+            this.tabControl1.Location = new System.Drawing.Point(8, 37);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1036, 452);
+            this.tabControl1.Size = new System.Drawing.Size(1381, 556);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 2;
             // 
@@ -262,10 +274,11 @@
             this.tabPage1.Controls.Add(this.dataGridEntidades);
             this.tabPage1.Controls.Add(this.menuEntidades);
             this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1028, 424);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Size = new System.Drawing.Size(1373, 523);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Entidades";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -273,17 +286,21 @@
             // NombreEntidad_Combo
             // 
             this.NombreEntidad_Combo.FormattingEnabled = true;
-            this.NombreEntidad_Combo.Location = new System.Drawing.Point(58, 36);
+            this.NombreEntidad_Combo.Location = new System.Drawing.Point(77, 44);
+            this.NombreEntidad_Combo.Margin = new System.Windows.Forms.Padding(4);
             this.NombreEntidad_Combo.Name = "NombreEntidad_Combo";
-            this.NombreEntidad_Combo.Size = new System.Drawing.Size(121, 21);
+            this.NombreEntidad_Combo.Size = new System.Drawing.Size(160, 25);
             this.NombreEntidad_Combo.TabIndex = 4;
+            this.NombreEntidad_Combo.SelectedIndexChanged += new System.EventHandler(this.NombreEntidad_Combo_SelectedIndexChanged);
+            this.NombreEntidad_Combo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NombreEntidad_Combo_KeyDown);
             // 
             // NombreArchivoLabel
             // 
             this.NombreArchivoLabel.AutoSize = true;
-            this.NombreArchivoLabel.Location = new System.Drawing.Point(266, 36);
+            this.NombreArchivoLabel.Location = new System.Drawing.Point(355, 44);
+            this.NombreArchivoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.NombreArchivoLabel.Name = "NombreArchivoLabel";
-            this.NombreArchivoLabel.Size = new System.Drawing.Size(46, 13);
+            this.NombreArchivoLabel.Size = new System.Drawing.Size(59, 17);
             this.NombreArchivoLabel.TabIndex = 3;
             this.NombreArchivoLabel.Text = "Archivo:";
             this.NombreArchivoLabel.Visible = false;
@@ -291,22 +308,15 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(5, 41);
+            this.label4.Location = new System.Drawing.Point(7, 50);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 13);
+            this.label4.Size = new System.Drawing.Size(62, 17);
             this.label4.TabIndex = 7;
             this.label4.Text = "Nombre:";
             // 
             // dataGridEntidades
             // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridEntidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridEntidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridEntidades.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID_Entidad,
@@ -315,68 +325,67 @@
             this.DreccionAtributo_Entidad,
             this.DireccionDatos_Entidad,
             this.SiguienteDireccion_Entidad});
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridEntidades.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dataGridEntidades.Location = new System.Drawing.Point(3, 63);
+            this.dataGridEntidades.Location = new System.Drawing.Point(4, 78);
+            this.dataGridEntidades.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridEntidades.Name = "dataGridEntidades";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridEntidades.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
-            this.dataGridEntidades.Size = new System.Drawing.Size(1016, 370);
+            this.dataGridEntidades.RowHeadersWidth = 51;
+            this.dataGridEntidades.Size = new System.Drawing.Size(1355, 455);
             this.dataGridEntidades.TabIndex = 1;
             // 
             // ID_Entidad
             // 
             this.ID_Entidad.HeaderText = "ID";
+            this.ID_Entidad.MinimumWidth = 6;
             this.ID_Entidad.Name = "ID_Entidad";
+            this.ID_Entidad.Width = 125;
             // 
             // Nombre_Entidad
             // 
             this.Nombre_Entidad.HeaderText = "Nombre";
+            this.Nombre_Entidad.MinimumWidth = 6;
             this.Nombre_Entidad.Name = "Nombre_Entidad";
+            this.Nombre_Entidad.Width = 125;
             // 
             // Direccion_Entidad
             // 
             this.Direccion_Entidad.HeaderText = "Dirección";
+            this.Direccion_Entidad.MinimumWidth = 6;
             this.Direccion_Entidad.Name = "Direccion_Entidad";
+            this.Direccion_Entidad.Width = 125;
             // 
             // DreccionAtributo_Entidad
             // 
             this.DreccionAtributo_Entidad.HeaderText = "DirecciónAtributo";
+            this.DreccionAtributo_Entidad.MinimumWidth = 6;
             this.DreccionAtributo_Entidad.Name = "DreccionAtributo_Entidad";
+            this.DreccionAtributo_Entidad.Width = 125;
             // 
             // DireccionDatos_Entidad
             // 
             this.DireccionDatos_Entidad.HeaderText = "Dirección Datos";
+            this.DireccionDatos_Entidad.MinimumWidth = 6;
             this.DireccionDatos_Entidad.Name = "DireccionDatos_Entidad";
+            this.DireccionDatos_Entidad.Width = 125;
             // 
             // SiguienteDireccion_Entidad
             // 
             this.SiguienteDireccion_Entidad.HeaderText = "Siguiente Dirección";
+            this.SiguienteDireccion_Entidad.MinimumWidth = 6;
             this.SiguienteDireccion_Entidad.Name = "SiguienteDireccion_Entidad";
+            this.SiguienteDireccion_Entidad.Width = 125;
             // 
             // menuEntidades
             // 
             this.menuEntidades.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuEntidades.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuEntidades.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.altaMenuEntidades,
             this.modofocarMenuEntidades,
             this.consultaMenuEntidades,
             this.eliminarMenuEntidades});
-            this.menuEntidades.Location = new System.Drawing.Point(3, 3);
+            this.menuEntidades.Location = new System.Drawing.Point(4, 4);
             this.menuEntidades.Name = "menuEntidades";
-            this.menuEntidades.Size = new System.Drawing.Size(1022, 24);
+            this.menuEntidades.Size = new System.Drawing.Size(1365, 28);
             this.menuEntidades.TabIndex = 0;
             this.menuEntidades.Text = "menuStrip1";
             this.menuEntidades.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuEntidades_ItemClicked);
@@ -387,15 +396,16 @@
             this.altaMenuEntidades.BackColor = System.Drawing.Color.Transparent;
             this.altaMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.altaMenuEntidades.Name = "altaMenuEntidades";
-            this.altaMenuEntidades.Size = new System.Drawing.Size(40, 20);
+            this.altaMenuEntidades.Size = new System.Drawing.Size(50, 24);
             this.altaMenuEntidades.Text = "Alta";
+            this.altaMenuEntidades.Click += new System.EventHandler(this.altaMenuEntidades_Click);
             // 
             // modofocarMenuEntidades
             // 
             this.modofocarMenuEntidades.AccessibleName = "Modificar";
             this.modofocarMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.modofocarMenuEntidades.Name = "modofocarMenuEntidades";
-            this.modofocarMenuEntidades.Size = new System.Drawing.Size(70, 20);
+            this.modofocarMenuEntidades.Size = new System.Drawing.Size(87, 24);
             this.modofocarMenuEntidades.Text = "Modificar";
             // 
             // consultaMenuEntidades
@@ -403,15 +413,16 @@
             this.consultaMenuEntidades.AccessibleName = "Consulta";
             this.consultaMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.consultaMenuEntidades.Name = "consultaMenuEntidades";
-            this.consultaMenuEntidades.Size = new System.Drawing.Size(66, 20);
+            this.consultaMenuEntidades.Size = new System.Drawing.Size(80, 24);
             this.consultaMenuEntidades.Text = "Consulta";
+            this.consultaMenuEntidades.Visible = false;
             // 
             // eliminarMenuEntidades
             // 
             this.eliminarMenuEntidades.AccessibleName = "Eliminar";
             this.eliminarMenuEntidades.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.eliminarMenuEntidades.Name = "eliminarMenuEntidades";
-            this.eliminarMenuEntidades.Size = new System.Drawing.Size(62, 20);
+            this.eliminarMenuEntidades.Size = new System.Drawing.Size(77, 24);
             this.eliminarMenuEntidades.Text = "Eliminar";
             // 
             // tabPage2
@@ -429,30 +440,34 @@
             this.tabPage2.Controls.Add(this.dataGridAtributos);
             this.tabPage2.Controls.Add(this.menuAtributos);
             this.tabPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1028, 424);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Size = new System.Drawing.Size(1373, 523);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Atributos";
             this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // Combo_entidadesParaAtributos
             // 
             this.Combo_entidadesParaAtributos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Combo_entidadesParaAtributos.FormattingEnabled = true;
-            this.Combo_entidadesParaAtributos.Location = new System.Drawing.Point(64, 31);
+            this.Combo_entidadesParaAtributos.Location = new System.Drawing.Point(85, 38);
+            this.Combo_entidadesParaAtributos.Margin = new System.Windows.Forms.Padding(4);
             this.Combo_entidadesParaAtributos.Name = "Combo_entidadesParaAtributos";
-            this.Combo_entidadesParaAtributos.Size = new System.Drawing.Size(121, 23);
+            this.Combo_entidadesParaAtributos.Size = new System.Drawing.Size(160, 26);
             this.Combo_entidadesParaAtributos.TabIndex = 17;
             this.Combo_entidadesParaAtributos.SelectedIndexChanged += new System.EventHandler(this.Combo_entidadesParaAtributos_SelectedIndexChanged_1);
             // 
             // ComboB_LongitudAtributo
             // 
             this.ComboB_LongitudAtributo.FormattingEnabled = true;
-            this.ComboB_LongitudAtributo.Location = new System.Drawing.Point(551, 30);
+            this.ComboB_LongitudAtributo.Location = new System.Drawing.Point(735, 37);
+            this.ComboB_LongitudAtributo.Margin = new System.Windows.Forms.Padding(4);
             this.ComboB_LongitudAtributo.Name = "ComboB_LongitudAtributo";
-            this.ComboB_LongitudAtributo.Size = new System.Drawing.Size(121, 23);
+            this.ComboB_LongitudAtributo.Size = new System.Drawing.Size(160, 26);
             this.ComboB_LongitudAtributo.TabIndex = 16;
             this.ComboB_LongitudAtributo.SelectedIndexChanged += new System.EventHandler(this.ComboB_LongitudAtributo_SelectedIndexChanged);
             // 
@@ -460,36 +475,41 @@
             // 
             this.longitud.AutoSize = true;
             this.longitud.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.longitud.Location = new System.Drawing.Point(490, 31);
+            this.longitud.Location = new System.Drawing.Point(653, 38);
+            this.longitud.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.longitud.Name = "longitud";
-            this.longitud.Size = new System.Drawing.Size(55, 15);
+            this.longitud.Size = new System.Drawing.Size(64, 18);
             this.longitud.TabIndex = 14;
             this.longitud.Text = "Longitud";
             // 
             // comboNombreAtributo
             // 
             this.comboNombreAtributo.FormattingEnabled = true;
-            this.comboNombreAtributo.Location = new System.Drawing.Point(267, 31);
+            this.comboNombreAtributo.Location = new System.Drawing.Point(356, 38);
+            this.comboNombreAtributo.Margin = new System.Windows.Forms.Padding(4);
             this.comboNombreAtributo.Name = "comboNombreAtributo";
-            this.comboNombreAtributo.Size = new System.Drawing.Size(121, 23);
+            this.comboNombreAtributo.Size = new System.Drawing.Size(160, 26);
             this.comboNombreAtributo.TabIndex = 13;
+            this.comboNombreAtributo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboNombreAtributo_KeyDown);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 31);
+            this.label3.Location = new System.Drawing.Point(8, 38);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 15);
+            this.label3.Size = new System.Drawing.Size(61, 18);
             this.label3.TabIndex = 12;
             this.label3.Text = "Entidad:";
             // 
             // tipo_label
             // 
             this.tipo_label.AutoSize = true;
-            this.tipo_label.Location = new System.Drawing.Point(403, 31);
+            this.tipo_label.Location = new System.Drawing.Point(537, 38);
+            this.tipo_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tipo_label.Name = "tipo_label";
-            this.tipo_label.Size = new System.Drawing.Size(34, 15);
+            this.tipo_label.Size = new System.Drawing.Size(41, 18);
             this.tipo_label.TabIndex = 10;
             this.tipo_label.Text = "Tipo:";
             // 
@@ -497,9 +517,10 @@
             // 
             this.LB_TipoIndiceAtributo.AutoSize = true;
             this.LB_TipoIndiceAtributo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_TipoIndiceAtributo.Location = new System.Drawing.Point(691, 31);
+            this.LB_TipoIndiceAtributo.Location = new System.Drawing.Point(921, 38);
+            this.LB_TipoIndiceAtributo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LB_TipoIndiceAtributo.Name = "LB_TipoIndiceAtributo";
-            this.LB_TipoIndiceAtributo.Size = new System.Drawing.Size(70, 15);
+            this.LB_TipoIndiceAtributo.Size = new System.Drawing.Size(83, 18);
             this.LB_TipoIndiceAtributo.TabIndex = 9;
             this.LB_TipoIndiceAtributo.Text = "Tipo Indice:";
             // 
@@ -513,9 +534,10 @@
             "2 - Indice Primario",
             "3 - Indice Secundario",
             "4 - Indice Arbol B+"});
-            this.ComboB_TipoIndiceAtributo.Location = new System.Drawing.Point(767, 30);
+            this.ComboB_TipoIndiceAtributo.Location = new System.Drawing.Point(1023, 37);
+            this.ComboB_TipoIndiceAtributo.Margin = new System.Windows.Forms.Padding(4);
             this.ComboB_TipoIndiceAtributo.Name = "ComboB_TipoIndiceAtributo";
-            this.ComboB_TipoIndiceAtributo.Size = new System.Drawing.Size(121, 23);
+            this.ComboB_TipoIndiceAtributo.Size = new System.Drawing.Size(160, 26);
             this.ComboB_TipoIndiceAtributo.TabIndex = 8;
             // 
             // ComboB_TipoAtributo
@@ -525,18 +547,20 @@
             this.ComboB_TipoAtributo.Items.AddRange(new object[] {
             "E",
             "C"});
-            this.ComboB_TipoAtributo.Location = new System.Drawing.Point(443, 30);
+            this.ComboB_TipoAtributo.Location = new System.Drawing.Point(591, 37);
+            this.ComboB_TipoAtributo.Margin = new System.Windows.Forms.Padding(4);
             this.ComboB_TipoAtributo.Name = "ComboB_TipoAtributo";
-            this.ComboB_TipoAtributo.Size = new System.Drawing.Size(32, 23);
+            this.ComboB_TipoAtributo.Size = new System.Drawing.Size(41, 26);
             this.ComboB_TipoAtributo.TabIndex = 7;
             this.ComboB_TipoAtributo.SelectedIndexChanged += new System.EventHandler(this.ComboB_TipoAtributo_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(206, 33);
+            this.label2.Location = new System.Drawing.Point(275, 41);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 15);
+            this.label2.Size = new System.Drawing.Size(66, 18);
             this.label2.TabIndex = 6;
             this.label2.Text = "Nombre:";
             // 
@@ -552,62 +576,81 @@
             this.TipoIndice_Atributo,
             this.DireccionIndice_Atributo,
             this.Siguiente_Atributo});
-            this.dataGridAtributos.Location = new System.Drawing.Point(6, 58);
+            this.dataGridAtributos.Location = new System.Drawing.Point(8, 71);
+            this.dataGridAtributos.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridAtributos.Name = "dataGridAtributos";
-            this.dataGridAtributos.Size = new System.Drawing.Size(1016, 375);
+            this.dataGridAtributos.RowHeadersWidth = 51;
+            this.dataGridAtributos.Size = new System.Drawing.Size(1355, 462);
             this.dataGridAtributos.TabIndex = 2;
             // 
             // ID_Atributo
             // 
             this.ID_Atributo.HeaderText = "ID";
+            this.ID_Atributo.MinimumWidth = 6;
             this.ID_Atributo.Name = "ID_Atributo";
+            this.ID_Atributo.Width = 125;
             // 
             // Nombre_Atributo
             // 
             this.Nombre_Atributo.HeaderText = "Nombre";
+            this.Nombre_Atributo.MinimumWidth = 6;
             this.Nombre_Atributo.Name = "Nombre_Atributo";
+            this.Nombre_Atributo.Width = 125;
             // 
             // tipoDato_Atributo
             // 
             this.tipoDato_Atributo.HeaderText = "Tipo de Dato";
+            this.tipoDato_Atributo.MinimumWidth = 6;
             this.tipoDato_Atributo.Name = "tipoDato_Atributo";
+            this.tipoDato_Atributo.Width = 125;
             // 
             // longitud_Atributo
             // 
             this.longitud_Atributo.HeaderText = "Longitud";
+            this.longitud_Atributo.MinimumWidth = 6;
             this.longitud_Atributo.Name = "longitud_Atributo";
+            this.longitud_Atributo.Width = 125;
             // 
             // Direccion_Atributo
             // 
             this.Direccion_Atributo.HeaderText = "Dirección";
+            this.Direccion_Atributo.MinimumWidth = 6;
             this.Direccion_Atributo.Name = "Direccion_Atributo";
+            this.Direccion_Atributo.Width = 125;
             // 
             // TipoIndice_Atributo
             // 
             this.TipoIndice_Atributo.HeaderText = "Tipo de Índice";
+            this.TipoIndice_Atributo.MinimumWidth = 6;
             this.TipoIndice_Atributo.Name = "TipoIndice_Atributo";
+            this.TipoIndice_Atributo.Width = 125;
             // 
             // DireccionIndice_Atributo
             // 
             this.DireccionIndice_Atributo.HeaderText = "Dirección de Índice";
+            this.DireccionIndice_Atributo.MinimumWidth = 6;
             this.DireccionIndice_Atributo.Name = "DireccionIndice_Atributo";
+            this.DireccionIndice_Atributo.Width = 125;
             // 
             // Siguiente_Atributo
             // 
             this.Siguiente_Atributo.HeaderText = "Siguiente Atributo";
+            this.Siguiente_Atributo.MinimumWidth = 6;
             this.Siguiente_Atributo.Name = "Siguiente_Atributo";
+            this.Siguiente_Atributo.Width = 125;
             // 
             // menuAtributos
             // 
             this.menuAtributos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuAtributos.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuAtributos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
             this.toolStripMenuItem4});
-            this.menuAtributos.Location = new System.Drawing.Point(3, 3);
+            this.menuAtributos.Location = new System.Drawing.Point(4, 4);
             this.menuAtributos.Name = "menuAtributos";
-            this.menuAtributos.Size = new System.Drawing.Size(1022, 24);
+            this.menuAtributos.Size = new System.Drawing.Size(1365, 28);
             this.menuAtributos.TabIndex = 1;
             this.menuAtributos.Text = "menuStrip2";
             this.menuAtributos.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuAtributos_ItemClicked);
@@ -617,7 +660,7 @@
             this.toolStripMenuItem1.AccessibleName = "Alta";
             this.toolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(40, 20);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(50, 24);
             this.toolStripMenuItem1.Text = "Alta";
             // 
             // toolStripMenuItem2
@@ -625,7 +668,7 @@
             this.toolStripMenuItem2.AccessibleName = "Modificar";
             this.toolStripMenuItem2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(70, 20);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(87, 24);
             this.toolStripMenuItem2.Text = "Modificar";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click_1);
             // 
@@ -634,87 +677,189 @@
             this.toolStripMenuItem3.AccessibleName = "Consulta";
             this.toolStripMenuItem3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(66, 20);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(80, 24);
             this.toolStripMenuItem3.Text = "Consulta";
+            this.toolStripMenuItem3.Visible = false;
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.AccessibleName = "Eliminar";
             this.toolStripMenuItem4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(62, 20);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(77, 24);
             this.toolStripMenuItem4.Text = "Eliminar";
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.comboBox3);
+            this.tabPage3.Controls.Add(this.comboBox1);
+            this.tabPage3.Controls.Add(this.comboBox2);
+            this.tabPage3.Controls.Add(this.label5);
+            this.tabPage3.Controls.Add(this.label6);
+            this.tabPage3.Controls.Add(this.label7);
+            this.tabPage3.Controls.Add(this.comboBox4);
+            this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.menuRegistros);
             this.tabPage3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1028, 424);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage3.Size = new System.Drawing.Size(1373, 523);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Registros";
             this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // menuRegistros
             // 
             this.menuRegistros.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuRegistros.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuRegistros.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem5,
             this.toolStripMenuItem6,
             this.toolStripMenuItem7,
             this.toolStripMenuItem8});
-            this.menuRegistros.Location = new System.Drawing.Point(3, 3);
+            this.menuRegistros.Location = new System.Drawing.Point(4, 4);
             this.menuRegistros.Name = "menuRegistros";
-            this.menuRegistros.Size = new System.Drawing.Size(1022, 24);
+            this.menuRegistros.Size = new System.Drawing.Size(1365, 28);
             this.menuRegistros.TabIndex = 2;
             this.menuRegistros.Text = "menuStrip3";
+            this.menuRegistros.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuRegistros_ItemClicked);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(40, 20);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(50, 24);
             this.toolStripMenuItem5.Text = "Alta";
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(70, 20);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(87, 24);
             this.toolStripMenuItem6.Text = "Modificar";
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(66, 20);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(80, 24);
             this.toolStripMenuItem7.Text = "Consulta";
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(62, 20);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(77, 24);
             this.toolStripMenuItem8.Text = "Eliminar";
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(89, 42);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(160, 26);
+            this.comboBox1.TabIndex = 27;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(578, 39);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(160, 26);
+            this.comboBox2.TabIndex = 26;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(12, 42);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 18);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Entidad:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(530, 44);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(40, 18);
+            this.label6.TabIndex = 22;
+            this.label6.Text = "Dato";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(925, 42);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(83, 18);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Tipo Indice:";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "0 - Sin tipo de índice",
+            "1 - Secuencial",
+            "2 - Indice Primario",
+            "3 - Indice Secundario",
+            "4 - Indice Arbol B+"});
+            this.comboBox4.Location = new System.Drawing.Point(1027, 41);
+            this.comboBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(160, 26);
+            this.comboBox4.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(279, 45);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(58, 18);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Atributo";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(345, 41);
+            this.comboBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(160, 26);
+            this.comboBox3.TabIndex = 28;
+            // 
             // ManejadorDeArchivos_Form
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1066, 528);
+            this.ClientSize = new System.Drawing.Size(1421, 650);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolBar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuEntidades;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ManejadorDeArchivos_Form";
             this.Text = "Manejador de archivos";
             this.Load += new System.EventHandler(this.ManejadorDeArchivos_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ManejadorDeArchivos_Form_KeyDown);
             this.toolBar.ResumeLayout(false);
             this.toolBar.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -806,6 +951,14 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox comboBox3;
     }
 }
 

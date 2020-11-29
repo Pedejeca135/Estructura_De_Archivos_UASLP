@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AltaRegistroParaAtributo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AltaRegistroParaAtributo.Designer.cs">
+      <DependentUpon>AltaRegistroParaAtributo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Archivo.cs" />
     <Compile Include="Atributo.cs" />
     <Compile Include="CambiarNombreArchivo_Form.cs">
@@ -54,6 +60,14 @@
     <Compile Include="CambiarNombreArchivo_Form.Designer.cs">
       <DependentUpon>CambiarNombreArchivo_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Indice.cs" />
+    <Compile Include="Primario.cs" />
     <Compile Include="Entidad.cs" />
     <Compile Include="Aviso_Form.cs">
       <SubType>Form</SubType>
@@ -87,12 +101,19 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Secundario.cs" />
     <Compile Include="Util.cs" />
+    <EmbeddedResource Include="AltaRegistroParaAtributo.resx">
+      <DependentUpon>AltaRegistroParaAtributo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Aviso_Form.resx">
       <DependentUpon>Aviso_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CambiarNombreArchivo_Form.resx">
       <DependentUpon>CambiarNombreArchivo_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManejadorDeArchivos_Form.resx">
       <DependentUpon>ManejadorDeArchivos_Form.cs</DependentUpon>

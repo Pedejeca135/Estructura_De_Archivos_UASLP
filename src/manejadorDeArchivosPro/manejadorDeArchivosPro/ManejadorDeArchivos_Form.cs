@@ -558,5 +558,182 @@ namespace manejadorDeArchivosPro
         {
 
         }
+
+        private void ManejadorDeArchivos_Form_KeyDown(object sender, KeyEventArgs e)
+        {
+        }
+
+        private void altaMenuEntidades_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NombreEntidad_Combo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (this.NombreEntidad_Combo.Text == " " || this.NombreEntidad_Combo.Text == "")
+                {
+                    MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                }
+                else if (!Util.ValidacionDeNombre(this.NombreEntidad_Combo.Text))
+                {
+                    MessageBox.Show("Hay caracteres invalidos en el nombre de la Entidad que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                }
+                else
+                {
+                    this.archivoDeTrabajo.altaEntidad(NombreEntidad_Combo.Text);
+                    this.Reload();
+                }
+                this.NombreEntidad_Combo.Text = "";
+            }
+        }
+
+        private void NombreEntidad_Combo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void comboNombreAtributo_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyData == Keys.Enter)
+            {
+                if (this.comboNombreAtributo.Text == " " || this.comboNombreAtributo.Text == "")
+                {
+                    MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                }
+                else if (!Util.ValidacionDeNombre(this.comboNombreAtributo.Text))
+                {
+                    MessageBox.Show("Hay caracteres invalidos en el nombre del atributo que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                }
+                else
+                {
+                    if (ComboB_TipoAtributo.Text == "E")
+                    {
+                        ComboB_LongitudAtributo.Text = 4.ToString();
+                    }
+                    int longitudNuevoAtributo = 1;
+                    if (Int32.TryParse(ComboB_LongitudAtributo.Text, out longitudNuevoAtributo))
+                    {
+
+                        if (!listaLongitud.Contains(longitudNuevoAtributo))
+                        {
+                            listaLongitud.Add(longitudNuevoAtributo);
+                        }
+                        this.archivoDeTrabajo.altaAtributo(Combo_entidadesParaAtributos.Text, comboNombreAtributo.Text, ComboB_TipoAtributo.Text, longitudNuevoAtributo, ComboB_TipoIndiceAtributo.Text);
+                        this.Reload();
+                    }
+                    else
+                    {
+                        MessageBox.Show("La longitud tiene un formato incorrecto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                this.comboNombreAtributo.Text = "";
+            }
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuRegistros_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            #region Registros
+            if (this.archivoDeTrabajo != null)
+            {
+                SeleccionRegistro seleccionRegistro;
+                switch (e.ClickedItem.AccessibleName)
+                {
+                    case "Alta":
+                        seleccionEntidad = new SeleccionEntidad(this.archivo);
+                        if (seleccionEntidad.ShowDialog().Equals(DialogResult.OK))
+                        {
+                            AltaRegistro altaRegistro;
+                            altaRegistro = new AltaRegistro(this.archivo.buscaEntidad(MetodosAuxiliares.ajustaCadena(seleccionEntidad.Entidad, Constantes.tam)));
+                            altaRegistro.obtenLllaves += new AltaRegistro.ObtenLlaves(this.obtenLllavesEntidad);
+                            if (altaRegistro.ShowDialog().Equals(DialogResult.OK))
+                            {
+                                this.archivo.altaRegistro(MetodosAuxiliares.ajustaCadena(seleccionEntidad.Entidad, Constantes.tam),
+                                                         this.directorio, altaRegistro.Informacion);
+                                this.actualizaTodo();
+                            }
+                            altaRegistro.Dispose();
+                        }
+                        seleccionEntidad.Dispose();
+                        break;
+                    case "Modificar":
+                        seleccionEntidad = new SeleccionEntidad(this.archivo);
+                        if (seleccionEntidad.ShowDialog().Equals(DialogResult.OK))
+                        {
+                            Entidad entidad;
+                            entidad = this.archivo.buscaEntidad(MetodosAuxiliares.ajustaCadena(seleccionEntidad.Entidad, Constantes.tam));
+                            seleccionRegistro = new SeleccionRegistro(entidad);
+                            if (seleccionRegistro.ShowDialog().Equals(DialogResult.OK))
+                            {
+                                ModificaRegistro modificaRegistro;
+                                modificaRegistro = new ModificaRegistro(entidad, seleccionRegistro.ClaveDeBusqueda);
+                                modificaRegistro.obtenLllaves += new ModificaRegistro.ObtenLlaves(this.obtenLllavesEntidad);
+                                if (modificaRegistro.ShowDialog().Equals(DialogResult.OK))
+                                {
+                                    this.archivo.modificaRegistro(seleccionEntidad.Entidad, seleccionRegistro.ClaveDeBusqueda, modificaRegistro.InfoOriginal, modificaRegistro.Datos, this.directorio);
+                                    this.actualizaTodo();
+                                }
+                            }
+                            seleccionRegistro.Dispose();
+                        }
+                        seleccionEntidad.Dispose();
+                        break;
+                    case "Consulta Primario":
+                        seleccionEntidad = new SeleccionEntidad(this.archivo);
+                        if (seleccionEntidad.ShowDialog().Equals(DialogResult.OK))
+                        {
+                            ConsultaRegistroPrimario consulta;
+                            Entidad entidad;
+                            entidad = this.archivo.buscaEntidad(MetodosAuxiliares.ajustaCadena(seleccionEntidad.Entidad, Constantes.tam));
+                            if (entidad.Valores.Count > 0)
+                            {
+                                consulta = new ConsultaRegistroPrimario(entidad);
+                                consulta.Show();
+                            }
+                            else
+                            {
+                                MessageBox.Show("La entidad seleccionada no contiene registros", "Error");
+                            }
+                        }
+                        break;
+                    case "Eliminar":
+                        seleccionEntidad = new SeleccionEntidad(this.archivo);
+                        if (seleccionEntidad.ShowDialog().Equals(DialogResult.OK))
+                        {
+                            seleccionRegistro = new SeleccionRegistro(this.archivo.buscaEntidad(MetodosAuxiliares.ajustaCadena(seleccionEntidad.Entidad, Constantes.tam)));
+                            if (seleccionRegistro.ShowDialog().Equals(DialogResult.OK))
+                            {
+                                this.archivo.eliminaRegistro(MetodosAuxiliares.ajustaCadena(seleccionEntidad.Entidad, Constantes.tam),
+                                                             seleccionRegistro.ClaveDeBusqueda, this.directorio);
+                                this.actualizaTodo();
+                            }
+                        }
+                        seleccionEntidad.Dispose();
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor abra una base de datos o cree", "Error");
+            }
+            #endregion
+        }
     }
 }
