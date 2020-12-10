@@ -43,4 +43,5 @@ C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArch
 C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.csproj.CoreCompileInputs.cache
 C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.exe
 C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.pdb
-C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.AltaRegistroParaAtributo.resources
+C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.AltaRegistroEntidad.resources
+C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.Form1.resources

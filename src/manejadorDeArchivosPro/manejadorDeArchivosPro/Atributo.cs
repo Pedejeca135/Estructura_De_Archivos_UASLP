@@ -92,7 +92,7 @@ namespace manejadorDeArchivosPro
 
 
         #region Primario
-        public void altaIndicePrimario(string llave, long dir, string directorio)
+       /* public void altaIndicePrimario(string llave, long dir, string directorio)
         {
             int longitud;
             long dirIdx;
@@ -133,55 +133,9 @@ namespace manejadorDeArchivosPro
                 this.grabaIndicePrimario((Primario)idx, directorio);
             }
 
-        }
+        }*/
 
-        public void modificaIndicePrimario(string llave, string nuevaLlave, string directorio)
-        {
-            foreach (Indice indice in this.indices)
-            {
-                if (((Primario)indice).existeLlave(llave))
-                {
-                    ((Primario)indice).modifica(llave, nuevaLlave);
-                    break;
-                }
-            }
-            this.dirIndice = this.indices.First().DirAct;
-            foreach (Indice idx in this.indices)
-            {
-                this.grabaIndicePrimario((Primario)idx, directorio);
-            }
-        }
-
-        public void eliminaIndicePrimario(string llave, string directorio)
-        {
-            foreach (Indice indice in this.indices)
-            {
-                if (((Primario)indice).existeLlave(llave))
-                {
-                    if (((Primario)indice).elimina(llave))
-                    {
-                        this.indices.Remove(indice);
-                        for (int i = 0; i < this.indices.Count - 1; i++)
-                        {
-                            this.indices[i].DirSig = this.indices[i + 1].DirAct;
-                        }
-                    }
-                    break;
-                }
-            }
-            if (this.indices.Count > 0)
-            {
-                this.dirIndice = this.indices.First().DirAct;
-            }
-            else
-            {
-                this.dirIndice = -1;
-            }
-            foreach (Indice idx in this.indices)
-            {
-                this.grabaIndicePrimario((Primario)idx, directorio);
-            }
-        }
+        
 
         #endregion
 

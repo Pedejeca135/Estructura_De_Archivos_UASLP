@@ -85,6 +85,30 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBoxIndices = new System.Windows.Forms.GroupBox();
+            this.tabControlIndices = new System.Windows.Forms.TabControl();
+            this.ClaveBusqueda = new System.Windows.Forms.TabPage();
+            this.Primario = new System.Windows.Forms.TabPage();
+            this.labelAtributoPrimario = new System.Windows.Forms.Label();
+            this.dataGridIdxPrimmario = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Secundario = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dataGridSecundario = new System.Windows.Forms.DataGridView();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridSecundarioAuxiliar = new System.Windows.Forms.DataGridView();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBoxAtributosSecundarios = new System.Windows.Forms.ComboBox();
+            this.groupBoxRegistros = new System.Windows.Forms.GroupBox();
+            this.dataGridRegistros = new System.Windows.Forms.DataGridView();
+            this.comboBoxEntidad = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.CB_entidadParaRegistro = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.menuRegistros = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,14 +116,7 @@
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.DGV_ClaveDeBusqueda = new System.Windows.Forms.DataGridView();
             this.toolBar.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -110,7 +127,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAtributos)).BeginInit();
             this.menuAtributos.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBoxIndices.SuspendLayout();
+            this.tabControlIndices.SuspendLayout();
+            this.ClaveBusqueda.SuspendLayout();
+            this.Primario.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridIdxPrimmario)).BeginInit();
+            this.Secundario.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSecundario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSecundarioAuxiliar)).BeginInit();
+            this.groupBoxRegistros.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridRegistros)).BeginInit();
             this.menuRegistros.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV_ClaveDeBusqueda)).BeginInit();
             this.SuspendLayout();
             // 
             // toolBar
@@ -385,6 +413,7 @@
             this.eliminarMenuEntidades});
             this.menuEntidades.Location = new System.Drawing.Point(4, 4);
             this.menuEntidades.Name = "menuEntidades";
+            this.menuEntidades.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
             this.menuEntidades.Size = new System.Drawing.Size(1365, 28);
             this.menuEntidades.TabIndex = 0;
             this.menuEntidades.Text = "menuStrip1";
@@ -398,7 +427,6 @@
             this.altaMenuEntidades.Name = "altaMenuEntidades";
             this.altaMenuEntidades.Size = new System.Drawing.Size(50, 24);
             this.altaMenuEntidades.Text = "Alta";
-            this.altaMenuEntidades.Click += new System.EventHandler(this.altaMenuEntidades_Click);
             // 
             // modofocarMenuEntidades
             // 
@@ -539,6 +567,7 @@
             this.ComboB_TipoIndiceAtributo.Name = "ComboB_TipoIndiceAtributo";
             this.ComboB_TipoIndiceAtributo.Size = new System.Drawing.Size(160, 26);
             this.ComboB_TipoIndiceAtributo.TabIndex = 8;
+            this.ComboB_TipoIndiceAtributo.SelectedIndexChanged += new System.EventHandler(this.ComboB_TipoIndiceAtributo_SelectedIndexChanged);
             // 
             // ComboB_TipoAtributo
             // 
@@ -650,6 +679,7 @@
             this.toolStripMenuItem4});
             this.menuAtributos.Location = new System.Drawing.Point(4, 4);
             this.menuAtributos.Name = "menuAtributos";
+            this.menuAtributos.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
             this.menuAtributos.Size = new System.Drawing.Size(1365, 28);
             this.menuAtributos.TabIndex = 1;
             this.menuAtributos.Text = "menuStrip2";
@@ -691,14 +721,10 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.comboBox3);
-            this.tabPage3.Controls.Add(this.comboBox1);
-            this.tabPage3.Controls.Add(this.comboBox2);
+            this.tabPage3.Controls.Add(this.groupBoxIndices);
+            this.tabPage3.Controls.Add(this.groupBoxRegistros);
+            this.tabPage3.Controls.Add(this.CB_entidadParaRegistro);
             this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.label6);
-            this.tabPage3.Controls.Add(this.label7);
-            this.tabPage3.Controls.Add(this.comboBox4);
-            this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.menuRegistros);
             this.tabPage3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
@@ -711,72 +737,265 @@
             this.tabPage3.UseVisualStyleBackColor = true;
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
-            // menuRegistros
+            // groupBoxIndices
             // 
-            this.menuRegistros.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.menuRegistros.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuRegistros.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem5,
-            this.toolStripMenuItem6,
-            this.toolStripMenuItem7,
-            this.toolStripMenuItem8});
-            this.menuRegistros.Location = new System.Drawing.Point(4, 4);
-            this.menuRegistros.Name = "menuRegistros";
-            this.menuRegistros.Size = new System.Drawing.Size(1365, 28);
-            this.menuRegistros.TabIndex = 2;
-            this.menuRegistros.Text = "menuStrip3";
-            this.menuRegistros.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuRegistros_ItemClicked);
+            this.groupBoxIndices.Controls.Add(this.tabControlIndices);
+            this.groupBoxIndices.Location = new System.Drawing.Point(692, 76);
+            this.groupBoxIndices.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBoxIndices.Name = "groupBoxIndices";
+            this.groupBoxIndices.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBoxIndices.Size = new System.Drawing.Size(677, 457);
+            this.groupBoxIndices.TabIndex = 30;
+            this.groupBoxIndices.TabStop = false;
+            this.groupBoxIndices.Text = "Indices";
             // 
-            // toolStripMenuItem5
+            // tabControlIndices
             // 
-            this.toolStripMenuItem5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(50, 24);
-            this.toolStripMenuItem5.Text = "Alta";
+            this.tabControlIndices.Controls.Add(this.ClaveBusqueda);
+            this.tabControlIndices.Controls.Add(this.Primario);
+            this.tabControlIndices.Controls.Add(this.Secundario);
+            this.tabControlIndices.Location = new System.Drawing.Point(8, 23);
+            this.tabControlIndices.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControlIndices.Name = "tabControlIndices";
+            this.tabControlIndices.SelectedIndex = 0;
+            this.tabControlIndices.Size = new System.Drawing.Size(544, 342);
+            this.tabControlIndices.TabIndex = 5;
             // 
-            // toolStripMenuItem6
+            // ClaveBusqueda
             // 
-            this.toolStripMenuItem6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(87, 24);
-            this.toolStripMenuItem6.Text = "Modificar";
+            this.ClaveBusqueda.Controls.Add(this.DGV_ClaveDeBusqueda);
+            this.ClaveBusqueda.Location = new System.Drawing.Point(4, 27);
+            this.ClaveBusqueda.Name = "ClaveBusqueda";
+            this.ClaveBusqueda.Padding = new System.Windows.Forms.Padding(3);
+            this.ClaveBusqueda.Size = new System.Drawing.Size(536, 311);
+            this.ClaveBusqueda.TabIndex = 3;
+            this.ClaveBusqueda.Text = "Cve_Busqueda";
+            this.ClaveBusqueda.UseVisualStyleBackColor = true;
+            this.ClaveBusqueda.Click += new System.EventHandler(this.ClaveBusqueda_Click);
             // 
-            // toolStripMenuItem7
+            // Primario
             // 
-            this.toolStripMenuItem7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(80, 24);
-            this.toolStripMenuItem7.Text = "Consulta";
+            this.Primario.Controls.Add(this.labelAtributoPrimario);
+            this.Primario.Controls.Add(this.dataGridIdxPrimmario);
+            this.Primario.Location = new System.Drawing.Point(4, 27);
+            this.Primario.Margin = new System.Windows.Forms.Padding(4);
+            this.Primario.Name = "Primario";
+            this.Primario.Padding = new System.Windows.Forms.Padding(4);
+            this.Primario.Size = new System.Drawing.Size(536, 311);
+            this.Primario.TabIndex = 1;
+            this.Primario.Text = "Primario";
+            this.Primario.UseVisualStyleBackColor = true;
             // 
-            // toolStripMenuItem8
+            // labelAtributoPrimario
             // 
-            this.toolStripMenuItem8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(77, 24);
-            this.toolStripMenuItem8.Text = "Eliminar";
+            this.labelAtributoPrimario.AutoSize = true;
+            this.labelAtributoPrimario.Location = new System.Drawing.Point(8, 14);
+            this.labelAtributoPrimario.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelAtributoPrimario.Name = "labelAtributoPrimario";
+            this.labelAtributoPrimario.Size = new System.Drawing.Size(66, 18);
+            this.labelAtributoPrimario.TabIndex = 3;
+            this.labelAtributoPrimario.Text = "Atributo :";
             // 
-            // openFileDialog1
+            // dataGridIdxPrimmario
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.dataGridIdxPrimmario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridIdxPrimmario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2});
+            this.dataGridIdxPrimmario.GridColor = System.Drawing.SystemColors.Control;
+            this.dataGridIdxPrimmario.Location = new System.Drawing.Point(8, 44);
+            this.dataGridIdxPrimmario.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridIdxPrimmario.Name = "dataGridIdxPrimmario";
+            this.dataGridIdxPrimmario.RowHeadersVisible = false;
+            this.dataGridIdxPrimmario.RowHeadersWidth = 51;
+            this.dataGridIdxPrimmario.Size = new System.Drawing.Size(657, 353);
+            this.dataGridIdxPrimmario.TabIndex = 0;
             // 
-            // comboBox1
+            // Column1
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(89, 42);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(160, 26);
-            this.comboBox1.TabIndex = 27;
+            this.Column1.HeaderText = "Llave";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 190;
             // 
-            // comboBox2
+            // Column2
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(578, 39);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(160, 26);
-            this.comboBox2.TabIndex = 26;
+            this.Column2.HeaderText = "Direccíon";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 190;
+            // 
+            // Secundario
+            // 
+            this.Secundario.Controls.Add(this.label6);
+            this.Secundario.Controls.Add(this.label7);
+            this.Secundario.Controls.Add(this.dataGridSecundario);
+            this.Secundario.Controls.Add(this.dataGridSecundarioAuxiliar);
+            this.Secundario.Controls.Add(this.label8);
+            this.Secundario.Controls.Add(this.comboBoxAtributosSecundarios);
+            this.Secundario.Location = new System.Drawing.Point(4, 27);
+            this.Secundario.Margin = new System.Windows.Forms.Padding(4);
+            this.Secundario.Name = "Secundario";
+            this.Secundario.Padding = new System.Windows.Forms.Padding(4);
+            this.Secundario.Size = new System.Drawing.Size(536, 311);
+            this.Secundario.TabIndex = 2;
+            this.Secundario.Text = "Secundario";
+            this.Secundario.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(268, 12);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 18);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Direccion";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(4, 43);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 18);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Entidad";
+            // 
+            // dataGridSecundario
+            // 
+            this.dataGridSecundario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridSecundario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column3,
+            this.Column4});
+            this.dataGridSecundario.Location = new System.Drawing.Point(8, 63);
+            this.dataGridSecundario.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridSecundario.Name = "dataGridSecundario";
+            this.dataGridSecundario.ReadOnly = true;
+            this.dataGridSecundario.RowHeadersVisible = false;
+            this.dataGridSecundario.RowHeadersWidth = 51;
+            this.dataGridSecundario.Size = new System.Drawing.Size(253, 240);
+            this.dataGridSecundario.TabIndex = 4;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Llave";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 93;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Direccion";
+            this.Column4.MinimumWidth = 6;
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 93;
+            // 
+            // dataGridSecundarioAuxiliar
+            // 
+            this.dataGridSecundarioAuxiliar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridSecundarioAuxiliar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column5});
+            this.dataGridSecundarioAuxiliar.Location = new System.Drawing.Point(272, 33);
+            this.dataGridSecundarioAuxiliar.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridSecundarioAuxiliar.Name = "dataGridSecundarioAuxiliar";
+            this.dataGridSecundarioAuxiliar.ReadOnly = true;
+            this.dataGridSecundarioAuxiliar.RowHeadersVisible = false;
+            this.dataGridSecundarioAuxiliar.RowHeadersWidth = 51;
+            this.dataGridSecundarioAuxiliar.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dataGridSecundarioAuxiliar.Size = new System.Drawing.Size(253, 270);
+            this.dataGridSecundarioAuxiliar.TabIndex = 2;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Direccion";
+            this.Column5.MinimumWidth = 6;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Width = 186;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(4, 12);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(66, 18);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Atributos";
+            // 
+            // comboBoxAtributosSecundarios
+            // 
+            this.comboBoxAtributosSecundarios.FormattingEnabled = true;
+            this.comboBoxAtributosSecundarios.Location = new System.Drawing.Point(76, 7);
+            this.comboBoxAtributosSecundarios.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxAtributosSecundarios.Name = "comboBoxAtributosSecundarios";
+            this.comboBoxAtributosSecundarios.Size = new System.Drawing.Size(156, 26);
+            this.comboBoxAtributosSecundarios.TabIndex = 0;
+            // 
+            // groupBoxRegistros
+            // 
+            this.groupBoxRegistros.Controls.Add(this.dataGridRegistros);
+            this.groupBoxRegistros.Controls.Add(this.comboBoxEntidad);
+            this.groupBoxRegistros.Controls.Add(this.label1);
+            this.groupBoxRegistros.Location = new System.Drawing.Point(15, 76);
+            this.groupBoxRegistros.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBoxRegistros.Name = "groupBoxRegistros";
+            this.groupBoxRegistros.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBoxRegistros.Size = new System.Drawing.Size(560, 373);
+            this.groupBoxRegistros.TabIndex = 29;
+            this.groupBoxRegistros.TabStop = false;
+            this.groupBoxRegistros.Text = "ConsultaDeRegistros";
+            this.groupBoxRegistros.Enter += new System.EventHandler(this.groupBoxRegistros_Enter);
+            // 
+            // dataGridRegistros
+            // 
+            this.dataGridRegistros.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridRegistros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridRegistros.GridColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dataGridRegistros.Location = new System.Drawing.Point(8, 64);
+            this.dataGridRegistros.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridRegistros.Name = "dataGridRegistros";
+            this.dataGridRegistros.RowHeadersVisible = false;
+            this.dataGridRegistros.RowHeadersWidth = 51;
+            this.dataGridRegistros.Size = new System.Drawing.Size(544, 375);
+            this.dataGridRegistros.TabIndex = 1;
+            this.dataGridRegistros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridRegistros_CellContentClick);
+            // 
+            // comboBoxEntidad
+            // 
+            this.comboBoxEntidad.FormattingEnabled = true;
+            this.comboBoxEntidad.Location = new System.Drawing.Point(391, 31);
+            this.comboBoxEntidad.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxEntidad.Name = "comboBoxEntidad";
+            this.comboBoxEntidad.Size = new System.Drawing.Size(160, 26);
+            this.comboBoxEntidad.TabIndex = 2;
+            this.comboBoxEntidad.SelectedIndexChanged += new System.EventHandler(this.comboBoxEntidad_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(327, 34);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 18);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Entidad";
+            // 
+            // CB_entidadParaRegistro
+            // 
+            this.CB_entidadParaRegistro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CB_entidadParaRegistro.FormattingEnabled = true;
+            this.CB_entidadParaRegistro.Location = new System.Drawing.Point(89, 42);
+            this.CB_entidadParaRegistro.Margin = new System.Windows.Forms.Padding(4);
+            this.CB_entidadParaRegistro.Name = "CB_entidadParaRegistro";
+            this.CB_entidadParaRegistro.Size = new System.Drawing.Size(160, 26);
+            this.CB_entidadParaRegistro.TabIndex = 27;
+            this.CB_entidadParaRegistro.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -789,62 +1008,69 @@
             this.label5.TabIndex = 23;
             this.label5.Text = "Entidad:";
             // 
-            // label6
+            // menuRegistros
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(530, 44);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(40, 18);
-            this.label6.TabIndex = 22;
-            this.label6.Text = "Dato";
+            this.menuRegistros.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuRegistros.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuRegistros.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem5,
+            this.toolStripMenuItem6,
+            this.toolStripMenuItem7,
+            this.toolStripMenuItem8});
+            this.menuRegistros.Location = new System.Drawing.Point(4, 4);
+            this.menuRegistros.Name = "menuRegistros";
+            this.menuRegistros.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuRegistros.Size = new System.Drawing.Size(1365, 28);
+            this.menuRegistros.TabIndex = 2;
+            this.menuRegistros.Text = "menuStrip3";
+            this.menuRegistros.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuRegistros_ItemClicked);
             // 
-            // label7
+            // toolStripMenuItem5
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(925, 42);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 18);
-            this.label7.TabIndex = 21;
-            this.label7.Text = "Tipo Indice:";
+            this.toolStripMenuItem5.AccessibleName = "Alta";
+            this.toolStripMenuItem5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(50, 26);
+            this.toolStripMenuItem5.Text = "Alta";
             // 
-            // comboBox4
+            // toolStripMenuItem6
             // 
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "0 - Sin tipo de índice",
-            "1 - Secuencial",
-            "2 - Indice Primario",
-            "3 - Indice Secundario",
-            "4 - Indice Arbol B+"});
-            this.comboBox4.Location = new System.Drawing.Point(1027, 41);
-            this.comboBox4.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(160, 26);
-            this.comboBox4.TabIndex = 20;
+            this.toolStripMenuItem6.AccessibleName = "Modificar";
+            this.toolStripMenuItem6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(87, 26);
+            this.toolStripMenuItem6.Text = "Modificar";
             // 
-            // label8
+            // toolStripMenuItem7
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(279, 45);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 18);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "Atributo";
+            this.toolStripMenuItem7.AccessibleName = "Consulta";
+            this.toolStripMenuItem7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(80, 24);
+            this.toolStripMenuItem7.Text = "Consulta";
+            this.toolStripMenuItem7.Visible = false;
             // 
-            // comboBox3
+            // toolStripMenuItem8
             // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(345, 41);
-            this.comboBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(160, 26);
-            this.comboBox3.TabIndex = 28;
+            this.toolStripMenuItem8.AccessibleName = "Eliminar";
+            this.toolStripMenuItem8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(77, 26);
+            this.toolStripMenuItem8.Text = "Eliminar";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // DGV_ClaveDeBusqueda
+            // 
+            this.DGV_ClaveDeBusqueda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGV_ClaveDeBusqueda.Location = new System.Drawing.Point(5, 6);
+            this.DGV_ClaveDeBusqueda.Name = "DGV_ClaveDeBusqueda";
+            this.DGV_ClaveDeBusqueda.RowHeadersWidth = 51;
+            this.DGV_ClaveDeBusqueda.RowTemplate.Height = 24;
+            this.DGV_ClaveDeBusqueda.Size = new System.Drawing.Size(525, 418);
+            this.DGV_ClaveDeBusqueda.TabIndex = 0;
             // 
             // ManejadorDeArchivos_Form
             // 
@@ -877,8 +1103,22 @@
             this.menuAtributos.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.groupBoxIndices.ResumeLayout(false);
+            this.tabControlIndices.ResumeLayout(false);
+            this.ClaveBusqueda.ResumeLayout(false);
+            this.Primario.ResumeLayout(false);
+            this.Primario.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridIdxPrimmario)).EndInit();
+            this.Secundario.ResumeLayout(false);
+            this.Secundario.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSecundario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSecundarioAuxiliar)).EndInit();
+            this.groupBoxRegistros.ResumeLayout(false);
+            this.groupBoxRegistros.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridRegistros)).EndInit();
             this.menuRegistros.ResumeLayout(false);
             this.menuRegistros.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV_ClaveDeBusqueda)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -951,14 +1191,31 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox CB_entidadParaRegistro;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.GroupBox groupBoxRegistros;
+        private System.Windows.Forms.DataGridView dataGridRegistros;
+        private System.Windows.Forms.ComboBox comboBoxEntidad;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBoxIndices;
+        private System.Windows.Forms.TabControl tabControlIndices;
+        private System.Windows.Forms.TabPage ClaveBusqueda;
+        private System.Windows.Forms.TabPage Primario;
+        private System.Windows.Forms.Label labelAtributoPrimario;
+        private System.Windows.Forms.DataGridView dataGridIdxPrimmario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.TabPage Secundario;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.DataGridView dataGridSecundario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridView dataGridSecundarioAuxiliar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboBoxAtributosSecundarios;
+        private System.Windows.Forms.DataGridView DGV_ClaveDeBusqueda;
     }
 }
 

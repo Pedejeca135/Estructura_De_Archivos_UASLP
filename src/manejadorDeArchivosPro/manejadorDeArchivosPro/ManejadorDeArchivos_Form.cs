@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;//para el uso del filestream
-using System.Windows.Forms;
 
 namespace manejadorDeArchivosPro
 {
@@ -81,7 +80,7 @@ namespace manejadorDeArchivosPro
                         {                           
                                 nuevoArchivoNombre = Path.GetFileName(SFD.FileName);
 
-                                if (!Util.ValidacionDeNombre(nuevoArchivoNombre))
+                                if (!UtilStatic.ValidacionDeNombre(nuevoArchivoNombre))
                                 {
                                     MessageBox.Show("Hay caracteres invalidos en el nombre de archivo que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     
@@ -179,7 +178,7 @@ namespace manejadorDeArchivosPro
 
                     if (nuevoNombre.ShowDialog().Equals(DialogResult.OK))
                     {
-                        if(!Util.ValidacionDeNombre(nuevoNombre.Nombre))
+                        if(!UtilStatic.ValidacionDeNombre(nuevoNombre.Nombre))
                         {
                             MessageBox.Show("Hay caracteres invalidos en el nombre al que intenda cambiar.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
@@ -259,7 +258,7 @@ namespace manejadorDeArchivosPro
                             MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
                         }
-                        else if (!Util.ValidacionDeNombre(this.NombreEntidad_Combo.Text))
+                        else if (!UtilStatic.ValidacionDeNombre(this.NombreEntidad_Combo.Text))
                         {
                             MessageBox.Show("Hay caracteres invalidos en el nombre de la Entidad que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
@@ -334,7 +333,7 @@ namespace manejadorDeArchivosPro
                             MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;                            
                         }
-                        else if (!Util.ValidacionDeNombre(this.comboNombreAtributo.Text))
+                        else if (!UtilStatic.ValidacionDeNombre(this.comboNombreAtributo.Text))
                         {
                             MessageBox.Show("Hay caracteres invalidos en el nombre del atributo que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             break;
@@ -447,6 +446,12 @@ namespace manejadorDeArchivosPro
             int auxComboAtributos = Combo_entidadesParaAtributos.SelectedIndex;
             this.Combo_entidadesParaAtributos.Items.Clear();
 
+            int auxComboEntidadesRegistros = CB_entidadParaRegistro.SelectedIndex;
+            this.CB_entidadParaRegistro.Items.Clear();
+
+            int auxcomboBoxEntidad = comboBoxEntidad.SelectedIndex;
+            this.comboBoxEntidad.Items.Clear();
+
 
             foreach (int i in listaLongitud)
             {
@@ -459,7 +464,9 @@ namespace manejadorDeArchivosPro
                 {
                     this.Combo_entidadesParaAtributos.Items.Add(en.Nombre);
                     this.NombreEntidad_Combo.Items.Add(en.Nombre);
-                    
+                    this.CB_entidadParaRegistro.Items.Add(en.Nombre);
+                    this.comboBoxEntidad.Items.Add(en.Nombre);
+
                     Object[] Row = { en.IDString, en.Nombre, en.Direccion, en.DireccionAtributos, en.DireccionRegistros, en.DireccionSiguiente };
                     dataGridEntidades.Rows.Add(Row);
                 }
@@ -490,6 +497,8 @@ namespace manejadorDeArchivosPro
             }
 
             Combo_entidadesParaAtributos.SelectedIndex = auxComboAtributos;
+            CB_entidadParaRegistro.SelectedIndex = auxComboEntidadesRegistros;
+            comboBoxEntidad.SelectedIndex = auxcomboBoxEntidad;
 
         }
 
@@ -577,7 +586,7 @@ namespace manejadorDeArchivosPro
                     MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 }
-                else if (!Util.ValidacionDeNombre(this.NombreEntidad_Combo.Text))
+                else if (!UtilStatic.ValidacionDeNombre(this.NombreEntidad_Combo.Text))
                 {
                     MessageBox.Show("Hay caracteres invalidos en el nombre de la Entidad que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -606,7 +615,7 @@ namespace manejadorDeArchivosPro
                     MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 }
-                else if (!Util.ValidacionDeNombre(this.comboNombreAtributo.Text))
+                else if (!UtilStatic.ValidacionDeNombre(this.comboNombreAtributo.Text))
                 {
                     MessageBox.Show("Hay caracteres invalidos en el nombre del atributo que intenta crear.\nEvite:" + @" \/:*?\" + "<>| ", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -645,7 +654,7 @@ namespace manejadorDeArchivosPro
 
         private void tabPage3_Click(object sender, EventArgs e)
         {
-
+         
         }
 
         private void menuRegistros_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -653,27 +662,29 @@ namespace manejadorDeArchivosPro
             #region Registros
             if (this.archivoDeTrabajo != null)
             {
-                SeleccionRegistro seleccionRegistro;
                 switch (e.ClickedItem.AccessibleName)
                 {
                     case "Alta":
-                        seleccionEntidad = new SeleccionEntidad(this.archivo);
-                        if (seleccionEntidad.ShowDialog().Equals(DialogResult.OK))
+                        if (this.archivoDeTrabajo.existeEntidad(CB_entidadParaRegistro.Text))
                         {
-                            AltaRegistro altaRegistro;
-                            altaRegistro = new AltaRegistro(this.archivo.buscaEntidad(MetodosAuxiliares.ajustaCadena(seleccionEntidad.Entidad, Constantes.tam)));
-                            altaRegistro.obtenLllaves += new AltaRegistro.ObtenLlaves(this.obtenLllavesEntidad);
+                            AltaRegistroEntidad altaRegistro;
+                            altaRegistro = new AltaRegistroEntidad(CB_entidadParaRegistro.Text, archivoDeTrabajo.getEntidad(CB_entidadParaRegistro.Text));
                             if (altaRegistro.ShowDialog().Equals(DialogResult.OK))
                             {
-                                this.archivo.altaRegistro(MetodosAuxiliares.ajustaCadena(seleccionEntidad.Entidad, Constantes.tam),
-                                                         this.directorio, altaRegistro.Informacion);
-                                this.actualizaTodo();
+                                List<List<byte>> registroAInsertar = altaRegistro.RegistroAlta;
+
+                                this.archivoDeTrabajo.grabaRegistro(registroAInsertar, archivoDeTrabajo.getEntidad(CB_entidadParaRegistro.Text));
+
+                                //this.actualizaTodo();
                             }
                             altaRegistro.Dispose();
                         }
-                        seleccionEntidad.Dispose();
+                        else
+                        {
+                            MessageBox.Show("Escriba un nombre valido no vacio.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                         break;
-                    case "Modificar":
+                    /*case "Modificar":
                         seleccionEntidad = new SeleccionEntidad(this.archivo);
                         if (seleccionEntidad.ShowDialog().Equals(DialogResult.OK))
                         {
@@ -726,14 +737,62 @@ namespace manejadorDeArchivosPro
                             }
                         }
                         seleccionEntidad.Dispose();
-                        break;
+                        break;*/
                 }
             }
             else
             {
                 MessageBox.Show("Por favor abra una base de datos o cree", "Error");
             }
+                       
             #endregion
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridRegistros_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void groupBoxRegistros_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ClaveBusqueda_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxEntidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // se procede a leer los registros para mostrarlos
+            DGV_ClaveDeBusqueda.Rows.Clear();
+            DGV_ClaveDeBusqueda.Columns.Clear();
+            Entidad en = this.archivoDeTrabajo.getEntidad(comboBoxEntidad.Text);
+            DGV_ClaveDeBusqueda.Columns.Add("Direccion","Direccion");
+            foreach (Atributo at in en.atributos)
+            {
+                DGV_ClaveDeBusqueda.Columns.Add(at.Nombre,at.Nombre);
+            }
+            DGV_ClaveDeBusqueda.Columns.Add("Siguiente", "Siguiente");
+
+            long direccionSiguiente= en.DireccionRegistros;
+            while(direccionSiguiente != -1)
+            {
+                List<object> registroObjects = this.archivoDeTrabajo.LeeRegistro(en,direccionSiguiente);
+                DGV_ClaveDeBusqueda.Rows.Add(registroObjects);
+                direccionSiguiente = (long)registroObjects[registroObjects.Count - 1];
+            }
+        }
+
+        private void ComboB_TipoIndiceAtributo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

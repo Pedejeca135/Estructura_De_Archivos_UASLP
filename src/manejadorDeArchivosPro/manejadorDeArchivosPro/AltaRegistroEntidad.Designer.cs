@@ -1,7 +1,7 @@
 ﻿
 namespace manejadorDeArchivosPro
 {
-    partial class AltaRegistroParaAtributo
+    partial class AltaRegistroEntidad
     {
         /// <summary>
         /// Required designer variable.
@@ -29,13 +29,12 @@ namespace manejadorDeArchivosPro
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaRegistroParaAtributo));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaRegistroEntidad));
             this.textBoxLong = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxIndice = new System.Windows.Forms.TextBox();
             this.textBoxTipo = new System.Windows.Forms.TextBox();
-            this.textBoxAtributo = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Anterior = new System.Windows.Forms.Button();
@@ -44,6 +43,7 @@ namespace manejadorDeArchivosPro
             this.Cancelar = new System.Windows.Forms.Button();
             this.Aceptar = new System.Windows.Forms.Button();
             this.textBoxDato = new System.Windows.Forms.TextBox();
+            this.textBoxAtributo = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBoxLong
@@ -68,7 +68,7 @@ namespace manejadorDeArchivosPro
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(42, 85);
+            this.label4.Location = new System.Drawing.Point(27, 85);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 17);
@@ -93,19 +93,10 @@ namespace manejadorDeArchivosPro
             this.textBoxTipo.Size = new System.Drawing.Size(161, 22);
             this.textBoxTipo.TabIndex = 35;
             // 
-            // textBoxAtributo
-            // 
-            this.textBoxAtributo.Enabled = false;
-            this.textBoxAtributo.Location = new System.Drawing.Point(90, 17);
-            this.textBoxAtributo.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxAtributo.Name = "textBoxAtributo";
-            this.textBoxAtributo.Size = new System.Drawing.Size(151, 22);
-            this.textBoxAtributo.TabIndex = 34;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 53);
+            this.label3.Location = new System.Drawing.Point(25, 53);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(45, 17);
@@ -131,6 +122,7 @@ namespace manejadorDeArchivosPro
             this.Anterior.TabIndex = 31;
             this.Anterior.Text = "Anterior";
             this.Anterior.UseVisualStyleBackColor = true;
+            this.Anterior.Click += new System.EventHandler(this.Anterior_Click);
             // 
             // Siguiente
             // 
@@ -141,6 +133,7 @@ namespace manejadorDeArchivosPro
             this.Siguiente.TabIndex = 30;
             this.Siguiente.Text = "Siguiente";
             this.Siguiente.UseVisualStyleBackColor = true;
+            this.Siguiente.Click += new System.EventHandler(this.Siguiente_Click);
             // 
             // label1
             // 
@@ -173,6 +166,7 @@ namespace manejadorDeArchivosPro
             this.Aceptar.Text = "Aceptar";
             this.Aceptar.UseVisualStyleBackColor = true;
             this.Aceptar.Visible = false;
+            this.Aceptar.Click += new System.EventHandler(this.Aceptar_Click);
             // 
             // textBoxDato
             // 
@@ -182,7 +176,17 @@ namespace manejadorDeArchivosPro
             this.textBoxDato.Size = new System.Drawing.Size(367, 22);
             this.textBoxDato.TabIndex = 26;
             // 
-            // AltaRegistroParaAtributo
+            // textBoxAtributo
+            // 
+            this.textBoxAtributo.Enabled = false;
+            this.textBoxAtributo.Location = new System.Drawing.Point(90, 17);
+            this.textBoxAtributo.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxAtributo.Name = "textBoxAtributo";
+            this.textBoxAtributo.Size = new System.Drawing.Size(151, 22);
+            this.textBoxAtributo.TabIndex = 34;
+            this.textBoxAtributo.TextChanged += new System.EventHandler(this.textBoxAtributo_TextChanged);
+            // 
+            // AltaRegistroEntidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -202,8 +206,9 @@ namespace manejadorDeArchivosPro
             this.Controls.Add(this.Aceptar);
             this.Controls.Add(this.textBoxDato);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "AltaRegistroParaAtributo";
-            this.Text = "Registro de Atributo";
+            this.Name = "AltaRegistroEntidad";
+            this.Text = "dd";
+            this.Load += new System.EventHandler(this.AltaRegistroEntidad_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,7 +221,6 @@ namespace manejadorDeArchivosPro
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxIndice;
         private System.Windows.Forms.TextBox textBoxTipo;
-        private System.Windows.Forms.TextBox textBoxAtributo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button Anterior;
@@ -225,5 +229,6 @@ namespace manejadorDeArchivosPro
         private System.Windows.Forms.Button Cancelar;
         private System.Windows.Forms.Button Aceptar;
         private System.Windows.Forms.TextBox textBoxDato;
+        private System.Windows.Forms.TextBox textBoxAtributo;
     }
 }

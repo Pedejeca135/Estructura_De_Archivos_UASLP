@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace manejadorDeArchivosPro
 {
-    class Primario
+    public class IndicePrimario
     {
+
     }
+
 }

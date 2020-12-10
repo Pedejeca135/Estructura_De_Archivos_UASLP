@@ -171,6 +171,82 @@ namespace manejadorDeArchivosPro
             return res;
         }
 
+        public int getOffsetByIndex(int index)
+        {
+            int res = 8;
+            if(index >= this.atributos.Count)
+            {
+                return 0;
+            }
+            for(int i = 0; i < index;i++)
+            {
+                res += this.atributos[i].Longitud;
+            }
+            return res;
+        }
+
+        public int getOffsetByName(string name)
+        {
+            foreach(Atributo atr in this.atributos)
+            {
+                if(atr.Nombre == name)
+                {
+                    return getOffsetByIndex(atributos.IndexOf(atr));
+                }
+            }
+            return 0;
+        }
+
+        public int getEntidadTamRegistro()
+        {
+            int res = 0;
+            foreach(Atributo at in this.atributos)
+            {
+                res += at.Longitud;
+            }
+            return res;
+        }
+
+        public int offSetSiguienteRegistro()
+        {
+            return 8 + getEntidadTamRegistro();
+        }
+
+        public int getEntidadTamTotal()
+        {
+            int res = 16;
+            foreach (Atributo at in this.atributos)
+            {
+                res += at.Longitud;
+            }
+            return res;
+        }
+
+        public int offsetByKey(int key)
+        {
+            foreach (Atributo at in this.atributos)
+            {
+                if (at.TipoIndice == key)
+                {
+                    return getOffsetByIndex(this.atributos.IndexOf(at));
+                }
+            }
+
+                return 0;
+        }
+
+        public Atributo getAtributoByTipoIndice(int tipoIndice)
+        {
+            foreach(Atributo at in this.atributos)
+            {
+                if(tipoIndice == at.TipoIndice)
+                {
+                    return at;
+                }
+            }
+            return null;
+        }
+
         #endregion
 
     }

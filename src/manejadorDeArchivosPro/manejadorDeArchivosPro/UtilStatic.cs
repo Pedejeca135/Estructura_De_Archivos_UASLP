@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace manejadorDeArchivosPro
 {
-    public static class Util
+    public static class UtilStatic
     {
         static int en_id = 5;
         static int en_nombre = 30;
@@ -90,23 +90,23 @@ namespace manejadorDeArchivosPro
         }
         public static int offset_Entidad_nombre
         {
-            get { return offset_Entidad_id + Util.Enum_ID; }
+            get { return offset_Entidad_id + UtilStatic.Enum_ID; }
         }
         public static int offset_Entidad_direccion
         {
-            get { return offset_Entidad_nombre + Util.Enum_Nombre; }
+            get { return offset_Entidad_nombre + UtilStatic.Enum_Nombre; }
         }
         public static int offset_Entidad_direccionAtrib
         {
-            get { return offset_Entidad_direccion + Util.Enum_Direccion; }
+            get { return offset_Entidad_direccion + UtilStatic.Enum_Direccion; }
         }
         public static int offset_Entidad_direccionReg
         {
-            get { return offset_Entidad_direccionAtrib + Util.Enum_Direccion; }
+            get { return offset_Entidad_direccionAtrib + UtilStatic.Enum_Direccion; }
         }
         public static int offset_Entidad_sigDir
         {
-            get { return offset_Entidad_direccionReg + Util.Enum_Direccion; }
+            get { return offset_Entidad_direccionReg + UtilStatic.Enum_Direccion; }
         }
 #endregion
 
@@ -118,31 +118,31 @@ namespace manejadorDeArchivosPro
         }
         public static int offset_Atributo_Nombre
         {
-            get { return offset_Atributo_ID + Util.Enum_ID; }
+            get { return offset_Atributo_ID + UtilStatic.Enum_ID; }
         }
         public static int offset_Atributo_TipoDato
         {
-            get { return offset_Atributo_Nombre + Util.Enum_Nombre; }
+            get { return offset_Atributo_Nombre + UtilStatic.Enum_Nombre; }
         }
         public static int offset_Atributo_Longitud
         {
-            get { return offset_Atributo_TipoDato + Util.Enum_TipoDato; }
+            get { return offset_Atributo_TipoDato + UtilStatic.Enum_TipoDato; }
         }
         public static int offset_Atributo_Direccion
         {
-            get { return offset_Atributo_Longitud + Util.Enum_Longitud; }
+            get { return offset_Atributo_Longitud + UtilStatic.Enum_Longitud; }
         }
         public static int offset_Atributo_TipoIndice
         {
-            get { return offset_Atributo_Direccion + Util.Enum_Direccion; }
+            get { return offset_Atributo_Direccion + UtilStatic.Enum_Direccion; }
         }
         public static int offset_Atributo_DireccionIndice
         {
-            get { return offset_Atributo_TipoIndice + Util.Enum_TipoIndice; }
+            get { return offset_Atributo_TipoIndice + UtilStatic.Enum_TipoIndice; }
         }
         public static int offset_Atributo_DirSigAtributo
         {
-            get { return offset_Atributo_DireccionIndice + Util.Enum_Direccion; }
+            get { return offset_Atributo_DireccionIndice + UtilStatic.Enum_Direccion; }
         }
         #endregion
 
@@ -171,7 +171,41 @@ namespace manejadorDeArchivosPro
             }
             return res;
         }
-    }
-   
 
+        public static byte[] getStringEnByteArray(String cadena, int tamMaximo)
+        {
+            List<byte> result = new List<byte>();
+            int i;
+            for (i = 0; i < cadena.Length && i < tamMaximo; i++)
+            {
+                result.Add(Convert.ToByte(cadena[i]));
+            }
+            for (; i < tamMaximo; i++)
+            {
+                result.Add(Convert.ToByte(255));
+            }
+
+            return result.ToArray();
+        }
+
+
+        public static String getStringByByteArray(byte[] byteArray)
+        {
+            List<char> aux = new List<char>();
+
+            foreach (byte b in byteArray)
+            {
+                if (b >= Convert.ToByte(255))
+                {
+                    break;
+                }
+                aux.Add(Convert.ToChar(b));
+            }
+
+            String res = new string(aux.ToArray());
+            return res;
+        }
+
+
+    }
 }
