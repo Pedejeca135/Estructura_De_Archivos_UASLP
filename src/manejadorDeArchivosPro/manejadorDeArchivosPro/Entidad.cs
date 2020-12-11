@@ -247,6 +247,34 @@ namespace manejadorDeArchivosPro
             return null;
         }
 
+
+        public bool canCreateLlave(String tipoIndi)
+        {
+            if (tipoIndi.Contains("1"))//clave de busqueda.
+            {
+                if(this.getAtributoByTipoIndice(1)!= null)
+                {
+                    return false;
+                }
+            }
+            else if (tipoIndi.Contains("2"))
+            {
+                if (this.getAtributoByTipoIndice(2) != null)
+                {
+                    return false;
+                }
+            }
+            else if (tipoIndi.Contains("4"))
+            {
+                if (this.getAtributoByTipoIndice(4) != null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
         #endregion
 
     }

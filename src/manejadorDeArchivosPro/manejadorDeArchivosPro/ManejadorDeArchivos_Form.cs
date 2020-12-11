@@ -352,8 +352,16 @@ namespace manejadorDeArchivosPro
                                 {
                                     listaLongitud.Add(longitudNuevoAtributo);
                                 }
-                                this.archivoDeTrabajo.altaAtributo(Combo_entidadesParaAtributos.Text, comboNombreAtributo.Text, ComboB_TipoAtributo.Text, longitudNuevoAtributo, ComboB_TipoIndiceAtributo.Text);
-                                this.Reload();
+                                if(this.archivoDeTrabajo.getEntidad(Combo_entidadesParaAtributos.Text).canCreateLlave(ComboB_TipoIndiceAtributo.Text))
+                                {
+                                    this.archivoDeTrabajo.altaAtributo(Combo_entidadesParaAtributos.Text, comboNombreAtributo.Text, ComboB_TipoAtributo.Text, longitudNuevoAtributo, ComboB_TipoIndiceAtributo.Text);
+                                    this.Reload();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Ya existe un atributo con la clave de busqueda"+ ComboB_TipoIndiceAtributo.Text, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                                
                             }
                             else
                             {

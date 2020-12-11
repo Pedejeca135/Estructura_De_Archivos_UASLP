@@ -342,19 +342,19 @@ namespace manejadorDeArchivosPro
                     }
 
                     int tipoIndiceNuevo = 0;//sin indice
-                    if (tipo.Contains('1'))
+                    if (tipoIndice.Contains('1'))
                     {
                         tipoIndiceNuevo = 1;
                     }
-                    else if (tipo.Contains('2'))//secuencial indice primario
+                    else if (tipoIndice.Contains('2'))//secuencial indice primario
                     {
                         tipoIndiceNuevo = 2;
                     }
-                    else if (tipo.Contains('3'))//secuencial indice secundario
+                    else if (tipoIndice.Contains('3'))//secuencial indice secundario
                     {
                         tipoIndiceNuevo = 3;
                     }
-                    else if (tipo.Contains('4'))//arbol b+
+                    else if (tipoIndice.Contains('4'))//arbol b+
                     {
                         tipoIndiceNuevo = 4;
                     }
@@ -897,6 +897,8 @@ namespace manejadorDeArchivosPro
             return result.ToArray();
         }
 
+      
+
         public String getNombreEnString(byte[] nombre)
         {
             List<char> aux = new List<char>();
@@ -945,7 +947,7 @@ namespace manejadorDeArchivosPro
         {
             if (entidad.DireccionRegistros == -1)//si aun no existe registro alguno
             {
-                FileStream archivoDatos = new FileStream(Path.GetDirectoryName(this.pathName) + Path.GetFileNameWithoutExtension(this.pathName) + ".dat", FileMode.Create);//Crea el archivo en disco de datos
+                FileStream archivoDatos = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Create);//Crea el archivo en disco de datos
                 entidad.DireccionRegistros = 0;
 
                 List<byte> listaAuxiliarDeBytes = new List<byte>();//se agrega su direccion en el registro
@@ -1136,7 +1138,7 @@ namespace manejadorDeArchivosPro
 
             Atributo atributoLlaveSecuencial = en.getAtributoByTipoIndice(1);
 
-            using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Open)))//Abre el archivo con el BinaryReader
+            using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Open)))//Abre el archivo con el BinaryReader
             {
                 while(direccionDeRegistro  > -1 && !mayoresEncontrados)
                 {
@@ -1153,8 +1155,8 @@ namespace manejadorDeArchivosPro
                         else
                         {
                             direccionAnterior = direccionDeRegistro;
-                            lector.BaseStream.Seek(direccionDeRegistro + en.offSetSiguienteRegistro(), SeekOrigin.Begin);//Se posciona en la posición del iterador
-                            direccionDeRegistro = lector.ReadInt64();//llave
+                            lect.BaseStream.Seek(direccionDeRegistro + en.offSetSiguienteRegistro(), SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            direccionDeRegistro = lect.ReadInt64();//llave
                         }
                     }
                     else
@@ -1170,8 +1172,9 @@ namespace manejadorDeArchivosPro
                         else
                         {
                             direccionAnterior = direccionDeRegistro;
-                            lector.BaseStream.Seek(direccionDeRegistro + en.offSetSiguienteRegistro(), SeekOrigin.Begin);//Se posciona en la posición del iterador
-                            direccionDeRegistro = lector.ReadInt64();//llave
+                            int auxOSet = en.offSetSiguienteRegistro();
+                            lect.BaseStream.Seek(direccionDeRegistro + auxOSet, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            direccionDeRegistro = lect.ReadInt64();//llave
                         }
                     }
                      
@@ -1179,7 +1182,7 @@ namespace manejadorDeArchivosPro
             }
 
 
-            using (BinaryWriter esc = new BinaryWriter(new FileStream(Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Open)))
+            using (BinaryWriter esc = new BinaryWriter(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Open)))
             {
                 List<byte> listaAuxiliarDeBytes = new List<byte>();
                 listaAuxiliarDeBytes.Add(Convert.ToByte(tamRegistroDatos));//la nueva direccion del nuevo registro 
