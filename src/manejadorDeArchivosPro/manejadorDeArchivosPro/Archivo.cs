@@ -981,8 +981,8 @@ namespace manejadorDeArchivosPro
             }
             else//si si que los hay(registros)
             {
-                Atributo atAux = entidad.getAtributoByTipoIndice(1);
-                if (atAux != null)//insersion secuencial indexada
+                Atributo atributoSecuencialAux = entidad.getAtributoByTipoIndice(1);
+                if (atributoSecuencialAux != null)//insersion secuencial indexada
                 {
                   insertaSecuencial(registro, entidad);
                 }
@@ -990,6 +990,14 @@ namespace manejadorDeArchivosPro
                 {
                    insetaSinTipoDeIndice(registro, entidad);
                 }
+                Atributo atributoPrimario = entidad.getAtributoByTipoIndice(2);
+                if(atributoPrimario != null)
+                {
+
+                }
+                List<Atributo> listaAtributosSecundarios = entidad.getAtributosSecundario();
+
+
             }
 
             //atAux = entidad.getAtributoByTipoIndice(2);

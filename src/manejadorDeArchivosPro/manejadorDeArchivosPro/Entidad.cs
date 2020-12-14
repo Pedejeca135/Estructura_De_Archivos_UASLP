@@ -247,6 +247,20 @@ namespace manejadorDeArchivosPro
             return null;
         }
 
+        public List<Atributo> getAtributosSecundario()
+        {
+            List<Atributo> res = new List<Atributo>();
+
+            foreach(Atributo at in this.atributos)
+            {
+                if(at.TipoIndice == 3)
+                {
+                    res.Add(at);
+                }
+            }
+            return res;
+        }
+
 
         public bool canCreateLlave(String tipoIndi)
         {
