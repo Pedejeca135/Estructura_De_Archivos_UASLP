@@ -10,7 +10,6 @@ namespace manejadorDeArchivosPro
 {
     public class Entidad
     {
-
         #region Variables de Instancia
         private byte[] id;
         private string nombre;//Nombre de la entidad
@@ -18,19 +17,13 @@ namespace manejadorDeArchivosPro
         private long dirAtributos;//Direccion en el archivo de los atributos
         private long dirRegistros;
         private long dirSiguiente;
-
-        
+        private long dirRegistroDesperdiciados;
 
         public List<Atributo> atributos { get; set; }
-
-
-
         #endregion
 
-
-
         #region Constructores
-        public Entidad(byte[] ID, String nombre, long direccion, long dirAtributos, long dirResistros, long dirSiguiente)
+        public Entidad(byte[] ID, String nombre, long direccion, long dirAtributos, long dirResistros,long dirRegDesp, long dirSiguiente)
         {
             this.id = ID;
             this.nombre = nombre;
@@ -39,9 +32,10 @@ namespace manejadorDeArchivosPro
             this.dirRegistros = dirResistros;
             this.dirSiguiente = dirSiguiente;
             this.atributos = new List<Atributo>();
+            dirRegistroDesperdiciados = -1;
         }
 
-        public Entidad(byte[] ID, String nombre, long direccion, long dirAtributos, long dirResistros, long dirSiguiente,List<Atributo> atributos)
+        public Entidad(byte[] ID, String nombre, long direccion, long dirAtributos, long dirResistros,long dirRegDesp, long dirSiguiente,List<Atributo> atributos)
         {
             this.id = ID;
             this.nombre = nombre;
@@ -50,6 +44,7 @@ namespace manejadorDeArchivosPro
             this.dirRegistros = dirResistros;
             this.dirSiguiente = dirSiguiente;
             this.atributos = new List<Atributo>();
+            dirRegistroDesperdiciados = -1;
         }
         #endregion
 

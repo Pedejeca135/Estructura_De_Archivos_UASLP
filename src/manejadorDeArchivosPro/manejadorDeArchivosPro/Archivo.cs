@@ -26,6 +26,10 @@ namespace manejadorDeArchivosPro
 
         long directionDefault = -1;
 
+        FileStream indicePrimario;
+        FileStream indiceSecundario;
+        FileStream indiceArbolBPlus;
+
         #region Variables_De_Instancia
 
         private long cabecera;
@@ -102,6 +106,7 @@ namespace manejadorDeArchivosPro
             string nombre;
             long dirAtributo;
             long dirRegistros;
+            long dirRegistrosDesp;
             Entidad entidad;
 
             
@@ -122,10 +127,11 @@ namespace manejadorDeArchivosPro
                     dirActual = lector.ReadInt64();//Lee un long que de la dirección actual
                     dirAtributo = lector.ReadInt64();//Lee un long que de la dirección de los atributos
                     dirRegistros = lector.ReadInt64();//Lee un long que de la dirección de los registros
+                    dirRegistrosDesp = lector.ReadInt64();
                     dirSiguienteEntidad = lector.ReadInt64();////Lee un long que de la dirección de la siguiente entidad
 
 
-                    entidad = new Entidad(identificador,nombre, dirActual, dirAtributo, dirRegistros, dirSiguienteEntidad);//Crea una nueva entidad con los datos leidos
+                    entidad = new Entidad(identificador,nombre, dirActual, dirAtributo, dirRegistros,dirRegistrosDesp,dirSiguienteEntidad);//Crea una nueva entidad con los datos leidos
                    
 
                     while (dirAtributo != -1)
@@ -146,6 +152,19 @@ namespace manejadorDeArchivosPro
                     entidades.Add(entidad);//Añade la entidad a la lista de entidades
                 }
             }
+        }
+
+
+
+        public void Cerrar(String path)
+        {
+            this.pathName = "";//cambia el nombre del archivo
+            entidades.Clear();//borra todas las entidades de la lista
+            this.length = 0;
+            this.cabecera  = -1;
+            this.cabeceraEntidadesDesperdiciadas = -1;
+            this.cabeceraAtributosDesperdiciados = -1; 
+                 
         }
 
         #endregion
@@ -239,9 +258,14 @@ namespace manejadorDeArchivosPro
                     entidadAlta.Add(b);
                 }
 
-                Entidad aux = new Entidad(ID,nombre, direccionParaEntidad, directionDefault, directionDefault, directionDefault);
+                Entidad aux = new Entidad(ID,nombre, direccionParaEntidad, directionDefault, directionDefault,directionDefault, directionDefault);
                 
                 long direccionSiguienteEntidad = getSiguienteDireccionDeEntidadConInsersion(ref aux);
+
+                foreach (byte b in BitConverter.GetBytes((long)-1))
+                {
+                    entidadAlta.Add(b);
+                }
 
                 foreach (byte b in BitConverter.GetBytes(direccionSiguienteEntidad))
                 {
@@ -259,7 +283,7 @@ namespace manejadorDeArchivosPro
             else
             {
                 MessageBox.Show("La entidad que desea incluir al archivo"+ this.nombre +"ya existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-             }
+            }
         }
 
         public void altaAtributo(String entidad, String nombre, String tipo , int longitud, String tipoIndice)
@@ -820,7 +844,6 @@ namespace manejadorDeArchivosPro
             return null;
         }
 
-
         public long combierteALong(byte[]  by)
         {
             long res = 0;
@@ -978,6 +1001,7 @@ namespace manejadorDeArchivosPro
 
                 
                 creaIndices(entidad);
+
             }
             else//si si que los hay(registros)
             {
@@ -1033,12 +1057,8 @@ namespace manejadorDeArchivosPro
                 direccionAux = lect.ReadInt64();
                 res.Add(direccionAux);
                 return res;
-            }
-                   
-
+            }                 
         }
-
-        
 
         private void creaIndices(Entidad en)
         {
@@ -1047,22 +1067,56 @@ namespace manejadorDeArchivosPro
                 switch (atr.TipoIndice)
                 {
                     case 2://Indice primario
-                        FileStream indicePrimario = new FileStream(Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_P.idx", FileMode.Create);//Crea el archivo en disco de datos
-
+                        if (!File.Exists(Path.GetDirectoryName(this.pathName) +"\\"+ Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_P.idx"))//Crea el archivo en disco de datos
+                        {
+                            
+                            indicePrimario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_P.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+                            
+                            using (BinaryWriter b = new BinaryWriter(indicePrimario))
+                            {
+                                long x = -1;
+                                for (int i = 0; i < 256; i++)
+                                {
+                                    b.Write(x);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            indicePrimario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_P.idx",FileMode.Open);//Crea el archivo en disco de datos
+                        }
                         break;
                     case 3://Indice secundario
-                        FileStream indiceSecundario = new FileStream(Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_S.idx", FileMode.Create);//Crea el archivo en disco de datos
+                         if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_S.idx"))//Crea el archivo en disco de datos
+                        {
+                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_S.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
 
+                            using (BinaryWriter b = new BinaryWriter(indicePrimario))
+                            {
+                                long x = -1;
+                                for (int i = 0; i < 256; i++)
+                                {
+                                    b.Write(x);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_S.idx", FileMode.Open);//Crea el archivo en disco de datos
+                        }
                         break;
                     case 4://Indice arbol B+
-                        FileStream indiceArbolBPlus = new FileStream(Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_B.idx", FileMode.Create);//Crea el archivo en disco de datos
-
+                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_B.idx"))//Crea el archivo en disco de datos
+                        {
+                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_B.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+                        }
+                        else
+                        {
+                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_B.idx", FileMode.Open);//Crea el archivo en disco de datos
+                        }
                         break;
-
                 }
             }
-
-           
         }
 
         private Atributo getAtributoIndice(int tipoIndice, Entidad en)
@@ -1224,6 +1278,27 @@ namespace manejadorDeArchivosPro
                 }
             }
         }
+
+        public bool eliminaRegistroSinTipoIndice(Entidad entidad, Atributo atributo, object aeliminar )
+        {
+
+        }
+
+        public bool eliminaRegistroSecuencial(Entidad entidad)
+        {
+
+        }
+
+        public void insertaIndicePrimario(object llave,long direccionRegistro,Entidad en)
+        {
+            
+        }
+
+        public void insertaIndiceSecundario()
+        {
+
+        }
+
         #endregion
     }
 }
