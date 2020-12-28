@@ -1279,25 +1279,21 @@ namespace manejadorDeArchivosPro
             }
         }
 
-        public bool eliminaRegistroSinTipoIndice(Entidad entidad, Atributo atributo, object aeliminar )
+        public bool eliminaRegistro(Entidad entidad)
         {
+           
+            if(entidad.getAtributoByTipoIndice(1) == null)//eliminacion no secuencial
+            {
 
+            }
+            else
+            {
+
+            }
         }
 
-        public bool eliminaRegistroSecuencial(Entidad entidad)
-        {
-
-        }
-
-        public void insertaIndicePrimario(object llave,long direccionRegistro,Entidad en)
-        {
-            
-        }
-
-        public void insertaIndiceSecundario()
-        {
-
-        }
+        /*Cuando se trate de un arbol b+ se debe de tomar en cuenta que los nodos dentro de las hojas tienen una clave y aparte 
+         * la direccion de d
 
         #endregion
     }
