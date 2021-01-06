@@ -14,6 +14,8 @@ using System.Windows.Forms;
 
 namespace manejadorDeArchivosPro
 {
+
+
     public class Archivo
     {
         /****
@@ -86,7 +88,7 @@ namespace manejadorDeArchivosPro
             this.cierraElArchivo();
         }
 
-        
+
         /**
         * Metodo que se encarga de leer las entidades guardadas
         * en el diccionario de datos utilizando un BinaryReader
@@ -109,7 +111,7 @@ namespace manejadorDeArchivosPro
             long dirRegistrosDesp;
             Entidad entidad;
 
-            
+
             while (dirSiguienteEntidad != -1)//Se cicla mientras
             {
                 using (this.lector = new BinaryReader(new FileStream(this.PathName, FileMode.Open)))//Abre el archivo con el BinaryReader
@@ -131,8 +133,8 @@ namespace manejadorDeArchivosPro
                     dirSiguienteEntidad = lector.ReadInt64();////Lee un long que de la dirección de la siguiente entidad
 
 
-                    entidad = new Entidad(identificador,nombre, dirActual, dirAtributo, dirRegistros,dirRegistrosDesp,dirSiguienteEntidad);//Crea una nueva entidad con los datos leidos
-                   
+                    entidad = new Entidad(identificador, nombre, dirActual, dirAtributo, dirRegistros, dirRegistrosDesp, dirSiguienteEntidad);//Crea una nueva entidad con los datos leidos
+
 
                     while (dirAtributo != -1)
                     {
@@ -145,10 +147,10 @@ namespace manejadorDeArchivosPro
                         int tipoIndice = lector.ReadInt32();
                         long dirIn = lector.ReadInt64();
                         long dirSiguienteAtributo = lector.ReadInt64();
-                        Atributo at = new Atributo(ID,nombreAtributo,tipo,longitud,direccionDelAtributo,tipoIndice,dirIn,dirSiguienteAtributo);
+                        Atributo at = new Atributo(ID, nombreAtributo, tipo, longitud, direccionDelAtributo, tipoIndice, dirIn, dirSiguienteAtributo);
                         dirAtributo = dirSiguienteAtributo;
                         entidad.addAtributo(at);
-                    }                    
+                    }
                     entidades.Add(entidad);//Añade la entidad a la lista de entidades
                 }
             }
@@ -161,10 +163,10 @@ namespace manejadorDeArchivosPro
             this.pathName = "";//cambia el nombre del archivo
             entidades.Clear();//borra todas las entidades de la lista
             this.length = 0;
-            this.cabecera  = -1;
+            this.cabecera = -1;
             this.cabeceraEntidadesDesperdiciadas = -1;
-            this.cabeceraAtributosDesperdiciados = -1; 
-                 
+            this.cabeceraAtributosDesperdiciados = -1;
+
         }
 
         #endregion
@@ -201,13 +203,13 @@ namespace manejadorDeArchivosPro
             get { return this.entidades; }
         }
 
-        
+
         #endregion
 
 
         #region Metodos
         public void altaEntidad(String nombre)
-        {            
+        {
             if (!existeEntidad(nombre))
             {
                 List<byte> entidadAlta = new List<byte>();
@@ -258,8 +260,8 @@ namespace manejadorDeArchivosPro
                     entidadAlta.Add(b);
                 }
 
-                Entidad aux = new Entidad(ID,nombre, direccionParaEntidad, directionDefault, directionDefault,directionDefault, directionDefault);
-                
+                Entidad aux = new Entidad(ID, nombre, direccionParaEntidad, directionDefault, directionDefault, directionDefault, directionDefault);
+
                 long direccionSiguienteEntidad = getSiguienteDireccionDeEntidadConInsersion(ref aux);
 
                 foreach (byte b in BitConverter.GetBytes((long)-1))
@@ -272,21 +274,21 @@ namespace manejadorDeArchivosPro
                     entidadAlta.Add(b);
                 }
 
-                this.abreElArchivo();                
+                this.abreElArchivo();
                 this.archivo.Seek(direccionParaEntidad, SeekOrigin.Current);
                 escritor = new BinaryWriter(archivo);
                 this.escritor.Write(entidadAlta.ToArray());
                 this.archivo.Seek(0, SeekOrigin.Begin);
                 this.escritor.Write(this.cabecera);
-                this.cierraElArchivo();              
+                this.cierraElArchivo();
             }
             else
             {
-                MessageBox.Show("La entidad que desea incluir al archivo"+ this.nombre +"ya existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La entidad que desea incluir al archivo" + this.nombre + "ya existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public void altaAtributo(String entidad, String nombre, String tipo , int longitud, String tipoIndice)
+        public void altaAtributo(String entidad, String nombre, String tipo, int longitud, String tipoIndice)
         {
             if (existeEntidad(entidad))
             {
@@ -425,7 +427,7 @@ namespace manejadorDeArchivosPro
 
         public void eliminaEntidad(String nombre)
         {
-            int indexEnt = -1; 
+            int indexEnt = -1;
             foreach (Entidad en in this.entidades)
             {
                 if (en.Nombre == nombre)
@@ -445,7 +447,7 @@ namespace manejadorDeArchivosPro
                         entidades.ElementAt(indexEnt - 1).DireccionSiguiente = en.DireccionSiguiente;
                         this.abreElArchivo();
                         escritor = new BinaryWriter(archivo);
-                        this.archivo.Seek(entidades.ElementAt(indexEnt-1).Direccion+UtilStatic.offset_Entidad_sigDir, SeekOrigin.Begin);
+                        this.archivo.Seek(entidades.ElementAt(indexEnt - 1).Direccion + UtilStatic.offset_Entidad_sigDir, SeekOrigin.Begin);
                         this.escritor.Write(entidades.ElementAt(indexEnt - 1).DireccionSiguiente);
                         this.cierraElArchivo();
                     }
@@ -456,7 +458,7 @@ namespace manejadorDeArchivosPro
                     escritor = new BinaryWriter(archivo);
                     this.archivo.Seek(en.Direccion + UtilStatic.offset_Entidad_sigDir, SeekOrigin.Begin);
                     this.escritor.Write(auxEntDesp);
-                    this.archivo.Seek(UtilStatic.Enum_Direccion,SeekOrigin.Begin);
+                    this.archivo.Seek(UtilStatic.Enum_Direccion, SeekOrigin.Begin);
                     this.escritor.Write(cabeceraEntidadesDesperdiciadas);
                     this.cierraElArchivo();
 
@@ -474,10 +476,10 @@ namespace manejadorDeArchivosPro
                     }
                     break;
                 }
-                
+
             }
-            if(indexEnt>-1)
-            entidades.RemoveAt(indexEnt);
+            if (indexEnt > -1)
+                entidades.RemoveAt(indexEnt);
         }
 
         public void eliminaAtributo(String nombreEntidad, String nombre)
@@ -505,20 +507,20 @@ namespace manejadorDeArchivosPro
                 this.cierraElArchivo();
             }
 
-                at.DirSiguiente = cabeceraAtributosDesperdiciados;                
-                cabeceraAtributosDesperdiciados = at.Direccion;
+            at.DirSiguiente = cabeceraAtributosDesperdiciados;
+            cabeceraAtributosDesperdiciados = at.Direccion;
 
-                this.abreElArchivo();
-                escritor = new BinaryWriter(archivo);
-                this.archivo.Seek(UtilStatic.Enum_Direccion * 2, SeekOrigin.Begin);
-                this.escritor.Write(cabeceraAtributosDesperdiciados);
-                this.archivo.Seek(cabeceraAtributosDesperdiciados, SeekOrigin.Begin);
-                this.escritor.Write(at.DirSiguiente);
-                this.cierraElArchivo();
-                en.Remove(at);
+            this.abreElArchivo();
+            escritor = new BinaryWriter(archivo);
+            this.archivo.Seek(UtilStatic.Enum_Direccion * 2, SeekOrigin.Begin);
+            this.escritor.Write(cabeceraAtributosDesperdiciados);
+            this.archivo.Seek(cabeceraAtributosDesperdiciados, SeekOrigin.Begin);
+            this.escritor.Write(at.DirSiguiente);
+            this.cierraElArchivo();
+            en.Remove(at);
         }
 
-        public void CambiaNombreAtributo( String nombreEntidad, String nombreAtributo, String nuevoNombre)
+        public void CambiaNombreAtributo(String nombreEntidad, String nombreAtributo, String nuevoNombre)
         {
             Atributo at = getEntidad(nombreEntidad).getAtributo(nombreAtributo);
             at.Nombre = nuevoNombre;
@@ -542,8 +544,8 @@ namespace manejadorDeArchivosPro
         public void CambiaAtributo(String entidadNombre, String atributoNombre, String atributoNuevoNombre, char tipo, int longitud, int tipoIndice, Boolean cambiarNombre)
         {
             Atributo at = getEntidad(entidadNombre).getAtributo(atributoNombre);
-            if(cambiarNombre)
-            at.Nombre = atributoNuevoNombre;
+            if (cambiarNombre)
+                at.Nombre = atributoNuevoNombre;
             at.Tipo = tipo;
             at.Longitud = longitud;
             at.TipoIndice = tipoIndice;
@@ -600,7 +602,7 @@ namespace manejadorDeArchivosPro
         {
             Entidad apuntando = getEntidadApuntando(en);
 
-            if(apuntando == null)
+            if (apuntando == null)
             {
                 cabecera = en.DireccionSiguiente;
 
@@ -620,13 +622,13 @@ namespace manejadorDeArchivosPro
                 this.escritor.Write(apuntando.DireccionSiguiente);
                 this.cierraElArchivo();
             }
-                        
+
             int i;
             entidades.Remove(en);
 
-            for ( i = entidades.Count() - 1; i >= 0; i--)
+            for (i = entidades.Count() - 1; i >= 0; i--)
             {
-                if (en.Nombre.CompareTo(entidades[i].Nombre) > 0 )//se encontro alguno entones va a la derecha
+                if (en.Nombre.CompareTo(entidades[i].Nombre) > 0)//se encontro alguno entones va a la derecha
                 {
                     en.DireccionSiguiente = entidades[i].DireccionSiguiente;
                     entidades[i].DireccionSiguiente = en.Direccion;
@@ -636,7 +638,7 @@ namespace manejadorDeArchivosPro
 
                     this.abreElArchivo();
                     escritor = new BinaryWriter(archivo);
-                    
+
                     this.archivo.Seek(entidades[i].Direccion + UtilStatic.offset_Entidad_sigDir, SeekOrigin.Begin);
                     this.escritor.Write(entidades[i].DireccionSiguiente);
 
@@ -710,14 +712,14 @@ namespace manejadorDeArchivosPro
 
         private Entidad getEntidadApuntando(Entidad enApuntaPasiva)
         {
-            foreach(Entidad en in this.entidades)
+            foreach (Entidad en in this.entidades)
             {
-                if(en.DireccionSiguiente == enApuntaPasiva.Direccion)
+                if (en.DireccionSiguiente == enApuntaPasiva.Direccion)
                 {
                     return en;
                 }
             }
-            return null;            
+            return null;
         }
 
 
@@ -752,18 +754,18 @@ namespace manejadorDeArchivosPro
         {
             this.archivo = File.Open(pathName, FileMode.Open, FileAccess.Write, FileShare.None);
         }
-        
+
         private long getSiguienteDireccionDeEntidadConInsersion(ref Entidad entidad)
         {
             int i = 0;
             entidad.DireccionSiguiente = -1;
-            for (i = entidades.Count()-1; i>= 0; i--)
+            for (i = entidades.Count() - 1; i >= 0; i--)
             {
-                if(entidad.Nombre.CompareTo(entidades[i].Nombre) > 0)//se encontro alguno entones va a la derecha
+                if (entidad.Nombre.CompareTo(entidades[i].Nombre) > 0)//se encontro alguno entones va a la derecha
                 {
                     entidad.DireccionSiguiente = entidades[i].DireccionSiguiente;
                     entidades[i].DireccionSiguiente = entidad.Direccion;
-                    entidades.Insert(i+1,entidad);
+                    entidades.Insert(i + 1, entidad);
 
                     this.abreElArchivo();
                     escritor = new BinaryWriter(archivo);
@@ -772,14 +774,14 @@ namespace manejadorDeArchivosPro
                     this.cierraElArchivo();
                     break;
                 }
-                else if(entidad.Nombre.CompareTo(entidades[i].Nombre) == 0)
+                else if (entidad.Nombre.CompareTo(entidades[i].Nombre) == 0)
                 {
                     Entidad entidadAlaIzquierda = getEntidadApuntando(entidades[i]);
-                    if(entidadAlaIzquierda  == null)
+                    if (entidadAlaIzquierda == null)
                     {
                         entidad.DireccionSiguiente = cabecera;
                         cabecera = entidad.Direccion;
-                        entidades.Insert(0,entidad);
+                        entidades.Insert(0, entidad);
 
                         this.abreElArchivo();
                         escritor = new BinaryWriter(archivo);
@@ -794,7 +796,7 @@ namespace manejadorDeArchivosPro
                     {
                         entidad.DireccionSiguiente = entidades[i].Direccion;
                         entidadAlaIzquierda.DireccionSiguiente = entidad.Direccion;
-                        entidades.Insert(i-1, entidad);
+                        entidades.Insert(i - 1, entidad);
 
                         this.abreElArchivo();
                         escritor = new BinaryWriter(archivo);
@@ -804,19 +806,19 @@ namespace manejadorDeArchivosPro
                         this.escritor.Write(entidad.DireccionSiguiente);
                         this.cierraElArchivo();
 
-                    }                   
+                    }
 
-                    
+
                     break;
                 }
             }
-            if(i == -1 && entidades.Count()>0)//se inserta al inicio
+            if (i == -1 && entidades.Count() > 0)//se inserta al inicio
             {
                 entidad.DireccionSiguiente = entidades[0].Direccion;
                 entidades.Insert(0, entidad);
                 cabecera = entidad.Direccion;
             }
-            else if(entidades.Count() == 0)
+            else if (entidades.Count() == 0)
             {
                 entidades.Add(entidad);
                 cabecera = entidad.Direccion;
@@ -844,7 +846,7 @@ namespace manejadorDeArchivosPro
             return null;
         }
 
-        public long combierteALong(byte[]  by)
+        public long combierteALong(byte[] by)
         {
             long res = 0;
             for (int i = 0; i < by.Length; i++)
@@ -852,8 +854,8 @@ namespace manejadorDeArchivosPro
                 res = (res << 8) + (by[i] & 0xff);
             }
             return res;
-        }   
-        
+        }
+
         List<byte[]> idList = new List<byte[]>();
 
         public byte[] creaID()
@@ -868,16 +870,16 @@ namespace manejadorDeArchivosPro
                 Random random = new Random();
                 random.NextBytes(buffer);
 
-                foreach(byte[] id in idList)
+                foreach (byte[] id in idList)
                 {
-                    if(id.SequenceEqual(buffer))
+                    if (id.SequenceEqual(buffer))
                     {
                         next = true;
                         break;
                     }
                 }
             }
-                return buffer;
+            return buffer;
         }
 
         public byte[] creaID(List<byte[]> idList)
@@ -908,7 +910,7 @@ namespace manejadorDeArchivosPro
         {
             List<byte> result = new List<byte>();
             int i;
-            for (i = 0; i < nombre.Length && i < 30 ; i++)
+            for (i = 0; i < nombre.Length && i < 30; i++)
             {
                 result.Add(Convert.ToByte(nombre[i]));
             }
@@ -916,24 +918,24 @@ namespace manejadorDeArchivosPro
             {
                 result.Add(Convert.ToByte(255));
             }
-            
+
             return result.ToArray();
         }
 
-      
+
 
         public String getNombreEnString(byte[] nombre)
         {
             List<char> aux = new List<char>();
 
-            foreach(byte b in nombre)
+            foreach (byte b in nombre)
             {
-                if(b >= Convert.ToByte(255))
+                if (b >= Convert.ToByte(255))
                 {
                     break;
                 }
                 aux.Add(Convert.ToChar(b));
-                
+
             }
 
             String res = new string(aux.ToArray());
@@ -948,10 +950,10 @@ namespace manejadorDeArchivosPro
 
         public Boolean ContainsName(String nombre)
         {
-            foreach(Entidad en in this.entidades)
+            foreach (Entidad en in this.entidades)
             {
-                if(en.Nombre == nombre)
-                return true;
+                if (en.Nombre == nombre)
+                    return true;
             }
             return false;
         }
@@ -970,17 +972,18 @@ namespace manejadorDeArchivosPro
         {
             if (entidad.DireccionRegistros == -1)//si aun no existe registro alguno
             {
-                FileStream archivoDatos = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Create);//Crea el archivo en disco de datos
+                FileStream archivoDatos = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + entidad.Nombre + ".dat", FileMode.Create);//Crea el archivo en disco de datos
                 entidad.DireccionRegistros = 0;
 
                 List<byte> listaAuxiliarDeBytes = new List<byte>();//se agrega su direccion en el registro
-                
+
                 foreach (byte b in BitConverter.GetBytes(entidad.DireccionRegistros))
                 {
                     listaAuxiliarDeBytes.Add(b);
                 }
 
                 registro.Insert(0, listaAuxiliarDeBytes);
+
 
                 //long para la direccion siguiente registro del primer registro insertado = -1
                 long auxDir = -1;
@@ -991,35 +994,45 @@ namespace manejadorDeArchivosPro
                     listaAuxiliarDeBytes.Add(b);
                 }
 
-                registro.Add(listaAuxiliarDeBytes);
+                //direcciones multilista en el registro
+                foreach (Atributo at in entidad.getAtributosMultilista())
+                {
+                    registro.Add(listaAuxiliarDeBytes);
+                }
 
-                this.abreElArchivo();//se escribe la direccion de los registros en el archivo de trabajo en la entidad
+                registro.Add(listaAuxiliarDeBytes);//la direccion del siguiente registro segun la organizacion secuencial
+
+                this.abreElArchivo();//se escribe la direccion de los registros en el archivo de trabajo 
                 escritor = new BinaryWriter(archivo);
                 this.archivo.Seek(entidad.Direccion + UtilStatic.offset_Entidad_direccionReg, SeekOrigin.Current);
                 this.escritor.Write(entidad.DireccionRegistros);
                 this.cierraElArchivo();
 
-                
                 creaIndices(entidad);
-
+                insetaSinTipoDeIndice(registro, entidad);
             }
             else//si si que los hay(registros)
             {
                 Atributo atributoSecuencialAux = entidad.getAtributoByTipoIndice(1);
-                if (atributoSecuencialAux != null)//insersion secuencial indexada
+                long auxilirLectura = entidad.getOffsetByName(atributoSecuencialAux.Nombre);
+
+                if (existeLlavePrimaria(entidad.objetoEnRegistro(entidad.getAtributoByTipoIndice(2), registro), entidad) == -1 && existeLlaveArbol(entidad.objetoEnRegistro(entidad.getAtributoByTipoIndice(4), registro), entidad) == -1)
                 {
-                  insertaSecuencial(registro, entidad);
+                    if (atributoSecuencialAux != null)//insersion secuencial indexada
+                    {
+                        insertaSecuencial(registro, entidad);
+                    }
+                    else//insercion normal sin orden alguno 
+                    {
+                        insetaSinTipoDeIndice(registro, entidad);
+                    }
+
+
                 }
-                else//insercion normal sin orden alguno 
-                {
-                   insetaSinTipoDeIndice(registro, entidad);
-                }
-                Atributo atributoPrimario = entidad.getAtributoByTipoIndice(2);
-                if(atributoPrimario != null)
+                else
                 {
 
                 }
-                List<Atributo> listaAtributosSecundarios = entidad.getAtributosSecundario();
 
 
             }
@@ -1029,23 +1042,63 @@ namespace manejadorDeArchivosPro
             return false;
         }
 
+        public void insertaIndices(Entidad entid, List<List<byte>> registro )
+        {
+            foreach (Atributo at in entid.atributos)
+            {
+                switch (at.TipoIndice)
+                {
+                    case 2:
+                        insertaPrimario(entid,registro);
+                        break;
+                    case 3:
+                        insertaSecundario(entid, registro);
+                        break;
+                    case 4:
+                        insertaArbol(entid, registro);
+                        break;
+                    case 5:
+                        insertaMultilista(entid, registro);
+                        break;
+                }
+            }
+
+        } 
+
+        public int insertaPrimario(Entidad entid, List<List<byte>> registro)
+        {
+            return -1;
+        }
+        public int insertaSecundario(Entidad entid, List<List<byte>> registro)
+        {
+            return -1;
+        }
+        public int insertaArbol(Entidad entid, List<List<byte>> registro)
+        {
+            return -1;
+        }
+        public int insertaMultilista(Entidad entid, List<List<byte>> registro)
+        {
+            return -1;
+        }
+
         public List<object> LeeRegistro(Entidad en, long direccion)
         {
             List<object> res = new List<object>();
 
-            using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.PathName) +"\\"+Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Open)))//Abre el archivo con el BinaryReader
+            using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.PathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Open)))//Abre el archivo con el BinaryReader
             {
                 lect.BaseStream.Seek(direccion, SeekOrigin.Begin);//Se posciona en la posición del iterador
                 long direccionAux = lect.ReadInt64();
                 res.Add(direccionAux);
 
-                foreach(Atributo at in en.atributos)
+                foreach (Atributo at in en.atributos)
                 {
                     if (at.Tipo == 'E' || at.Tipo == 'e')
                     {
                         res.Add(lect.ReadInt32());
                     }
-                    else if(at.Tipo == 'C' || at.Tipo == 'c')
+                    else if (at.Tipo == 'C' || at.Tipo == 'c')
                     {
 
                         byte[] byteArrayAux = lect.ReadBytes(at.Longitud).ToArray();
@@ -1057,7 +1110,7 @@ namespace manejadorDeArchivosPro
                 direccionAux = lect.ReadInt64();
                 res.Add(direccionAux);
                 return res;
-            }                 
+            }
         }
 
         private void creaIndices(Entidad en)
@@ -1067,29 +1120,9 @@ namespace manejadorDeArchivosPro
                 switch (atr.TipoIndice)
                 {
                     case 2://Indice primario
-                        if (!File.Exists(Path.GetDirectoryName(this.pathName) +"\\"+ Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_P.idx"))//Crea el archivo en disco de datos
+                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" +en.Nombre +"_" +atr.Nombre + "_P.idx"))//Crea el archivo en disco de datos
                         {
-                            
-                            indicePrimario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_P.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
-                            
-                            using (BinaryWriter b = new BinaryWriter(indicePrimario))
-                            {
-                                long x = -1;
-                                for (int i = 0; i < 256; i++)
-                                {
-                                    b.Write(x);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            indicePrimario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_P.idx",FileMode.Open);//Crea el archivo en disco de datos
-                        }
-                        break;
-                    case 3://Indice secundario
-                         if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_S.idx"))//Crea el archivo en disco de datos
-                        {
-                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_S.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+                            indicePrimario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_P.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
 
                             using (BinaryWriter b = new BinaryWriter(indicePrimario))
                             {
@@ -1102,17 +1135,55 @@ namespace manejadorDeArchivosPro
                         }
                         else
                         {
-                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_S.idx", FileMode.Open);//Crea el archivo en disco de datos
+                            indicePrimario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_P.idx", FileMode.Open);//Crea el archivo en disco de datos
                         }
                         break;
-                    case 4://Indice arbol B+
-                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_B.idx"))//Crea el archivo en disco de datos
+                    case 3://Indice secundario
+                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_S.idx"))//Crea el archivo en disco de datos
                         {
-                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_B.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_S.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+
+                            using (BinaryWriter b = new BinaryWriter(indicePrimario))
+                            {
+                                long x = -1;
+                                for (int i = 0; i < 256; i++)
+                                {
+                                    b.Write(x);
+                                }
+                            }
                         }
                         else
                         {
-                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + atr.Nombre + "_B.idx", FileMode.Open);//Crea el archivo en disco de datos
+                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_S.idx", FileMode.Open);//Crea el archivo en disco de datos
+                        }
+                        break;
+                    case 4://Indice arbol B+
+                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_B.idx"))//Crea el archivo en disco de datos
+                        {
+                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_B.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+                        }
+                        else
+                        {
+                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_B.idx", FileMode.Open);//Crea el archivo en disco de datos
+                        }
+                        break;
+                    case 5://Indice  multilista
+                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_M.idx"))//Crea el archivo en disco de datos
+                        {
+                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_M.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+
+                            using (BinaryWriter b = new BinaryWriter(indicePrimario))
+                            {
+                                long x = -1;
+                                for (int i = 0; i < 256; i++)
+                                {
+                                    b.Write(x);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_M.idx", FileMode.Open);//Crea el archivo en disco de datos
                         }
                         break;
                 }
@@ -1139,7 +1210,7 @@ namespace manejadorDeArchivosPro
 
             FileStream registroFile;
 
-             string nombreDelArchivoDat = Path.GetDirectoryName(this.pathName)+ "\\"+Path.GetFileNameWithoutExtension(this.PathName) + ".dat";
+            string nombreDelArchivoDat = Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) +"_"+en.Nombre+".dat";
             if (!File.Exists(nombreDelArchivoDat))
             {
                 registroFile = new FileStream(nombreDelArchivoDat, FileMode.Create);
@@ -1154,16 +1225,31 @@ namespace manejadorDeArchivosPro
             {
                 List<byte> listaAuxiliarDeBytes = new List<byte>();
 
-                foreach(byte b in BitConverter.GetBytes(tamRegistroDatos))
+                foreach (byte b in BitConverter.GetBytes(tamRegistroDatos))
                 {
                     listaAuxiliarDeBytes.Add(b);
                 }
 
+
                 registro.Insert(0, listaAuxiliarDeBytes);
 
-                    listaAuxiliarDeBytes = new List<byte>();
-                    //direccion del registro al que apuntara                   
-                foreach(byte b in BitConverter.GetBytes(direccionDeRegistro))
+               
+                //direccion de multilistas
+                listaAuxiliarDeBytes = new List<byte>();
+                long longAux = -1;
+                foreach (byte b in BitConverter.GetBytes(longAux))
+                {
+                    listaAuxiliarDeBytes.Add(b);
+                }
+
+                foreach (Atributo at in en.getAtributosMultilista())
+                {
+                    registro.Add(listaAuxiliarDeBytes);
+                }
+
+                listaAuxiliarDeBytes = new List<byte>();
+                //direccion del registro al que apuntara                   
+                foreach (byte b in BitConverter.GetBytes(direccionDeRegistro))
                 {
                     listaAuxiliarDeBytes.Add(b);
                 }
@@ -1171,18 +1257,18 @@ namespace manejadorDeArchivosPro
 
                 registro.Add(listaAuxiliarDeBytes);
 
-                    en.DireccionRegistros = tamRegistroDatos;
-                    this.abreElArchivo();
-                    escritor = new BinaryWriter(archivo);
-                    this.archivo.Seek(en.Direccion + UtilStatic.offset_Entidad_direccionReg, SeekOrigin.Current);
-                    this.escritor.Write(en.DireccionRegistros);
-                    this.cierraElArchivo();
-                    esc.Seek(0,SeekOrigin.End);
-                    foreach (List<byte> lB in registro)
-                    {
-                        esc.Write(lB.ToArray());
-                    }
-                
+                en.DireccionRegistros = tamRegistroDatos;
+                this.abreElArchivo();
+                escritor = new BinaryWriter(archivo);
+                this.archivo.Seek(en.Direccion + UtilStatic.offset_Entidad_direccionReg, SeekOrigin.Current);
+                this.escritor.Write(en.DireccionRegistros);
+                this.cierraElArchivo();
+                esc.Seek(0, SeekOrigin.End);
+                foreach (List<byte> lB in registro)
+                {
+                    esc.Write(lB.ToArray());
+                }
+
             }
         }
 
@@ -1194,7 +1280,7 @@ namespace manejadorDeArchivosPro
 
             bool mayoresEncontrados = false;
 
-            FileStream registroFile = File.OpenRead(Path.GetDirectoryName(this.pathName)+ "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat");
+            FileStream registroFile = File.OpenRead(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat");
             long tamRegistroDatos = registroFile.Length;
             registroFile.Close();
 
@@ -1202,7 +1288,7 @@ namespace manejadorDeArchivosPro
 
             using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Open)))//Abre el archivo con el BinaryReader
             {
-                while(direccionDeRegistro  > -1 && !mayoresEncontrados)
+                while (direccionDeRegistro > -1 && !mayoresEncontrados)
                 {
                     if (atributoLlaveSecuencial.Tipo == 'E' || atributoLlaveSecuencial.Tipo == 'e')//es entero
                     {
@@ -1212,7 +1298,6 @@ namespace manejadorDeArchivosPro
                         if (llaveLeida >= Convert.ToInt32(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1))]))// se tiene que insertar
                         {
                             mayoresEncontrados = true;
-
                         }
                         else
                         {
@@ -1224,10 +1309,10 @@ namespace manejadorDeArchivosPro
                     else
                     {
                         lect.BaseStream.Seek(direccionDeRegistro + en.offsetByKey(1), SeekOrigin.Begin);//Se posciona en la posición del iterador
-                        
+
                         string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(en.getAtributoByTipoIndice(1).Longitud));
 
-                        if (llaveLeida.CompareTo(Convert.ToString(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1))]))>=0 )// se tiene que insertar
+                        if (llaveLeida.CompareTo(Convert.ToString(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1))])) >= 0)// se tiene que insertar
                         {
                             mayoresEncontrados = true;
                         }
@@ -1239,7 +1324,7 @@ namespace manejadorDeArchivosPro
                             direccionDeRegistro = lect.ReadInt64();//llave
                         }
                     }
-                     
+
                 }
             }
 
@@ -1254,16 +1339,16 @@ namespace manejadorDeArchivosPro
                 {
                     listaAuxiliarDeBytes = new List<byte>();
                     listaAuxiliarDeBytes.Add(Convert.ToByte(direccionDeRegistro));//direccion del registro al que apuntara
-                    registro.Insert(registro.Count-1, listaAuxiliarDeBytes);
+                    registro.Insert(registro.Count - 1, listaAuxiliarDeBytes);
 
                     en.DireccionRegistros = tamRegistroDatos;
                     this.abreElArchivo();
                     escritor = new BinaryWriter(archivo);
-                    this.archivo.Seek(en.Direccion + UtilStatic.offset_Entidad_direccionReg, SeekOrigin.Current);                    
+                    this.archivo.Seek(en.Direccion + UtilStatic.offset_Entidad_direccionReg, SeekOrigin.Current);
                     this.escritor.Write(en.DireccionRegistros);
                     this.cierraElArchivo();
 
-                   foreach(List<byte> lB in registro)
+                    foreach (List<byte> lB in registro)
                     {
                         esc.Write(lB.ToArray());
                     }
@@ -1279,21 +1364,299 @@ namespace manejadorDeArchivosPro
             }
         }
 
-        public bool eliminaRegistro(Entidad entidad)
-        {
-           
-            if(entidad.getAtributoByTipoIndice(1) == null)//eliminacion no secuencial
-            {
 
+        #region IndicePrimario
+        public long existeLlavePrimaria(object insersion, Entidad en)
+        {
+            long res = -1;
+            long direccionDeRegistro = 0;
+            long direccionAnterior = 0;
+            Atributo atributoLlavePrimaria = en.getAtributoIndice(2);
+
+            if (atributoLlavePrimaria.Tipo == 'E' || atributoLlavePrimaria.Tipo == 'e')//es entero
+            {
+                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                {
+                    while (direccionDeRegistro > -1)
+                    {
+                        lect.BaseStream.Seek(direccionDeRegistro, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                        int llaveLeida = lect.ReadInt32();
+
+                        if (llaveLeida == Convert.ToInt32(insersion))// se tiene que insertar
+                        {
+                            res = direccionDeRegistro;
+                            break;
+                        }
+                        else
+                        {
+                            direccionAnterior = direccionDeRegistro;
+                            lect.BaseStream.Seek(direccionDeRegistro + 4, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            direccionDeRegistro = lect.ReadInt64();//llave
+                        }
+                    }
+                }
+            }
+            else if (atributoLlavePrimaria.Tipo == 'C' || atributoLlavePrimaria.Tipo == 'c')
+            {
+                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                {
+                    while (direccionDeRegistro > -1)
+                    {
+                        lect.BaseStream.Seek(direccionDeRegistro, SeekOrigin.Begin);//Se posciona en la posición del iterador
+
+                        string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(atributoLlavePrimaria.Longitud));
+
+                        if (llaveLeida.CompareTo(Convert.ToString(insersion)) == 0)//no se podra insertar
+                        {
+                            res = direccionDeRegistro;
+                            break;
+                        }
+                        else
+                        {
+                            direccionAnterior = direccionDeRegistro;
+                            lect.BaseStream.Seek(direccionDeRegistro + atributoLlavePrimaria.Longitud, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            direccionDeRegistro = lect.ReadInt64();//llave
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
+        public List<object> LeeCeldaPrimario(Entidad en, ref long direccionDeCelda)
+        {
+            List<object> res = new List<object>();
+            Atributo atributoLlavePrimaria = en.getAtributoByTipoIndice(2);
+
+            if (atributoLlavePrimaria.Tipo == 'E' || atributoLlavePrimaria.Tipo == 'e')
+            {
+                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))
+                {
+                    lectorIdPAux.BaseStream.Seek(direccionDeCelda, SeekOrigin.Begin);
+                    int llaveLeida = lectorIdPAux.ReadInt32();
+                    res.Add(llaveLeida);
+                    long direccionDeIndice = lectorIdPAux.ReadInt64();
+                    res.Add(direccionDeIndice);
+                    direccionDeCelda += ( atributoLlavePrimaria.Longitud + 8);
+                }
+                return res;
+            }
+            else if (atributoLlavePrimaria.Tipo == 'C' || atributoLlavePrimaria.Tipo == 'c')
+            {
+                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))
+                {
+                    lectorIdPAux.BaseStream.Seek(direccionDeCelda, SeekOrigin.Begin);
+                    String llaveLeida = UtilStatic.getStringByByteArray(lectorIdPAux.ReadBytes(atributoLlavePrimaria.Longitud));
+                    res.Add(llaveLeida);
+                    long direccionDeIndice = lectorIdPAux.ReadInt64();
+                    res.Add(direccionDeIndice);
+                    direccionDeCelda += (atributoLlavePrimaria.Longitud + 8);
+                }
+                return res;
+            }
+            return null;
+        }
+
+        #endregion
+
+        #region IndiceSecundario
+
+        public long existeLlaveSecundaria(object LlaveInsersion, Entidad en)
+        {
+            long res = -1;
+            long direccionDeRegistro = 0;
+            long direccionAnterior = 0;
+            Atributo atributoLlavePrimaria = en.getAtributoIndice(2);
+
+            if (atributoLlavePrimaria.Tipo == 'E' || atributoLlavePrimaria.Tipo == 'e')//es entero
+            {
+                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_S.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                {
+                    while (direccionDeRegistro > -1)
+                    {
+                        lect.BaseStream.Seek(direccionDeRegistro, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                        int llaveLeida = lect.ReadInt32();
+
+                        if (llaveLeida == Convert.ToInt32(LlaveInsersion))// se tiene que insertar
+                        {
+                            res = direccionDeRegistro;
+                            break;
+                        }
+                        else
+                        {
+                            direccionAnterior = direccionDeRegistro;
+                            lect.BaseStream.Seek(direccionDeRegistro + 4, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            direccionDeRegistro = lect.ReadInt64();//llave
+                        }
+                    }
+                }
+            }
+            else if (atributoLlavePrimaria.Tipo == 'C' || atributoLlavePrimaria.Tipo == 'c')
+            {
+                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                {
+                    while (direccionDeRegistro > -1)
+                    {
+                        lect.BaseStream.Seek(direccionDeRegistro, SeekOrigin.Begin);//Se posciona en la posición del iterador
+
+                        string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(atributoLlavePrimaria.Longitud));
+
+                        if (llaveLeida.CompareTo(Convert.ToString(LlaveInsersion)) == 0)//no se podra insertar
+                        {
+                            res = direccionDeRegistro;
+                            break;
+                        }
+                        else
+                        {
+                            direccionAnterior = direccionDeRegistro;
+                            lect.BaseStream.Seek(direccionDeRegistro + atributoLlavePrimaria.Longitud, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            direccionDeRegistro = lect.ReadInt64();//llave
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
+        public long direccionDeDirecciones(object Llave, Entidad en, Atributo atri)
+        {
+            long direccionAuxiliarLectura = this.existeLlaveSecundaria(Llave, en);
+            long direccionSecundario = -1;
+
+            if (direccionAuxiliarLectura > -1)
+            {
+                direccionAuxiliarLectura += atri.Longitud;
+                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + "_" + atri.Nombre + "_S.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                {
+                    lect.BaseStream.Seek(direccionAuxiliarLectura, SeekOrigin.Begin);
+                    direccionSecundario = lect.ReadInt64();
+                }
             }
             else
             {
-
+                //mensaje de error o warning 
             }
+
+            return direccionSecundario;
         }
 
+        public List<object> LeeCeldaSecundario(Entidad en, Atributo atributoSecundario, ref long direccionDeCelda)
+        {
+            List<object> res = new List<object>();
+            Atributo atributoLlaveSecundario = atributoSecundario;
+
+            if (atributoLlaveSecundario.Tipo == 'E' || atributoLlaveSecundario.Tipo == 'e')
+            {
+                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + "_" + atributoSecundario.Nombre + "_S.idx", FileMode.Open)))
+                {
+                    lectorIdPAux.BaseStream.Seek(direccionDeCelda, SeekOrigin.Begin);
+                    int llaveLeida = lectorIdPAux.ReadInt32();
+                    res.Add(llaveLeida);
+                    long direccionDeIndice = lectorIdPAux.ReadInt64();
+                    res.Add(direccionDeIndice);
+                    direccionDeCelda += (atributoLlaveSecundario.Longitud + 8);
+                }
+                return res;
+            }
+            else if (atributoLlaveSecundario.Tipo == 'C' || atributoLlaveSecundario.Tipo == 'c')
+            {
+                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + "_" + atributoSecundario.Nombre + "_S.idx", FileMode.Open)))
+                {
+                    String llaveLeida = UtilStatic.getStringByByteArray(lectorIdPAux.ReadBytes(atributoLlaveSecundario.Longitud));
+                    res.Add(llaveLeida);
+                    long direccionDeIndice = lectorIdPAux.ReadInt64();
+                    res.Add(direccionDeIndice);
+                    direccionDeCelda += (atributoLlaveSecundario.Longitud + 8);
+                }
+                return res;
+            }
+            return null;
+        }
+
+        public long LeeCeldaSecundariodAuxiliar(Entidad en, Atributo atributoParaDirecciones,  ref long direccionSiguiente)
+        {
+            long llaveLeida = -1;
+            if (direccionSiguiente > -1)
+            {
+                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + "_" + atributoParaDirecciones.Nombre + "_S.idx", FileMode.Open)))
+                {
+                    lectorIdPAux.BaseStream.Seek(direccionSiguiente, SeekOrigin.Begin);
+                    llaveLeida = lectorIdPAux.ReadInt64();
+                }
+                direccionSiguiente += 8;
+            }
+            return llaveLeida;
+        }
+
+
+        #endregion
+
+
+        #region IndiceArbolB+
         /*Cuando se trate de un arbol b+ se debe de tomar en cuenta que los nodos dentro de las hojas tienen una clave y aparte 
-         * la direccion de d
+        la direccion de d*/
+
+        public long existeLlaveArbol(object LlaveInsersion, Entidad en)
+        {
+            long res = -1;
+            long direccionDeRegistro = 0;
+            long direccionAnterior = 0;
+            Atributo atributoLlavePrimaria = en.getAtributoIndice(2);
+
+            if (atributoLlavePrimaria.Tipo == 'E' || atributoLlavePrimaria.Tipo == 'e')//es entero
+            {
+                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_S.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                {
+                    while (direccionDeRegistro > -1)
+                    {
+                        lect.BaseStream.Seek(direccionDeRegistro, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                        int llaveLeida = lect.ReadInt32();
+
+                        if (llaveLeida == Convert.ToInt32(LlaveInsersion))// se tiene que insertar
+                        {
+                            res = direccionDeRegistro;
+                            break;
+                        }
+                        else
+                        {
+                            direccionAnterior = direccionDeRegistro;
+                            lect.BaseStream.Seek(direccionDeRegistro + 4, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            direccionDeRegistro = lect.ReadInt64();//llave
+                        }
+                    }
+                }
+            }
+            else if (atributoLlavePrimaria.Tipo == 'C' || atributoLlavePrimaria.Tipo == 'c')
+            {
+                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                {
+                    while (direccionDeRegistro > -1)
+                    {
+                        lect.BaseStream.Seek(direccionDeRegistro, SeekOrigin.Begin);//Se posciona en la posición del iterador
+
+                        string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(atributoLlavePrimaria.Longitud));
+
+                        if (llaveLeida.CompareTo(Convert.ToString(LlaveInsersion)) == 0)//no se podra insertar
+                        {
+                            res = direccionDeRegistro;
+                            break;
+                        }
+                        else
+                        {
+                            direccionAnterior = direccionDeRegistro;
+                            lect.BaseStream.Seek(direccionDeRegistro + atributoLlavePrimaria.Longitud, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            direccionDeRegistro = lect.ReadInt64();//llave
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
+
+
+        #endregion
+       
 
         #endregion
     }

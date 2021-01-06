@@ -87,10 +87,9 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBoxIndices = new System.Windows.Forms.GroupBox();
             this.tabControlIndices = new System.Windows.Forms.TabControl();
-            this.ClaveBusqueda = new System.Windows.Forms.TabPage();
             this.Primario = new System.Windows.Forms.TabPage();
             this.labelAtributoPrimario = new System.Windows.Forms.Label();
-            this.dataGridIdxPrimmario = new System.Windows.Forms.DataGridView();
+            this.DGV_IdxPrimmario = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Secundario = new System.Windows.Forms.TabPage();
@@ -104,7 +103,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.comboBoxAtributosSecundarios = new System.Windows.Forms.ComboBox();
             this.groupBoxRegistros = new System.Windows.Forms.GroupBox();
-            this.dataGridRegistros = new System.Windows.Forms.DataGridView();
             this.comboBoxEntidad = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.CB_entidadParaRegistro = new System.Windows.Forms.ComboBox();
@@ -116,6 +114,23 @@
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.Multilista = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
             this.DGV_ClaveDeBusqueda = new System.Windows.Forms.DataGridView();
             this.toolBar.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -129,15 +144,20 @@
             this.tabPage3.SuspendLayout();
             this.groupBoxIndices.SuspendLayout();
             this.tabControlIndices.SuspendLayout();
-            this.ClaveBusqueda.SuspendLayout();
             this.Primario.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridIdxPrimmario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV_IdxPrimmario)).BeginInit();
             this.Secundario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridSecundario)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridSecundarioAuxiliar)).BeginInit();
             this.groupBoxRegistros.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridRegistros)).BeginInit();
             this.menuRegistros.SuspendLayout();
+            this.Multilista.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            this.tabControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_ClaveDeBusqueda)).BeginInit();
             this.SuspendLayout();
             // 
@@ -561,7 +581,8 @@
             "1 - Secuencial",
             "2 - Indice Primario",
             "3 - Indice Secundario",
-            "4 - Indice Arbol B+"});
+            "4 - Indice Arbol B+",
+            "5-  Multilista"});
             this.ComboB_TipoIndiceAtributo.Location = new System.Drawing.Point(1023, 37);
             this.ComboB_TipoIndiceAtributo.Margin = new System.Windows.Forms.Padding(4);
             this.ComboB_TipoIndiceAtributo.Name = "ComboB_TipoIndiceAtributo";
@@ -751,9 +772,10 @@
             // 
             // tabControlIndices
             // 
-            this.tabControlIndices.Controls.Add(this.ClaveBusqueda);
             this.tabControlIndices.Controls.Add(this.Primario);
             this.tabControlIndices.Controls.Add(this.Secundario);
+            this.tabControlIndices.Controls.Add(this.Multilista);
+            this.tabControlIndices.Controls.Add(this.tabPage4);
             this.tabControlIndices.Location = new System.Drawing.Point(8, 23);
             this.tabControlIndices.Margin = new System.Windows.Forms.Padding(4);
             this.tabControlIndices.Name = "tabControlIndices";
@@ -761,22 +783,10 @@
             this.tabControlIndices.Size = new System.Drawing.Size(544, 342);
             this.tabControlIndices.TabIndex = 5;
             // 
-            // ClaveBusqueda
-            // 
-            this.ClaveBusqueda.Controls.Add(this.DGV_ClaveDeBusqueda);
-            this.ClaveBusqueda.Location = new System.Drawing.Point(4, 27);
-            this.ClaveBusqueda.Name = "ClaveBusqueda";
-            this.ClaveBusqueda.Padding = new System.Windows.Forms.Padding(3);
-            this.ClaveBusqueda.Size = new System.Drawing.Size(536, 311);
-            this.ClaveBusqueda.TabIndex = 3;
-            this.ClaveBusqueda.Text = "Cve_Busqueda";
-            this.ClaveBusqueda.UseVisualStyleBackColor = true;
-            this.ClaveBusqueda.Click += new System.EventHandler(this.ClaveBusqueda_Click);
-            // 
             // Primario
             // 
             this.Primario.Controls.Add(this.labelAtributoPrimario);
-            this.Primario.Controls.Add(this.dataGridIdxPrimmario);
+            this.Primario.Controls.Add(this.DGV_IdxPrimmario);
             this.Primario.Location = new System.Drawing.Point(4, 27);
             this.Primario.Margin = new System.Windows.Forms.Padding(4);
             this.Primario.Name = "Primario";
@@ -796,20 +806,20 @@
             this.labelAtributoPrimario.TabIndex = 3;
             this.labelAtributoPrimario.Text = "Atributo :";
             // 
-            // dataGridIdxPrimmario
+            // DGV_IdxPrimmario
             // 
-            this.dataGridIdxPrimmario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridIdxPrimmario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DGV_IdxPrimmario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGV_IdxPrimmario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
-            this.dataGridIdxPrimmario.GridColor = System.Drawing.SystemColors.Control;
-            this.dataGridIdxPrimmario.Location = new System.Drawing.Point(8, 44);
-            this.dataGridIdxPrimmario.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridIdxPrimmario.Name = "dataGridIdxPrimmario";
-            this.dataGridIdxPrimmario.RowHeadersVisible = false;
-            this.dataGridIdxPrimmario.RowHeadersWidth = 51;
-            this.dataGridIdxPrimmario.Size = new System.Drawing.Size(657, 353);
-            this.dataGridIdxPrimmario.TabIndex = 0;
+            this.DGV_IdxPrimmario.GridColor = System.Drawing.SystemColors.Control;
+            this.DGV_IdxPrimmario.Location = new System.Drawing.Point(8, 44);
+            this.DGV_IdxPrimmario.Margin = new System.Windows.Forms.Padding(4);
+            this.DGV_IdxPrimmario.Name = "DGV_IdxPrimmario";
+            this.DGV_IdxPrimmario.RowHeadersVisible = false;
+            this.DGV_IdxPrimmario.RowHeadersWidth = 51;
+            this.DGV_IdxPrimmario.Size = new System.Drawing.Size(657, 353);
+            this.DGV_IdxPrimmario.TabIndex = 0;
             // 
             // Column1
             // 
@@ -878,6 +888,7 @@
             this.dataGridSecundario.RowHeadersWidth = 51;
             this.dataGridSecundario.Size = new System.Drawing.Size(253, 240);
             this.dataGridSecundario.TabIndex = 4;
+            this.dataGridSecundario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridSecundario_CellContentClick);
             // 
             // Column3
             // 
@@ -939,7 +950,7 @@
             // 
             // groupBoxRegistros
             // 
-            this.groupBoxRegistros.Controls.Add(this.dataGridRegistros);
+            this.groupBoxRegistros.Controls.Add(this.tabControl2);
             this.groupBoxRegistros.Controls.Add(this.comboBoxEntidad);
             this.groupBoxRegistros.Controls.Add(this.label1);
             this.groupBoxRegistros.Location = new System.Drawing.Point(15, 76);
@@ -951,20 +962,6 @@
             this.groupBoxRegistros.TabStop = false;
             this.groupBoxRegistros.Text = "ConsultaDeRegistros";
             this.groupBoxRegistros.Enter += new System.EventHandler(this.groupBoxRegistros_Enter);
-            // 
-            // dataGridRegistros
-            // 
-            this.dataGridRegistros.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridRegistros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridRegistros.GridColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dataGridRegistros.Location = new System.Drawing.Point(8, 64);
-            this.dataGridRegistros.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridRegistros.Name = "dataGridRegistros";
-            this.dataGridRegistros.RowHeadersVisible = false;
-            this.dataGridRegistros.RowHeadersWidth = 51;
-            this.dataGridRegistros.Size = new System.Drawing.Size(544, 375);
-            this.dataGridRegistros.TabIndex = 1;
-            this.dataGridRegistros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridRegistros_CellContentClick);
             // 
             // comboBoxEntidad
             // 
@@ -1030,7 +1027,7 @@
             this.toolStripMenuItem5.AccessibleName = "Alta";
             this.toolStripMenuItem5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(50, 26);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(50, 24);
             this.toolStripMenuItem5.Text = "Alta";
             // 
             // toolStripMenuItem6
@@ -1038,7 +1035,7 @@
             this.toolStripMenuItem6.AccessibleName = "Modificar";
             this.toolStripMenuItem6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(87, 26);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(87, 24);
             this.toolStripMenuItem6.Text = "Modificar";
             // 
             // toolStripMenuItem7
@@ -1055,22 +1052,205 @@
             this.toolStripMenuItem8.AccessibleName = "Eliminar";
             this.toolStripMenuItem8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(77, 26);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(77, 24);
             this.toolStripMenuItem8.Text = "Eliminar";
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // Multilista
+            // 
+            this.Multilista.Controls.Add(this.label9);
+            this.Multilista.Controls.Add(this.label10);
+            this.Multilista.Controls.Add(this.dataGridView1);
+            this.Multilista.Controls.Add(this.dataGridView2);
+            this.Multilista.Controls.Add(this.label11);
+            this.Multilista.Controls.Add(this.comboBox1);
+            this.Multilista.Location = new System.Drawing.Point(4, 27);
+            this.Multilista.Name = "Multilista";
+            this.Multilista.Padding = new System.Windows.Forms.Padding(3);
+            this.Multilista.Size = new System.Drawing.Size(536, 311);
+            this.Multilista.TabIndex = 4;
+            this.Multilista.Text = "Multilista";
+            this.Multilista.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.label12);
+            this.tabPage4.Controls.Add(this.dataGridView3);
+            this.tabPage4.Location = new System.Drawing.Point(4, 27);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(536, 311);
+            this.tabPage4.TabIndex = 5;
+            this.tabPage4.Text = "ArbolB";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(272, 12);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(71, 18);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "Direccion";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 43);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(57, 18);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "Entidad";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.dataGridView1.Location = new System.Drawing.Point(12, 63);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.Size = new System.Drawing.Size(253, 240);
+            this.dataGridView1.TabIndex = 10;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Llave";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 93;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Direccion";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 93;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3});
+            this.dataGridView2.Location = new System.Drawing.Point(276, 33);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.RowHeadersVisible = false;
+            this.dataGridView2.RowHeadersWidth = 51;
+            this.dataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dataGridView2.Size = new System.Drawing.Size(253, 270);
+            this.dataGridView2.TabIndex = 9;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Direccion";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 186;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(8, 12);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(66, 18);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "Atributos";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(80, 7);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(156, 26);
+            this.comboBox1.TabIndex = 7;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(4, 6);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(66, 18);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Atributo :";
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5});
+            this.dataGridView3.GridColor = System.Drawing.SystemColors.Control;
+            this.dataGridView3.Location = new System.Drawing.Point(4, 36);
+            this.dataGridView3.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.RowHeadersVisible = false;
+            this.dataGridView3.RowHeadersWidth = 51;
+            this.dataGridView3.Size = new System.Drawing.Size(657, 353);
+            this.dataGridView3.TabIndex = 4;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Llave";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 190;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Direccíon";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 190;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.DGV_ClaveDeBusqueda);
+            this.tabPage5.Location = new System.Drawing.Point(4, 27);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(536, 311);
+            this.tabPage5.TabIndex = 3;
+            this.tabPage5.Text = "Cve_Busqueda";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Location = new System.Drawing.Point(7, 65);
+            this.tabControl2.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(544, 342);
+            this.tabControl2.TabIndex = 6;
+            // 
             // DGV_ClaveDeBusqueda
             // 
             this.DGV_ClaveDeBusqueda.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGV_ClaveDeBusqueda.Location = new System.Drawing.Point(5, 6);
+            this.DGV_ClaveDeBusqueda.Location = new System.Drawing.Point(3, 6);
             this.DGV_ClaveDeBusqueda.Name = "DGV_ClaveDeBusqueda";
             this.DGV_ClaveDeBusqueda.RowHeadersWidth = 51;
             this.DGV_ClaveDeBusqueda.RowTemplate.Height = 24;
             this.DGV_ClaveDeBusqueda.Size = new System.Drawing.Size(525, 418);
-            this.DGV_ClaveDeBusqueda.TabIndex = 0;
+            this.DGV_ClaveDeBusqueda.TabIndex = 1;
             // 
             // ManejadorDeArchivos_Form
             // 
@@ -1105,19 +1285,26 @@
             this.tabPage3.PerformLayout();
             this.groupBoxIndices.ResumeLayout(false);
             this.tabControlIndices.ResumeLayout(false);
-            this.ClaveBusqueda.ResumeLayout(false);
             this.Primario.ResumeLayout(false);
             this.Primario.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridIdxPrimmario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGV_IdxPrimmario)).EndInit();
             this.Secundario.ResumeLayout(false);
             this.Secundario.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridSecundario)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridSecundarioAuxiliar)).EndInit();
             this.groupBoxRegistros.ResumeLayout(false);
             this.groupBoxRegistros.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridRegistros)).EndInit();
             this.menuRegistros.ResumeLayout(false);
             this.menuRegistros.PerformLayout();
+            this.Multilista.ResumeLayout(false);
+            this.Multilista.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGV_ClaveDeBusqueda)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1194,15 +1381,13 @@
         private System.Windows.Forms.ComboBox CB_entidadParaRegistro;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox groupBoxRegistros;
-        private System.Windows.Forms.DataGridView dataGridRegistros;
         private System.Windows.Forms.ComboBox comboBoxEntidad;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBoxIndices;
         private System.Windows.Forms.TabControl tabControlIndices;
-        private System.Windows.Forms.TabPage ClaveBusqueda;
         private System.Windows.Forms.TabPage Primario;
         private System.Windows.Forms.Label labelAtributoPrimario;
-        private System.Windows.Forms.DataGridView dataGridIdxPrimmario;
+        private System.Windows.Forms.DataGridView DGV_IdxPrimmario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.TabPage Secundario;
@@ -1215,6 +1400,23 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboBoxAtributosSecundarios;
+        private System.Windows.Forms.TabPage Multilista;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.DataGridView DGV_ClaveDeBusqueda;
     }
 }

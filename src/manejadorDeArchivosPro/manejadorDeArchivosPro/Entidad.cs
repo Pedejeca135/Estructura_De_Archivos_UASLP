@@ -17,6 +17,8 @@ namespace manejadorDeArchivosPro
         private long dirAtributos;//Direccion en el archivo de los atributos
         private long dirRegistros;
         private long dirSiguiente;
+        private long dirPrimario;
+        private long dirSecundario;
         private long dirRegistroDesperdiciados;
 
         public List<Atributo> atributos { get; set; }
@@ -192,12 +194,34 @@ namespace manejadorDeArchivosPro
             return 0;
         }
 
+        public int getOffsetMultilista(Atributo atributoMultilista)
+        {
+            int res = 8;
+            foreach (Atributo at in this.atributos)
+            {
+                res += at.Longitud;
+                if (atributoMultilista.Equals(at))
+                {
+                    return res;
+                }
+                else if (at.TipoIndice == 5)
+                {
+                    res += 8;//sesuman por cada atributo mulyilista
+                }
+            }
+                return -1;
+        }
+
         public int getEntidadTamRegistro()
         {
             int res = 0;
             foreach(Atributo at in this.atributos)
             {
                 res += at.Longitud;
+                if(at.TipoIndice == 5)
+                {
+                    res += 8;//sesuman por cada atributo mulyilista
+                }
             }
             return res;
         }
@@ -209,12 +233,7 @@ namespace manejadorDeArchivosPro
 
         public int getEntidadTamTotal()
         {
-            int res = 16;
-            foreach (Atributo at in this.atributos)
-            {
-                res += at.Longitud;
-            }
-            return res;
+            return offSetSiguienteRegistro()+8;
         }
 
         public int offsetByKey(int key)
@@ -256,6 +275,20 @@ namespace manejadorDeArchivosPro
             return res;
         }
 
+        public List<Atributo> getAtributosMultilista()
+        {
+            List<Atributo> res = new List<Atributo>();
+
+            foreach (Atributo at in this.atributos)
+            {
+                if (at.TipoIndice == 5)
+                {
+                    res.Add(at);
+                }
+            }
+            return res;
+        }
+
 
         public bool canCreateLlave(String tipoIndi)
         {
@@ -283,6 +316,61 @@ namespace manejadorDeArchivosPro
             return true;
         }
 
+
+        public Atributo getAtributoIndice(int tipoIndice)
+        {
+            foreach (Atributo at in this.atributos)
+            {
+                if (at.TipoIndice == tipoIndice)
+                {
+                    return at;
+                }
+            }
+            return null;
+        }
+
+        public long getOffsetDeAtributo(Atributo atri)
+        {
+            //this.off
+            long res = 8;
+            foreach(Atributo atribut in this.atributos)
+            {
+                if(atribut.Equals(atri))
+                {
+                    return res; 
+                }
+                else
+                {
+                    res += atribut.Longitud; 
+                }
+            }
+            return -1;
+        }
+
+        public object objetoEnRegistro(Atributo atri, List<List<byte>> registro)
+        {
+            if(atri.Tipo == 'C' && atri.Tipo == 'c')
+            {
+               return UtilStatic.getStringByByteArray( registro.ElementAt(this.atributos.IndexOf(this.getAtributoByName(atri.Nombre)) + 1).ToArray());
+            }
+            else if(atri.Tipo == 'E' && atri.Tipo == 'e')
+            {
+                return BitConverter.ToInt32(registro.ElementAt(this.atributos.IndexOf(this.getAtributoByName(atri.Nombre)) + 1).ToArray(),0);
+            }
+            return null;
+        }
+
+        public Atributo getAtributoByName(String name)
+        {
+            foreach(Atributo at in this.atributos)
+            {
+                if(name.Equals(at.Nombre))
+                {
+                    return at;
+                }
+            }
+            return null;
+        }
 
         #endregion
 
