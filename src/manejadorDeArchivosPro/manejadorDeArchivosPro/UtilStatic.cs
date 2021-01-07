@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace manejadorDeArchivosPro
 {
@@ -84,6 +86,11 @@ namespace manejadorDeArchivosPro
                  return res;
             }
 
+        #region offsetEntidadesYAtributos
+        /*Los offset para acceso de campo en Entidades y atributos
+         * se mantienen constantes, por lo que se tienen los metodos
+         * de degfinicion de direcciones aqui*/
+
         #region getEntidadesOffsets
         public static int offset_Entidad_id
         {
@@ -105,12 +112,15 @@ namespace manejadorDeArchivosPro
         {
             get { return offset_Entidad_direccionAtrib + UtilStatic.Enum_Direccion; }
         }
-        public static int offset_Entidad_sigDir
+        public static int offset_Entidad_direccionRegDesperdiciados
         {
             get { return offset_Entidad_direccionReg + UtilStatic.Enum_Direccion; }
         }
+        public static int offset_Entidad_sigDir
+        {
+            get { return offset_Entidad_direccionRegDesperdiciados + UtilStatic.Enum_Direccion; }
+        }
 #endregion
-
 
         #region getAtributoOffsets
         public static int offset_Atributo_ID
@@ -145,6 +155,7 @@ namespace manejadorDeArchivosPro
         {
             get { return offset_Atributo_DireccionIndice + UtilStatic.Enum_Direccion; }
         }
+        #endregion
         #endregion
 
         public static int getTipoIndice(String tipondice)
@@ -214,6 +225,18 @@ namespace manejadorDeArchivosPro
                 arr[i] = value;
             }
             return arr;
+        }
+
+        public static byte[] ObjectToByteArray(object obj)
+        {
+            if (obj == null)
+                return null;
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+                return ms.ToArray();
+            }
         }
 
     }

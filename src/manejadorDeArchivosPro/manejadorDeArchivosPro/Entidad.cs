@@ -34,7 +34,7 @@ namespace manejadorDeArchivosPro
             this.dirRegistros = dirResistros;
             this.dirSiguiente = dirSiguiente;
             this.atributos = new List<Atributo>();
-            dirRegistroDesperdiciados = -1;
+            dirRegistroDesperdiciados = dirRegDesp;
         }
 
         public Entidad(byte[] ID, String nombre, long direccion, long dirAtributos, long dirResistros,long dirRegDesp, long dirSiguiente,List<Atributo> atributos)
@@ -74,6 +74,11 @@ namespace manejadorDeArchivosPro
         {
             get { return this.dirRegistros; }
             set { this.dirRegistros = value; }
+        }
+        public long DireccionRegistrosDesperdiciados
+        {
+            get { return this.dirRegistroDesperdiciados; }
+            set { this.dirRegistroDesperdiciados = value; }
         }
         public long DireccionSiguiente
         {
@@ -168,7 +173,9 @@ namespace manejadorDeArchivosPro
             return res;
         }
 
-        public int getOffsetByIndex(int index)
+        #region offsetDeRegistro
+
+        public int getOffsetByAtributoIndex(int index)
         {
             int res = 8;
             if(index >= this.atributos.Count)
@@ -182,13 +189,13 @@ namespace manejadorDeArchivosPro
             return res;
         }
 
-        public int getOffsetByName(string name)
+        public int getOffsetAtributoByName(string name)
         {
             foreach(Atributo atr in this.atributos)
             {
                 if(atr.Nombre == name)
                 {
-                    return getOffsetByIndex(atributos.IndexOf(atr));
+                    return getOffsetByAtributoIndex(atributos.IndexOf(atr));
                 }
             }
             return 0;
@@ -206,7 +213,7 @@ namespace manejadorDeArchivosPro
                 }
                 else if (at.TipoIndice == 5)
                 {
-                    res += 8;//sesuman por cada atributo mulyilista
+                    res += 8;//sesuman por cada atributo multilista
                 }
             }
                 return -1;
@@ -220,7 +227,7 @@ namespace manejadorDeArchivosPro
                 res += at.Longitud;
                 if(at.TipoIndice == 5)
                 {
-                    res += 8;//sesuman por cada atributo mulyilista
+                    res += 8;//sesuman por cada atributo multilista
                 }
             }
             return res;
@@ -242,23 +249,43 @@ namespace manejadorDeArchivosPro
             {
                 if (at.TipoIndice == key)
                 {
-                    return getOffsetByIndex(this.atributos.IndexOf(at));
+                    return getOffsetByAtributoIndex(this.atributos.IndexOf(at));
                 }
             }
-
                 return 0;
         }
 
-        public Atributo getAtributoByTipoIndice(int tipoIndice)
+        public long getOffsetDeAtributo(Atributo atri)
         {
+            //this.off
+            long res = 8;
+            foreach (Atributo atribut in this.atributos)
+            {
+                if (atribut.Equals(atri))
+                {
+                    return res;
+                }
+                else
+                {
+                    res += atribut.Longitud;
+                }
+            }
+            return -1;
+        }
+
+        #endregion
+
+        public Atributo[] getAtributoByTipoIndice(int tipoIndice)
+        {
+            List<Atributo> res = new List<Atributo>();
             foreach(Atributo at in this.atributos)
             {
                 if(tipoIndice == at.TipoIndice)
                 {
-                    return at;
+                    res.Add(at);
                 }
             }
-            return null;
+            return res.ToArray();
         }
 
         public List<Atributo> getAtributosSecundario()
@@ -327,24 +354,6 @@ namespace manejadorDeArchivosPro
                 }
             }
             return null;
-        }
-
-        public long getOffsetDeAtributo(Atributo atri)
-        {
-            //this.off
-            long res = 8;
-            foreach(Atributo atribut in this.atributos)
-            {
-                if(atribut.Equals(atri))
-                {
-                    return res; 
-                }
-                else
-                {
-                    res += atribut.Longitud; 
-                }
-            }
-            return -1;
         }
 
         public object objetoEnRegistro(Atributo atri, List<List<byte>> registro)

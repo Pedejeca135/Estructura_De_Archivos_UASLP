@@ -968,28 +968,44 @@ namespace manejadorDeArchivosPro
             return false;
         }
 
+        private void grabaEnEntidad(Entidad enti, long offset, object objt)
+        {
+            byte[] auxBArray = UtilStatic.ObjectToByteArray(objt);
+            this.abreElArchivo();
+            escritor = new BinaryWriter(archivo);
+            this.archivo.Seek(enti.Direccion + offset, SeekOrigin.Begin);
+            this.escritor.Write(auxBArray,0, auxBArray.Length);  
+            this.cierraElArchivo();
+        }
+
         public bool grabaRegistro(List<List<byte>> registro, Entidad entidad)
         {
+            List<byte> listaAuxiliarDeBytes = new List<byte>();//se agrega su direccion en el registro
+
             if (entidad.DireccionRegistros == -1)//si aun no existe registro alguno
             {
-                FileStream archivoDatos = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + entidad.Nombre + ".dat", FileMode.Create);//Crea el archivo en disco de datos
-                entidad.DireccionRegistros = 0;
-
-                List<byte> listaAuxiliarDeBytes = new List<byte>();//se agrega su direccion en el registro
+                if (entidad.DireccionRegistrosDesperdiciados > -1)//si hay registros desperdiciados se reciclara espacio
+                {
+                    entidad.DireccionRegistros = entidad.DireccionRegistrosDesperdiciados;
+                    List<object> auxiliarRegistro = this.LeeRegistro(entidad, entidad.DireccionRegistrosDesperdiciados);//le el registro desperdiciado
+                    entidad.DireccionRegistrosDesperdiciados = (long)auxiliarRegistro.ElementAt(auxiliarRegistro.Count() - 1);//se obtiene la nueva direccion de registro desperdiciado y la asigna
+                    this.grabaEnEntidad(entidad, UtilStatic.offset_Entidad_direccionRegDesperdiciados, entidad.DireccionRegistrosDesperdiciados);//se graba en entidad la nueva direccion
+                }
+                else
+                {
+                    entidad.DireccionRegistros = 0;
+                }
 
                 foreach (byte b in BitConverter.GetBytes(entidad.DireccionRegistros))
                 {
                     listaAuxiliarDeBytes.Add(b);
                 }
 
-                registro.Insert(0, listaAuxiliarDeBytes);
-
 
                 //long para la direccion siguiente registro del primer registro insertado = -1
-                long auxDir = -1;
                 listaAuxiliarDeBytes = new List<byte>();
 
-                foreach (byte b in BitConverter.GetBytes(auxDir))
+                foreach (byte b in BitConverter.GetBytes(directionDefault))
                 {
                     listaAuxiliarDeBytes.Add(b);
                 }
@@ -1002,21 +1018,23 @@ namespace manejadorDeArchivosPro
 
                 registro.Add(listaAuxiliarDeBytes);//la direccion del siguiente registro segun la organizacion secuencial
 
-                this.abreElArchivo();//se escribe la direccion de los registros en el archivo de trabajo 
+                /*this.abreElArchivo();//se escribe la direccion de los registros en el archivo de trabajo 
                 escritor = new BinaryWriter(archivo);
                 this.archivo.Seek(entidad.Direccion + UtilStatic.offset_Entidad_direccionReg, SeekOrigin.Current);
                 this.escritor.Write(entidad.DireccionRegistros);
-                this.cierraElArchivo();
+                this.cierraElArchivo();*/
+                this.grabaEnEntidad(entidad, UtilStatic.offset_Entidad_direccionReg ,entidad.DireccionRegistros);
 
                 creaIndices(entidad);
                 insetaSinTipoDeIndice(registro, entidad);
+                insertaIndices(entidad, registro);
             }
             else//si si que los hay(registros)
             {
-                Atributo atributoSecuencialAux = entidad.getAtributoByTipoIndice(1);
-                long auxilirLectura = entidad.getOffsetByName(atributoSecuencialAux.Nombre);
+                Atributo atributoSecuencialAux = entidad.getAtributoByTipoIndice(1)[0];
+                long auxilirLectura = entidad.getOffsetAtributoByName(atributoSecuencialAux.Nombre);
 
-                if (existeLlavePrimaria(entidad.objetoEnRegistro(entidad.getAtributoByTipoIndice(2), registro), entidad) == -1 && existeLlaveArbol(entidad.objetoEnRegistro(entidad.getAtributoByTipoIndice(4), registro), entidad) == -1)
+                if (existeLlavePrimaria(entidad.objetoEnRegistro(entidad.getAtributoByTipoIndice(2)[0], registro), entidad) == -1 && existeLlaveArbol(entidad.objetoEnRegistro(entidad.getAtributoByTipoIndice(4)[0], registro), entidad) == -1)
                 {
                     if (atributoSecuencialAux != null)//insersion secuencial indexada
                     {
@@ -1284,7 +1302,7 @@ namespace manejadorDeArchivosPro
             long tamRegistroDatos = registroFile.Length;
             registroFile.Close();
 
-            Atributo atributoLlaveSecuencial = en.getAtributoByTipoIndice(1);
+            Atributo atributoLlaveSecuencial = en.getAtributoByTipoIndice(1)[0];
 
             using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Open)))//Abre el archivo con el BinaryReader
             {
@@ -1295,7 +1313,7 @@ namespace manejadorDeArchivosPro
                         lect.BaseStream.Seek(direccionDeRegistro + en.offsetByKey(1), SeekOrigin.Begin);//Se posciona en la posición del iterador
                         int llaveLeida = lect.ReadInt32();
 
-                        if (llaveLeida >= Convert.ToInt32(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1))]))// se tiene que insertar
+                        if (llaveLeida >= Convert.ToInt32(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1)[0])]))// se tiene que insertar
                         {
                             mayoresEncontrados = true;
                         }
@@ -1310,9 +1328,9 @@ namespace manejadorDeArchivosPro
                     {
                         lect.BaseStream.Seek(direccionDeRegistro + en.offsetByKey(1), SeekOrigin.Begin);//Se posciona en la posición del iterador
 
-                        string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(en.getAtributoByTipoIndice(1).Longitud));
+                        string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(en.getAtributoByTipoIndice(1)[0].Longitud));
 
-                        if (llaveLeida.CompareTo(Convert.ToString(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1))])) >= 0)// se tiene que insertar
+                        if (llaveLeida.CompareTo(Convert.ToString(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1)[0])])) >= 0)// se tiene que insertar
                         {
                             mayoresEncontrados = true;
                         }
@@ -1426,7 +1444,7 @@ namespace manejadorDeArchivosPro
         public List<object> LeeCeldaPrimario(Entidad en, ref long direccionDeCelda)
         {
             List<object> res = new List<object>();
-            Atributo atributoLlavePrimaria = en.getAtributoByTipoIndice(2);
+            Atributo atributoLlavePrimaria = en.getAtributoByTipoIndice(2)[0];
 
             if (atributoLlavePrimaria.Tipo == 'E' || atributoLlavePrimaria.Tipo == 'e')
             {
