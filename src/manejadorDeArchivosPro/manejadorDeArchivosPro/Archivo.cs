@@ -1011,22 +1011,29 @@ namespace manejadorDeArchivosPro
                 {
                     listaAuxiliarDeBytes.Add(b);
                 }
+                registro.Insert(0, listaAuxiliarDeBytes); // SearchDirectionHint agrega la direccion que tendra el registro  en si mismo
 
 
-                //long para la direccion siguiente registro del primer registro insertado = -1
+                //direcciones multilista en el registro
                 listaAuxiliarDeBytes = new List<byte>();
 
                 foreach (byte b in BitConverter.GetBytes(directionDefault))
                 {
                     listaAuxiliarDeBytes.Add(b);
-                }
 
-                //direcciones multilista en el registro
-                listaAuxiliarDeBytes = new List<byte>();
-                foreach (Atributo at in entidad.getAtributosMultilista())
+                }
+                foreach (Atributo at in  (Atributo [] )entidad.getAtributoByTipoIndice(indice_Multilista))// entidad.getAtributosMultilista())
                 {
                     registro.Add(listaAuxiliarDeBytes);
                 }
+
+                //long para la direccion siguiente registro del primer registro insertado = -1
+               /* listaAuxiliarDeBytes = new List<byte>();
+
+                foreach (byte b in BitConverter.GetBytes(directionDefault))
+                {
+                    listaAuxiliarDeBytes.Add(b);
+                }*/
 
                 registro.Add(listaAuxiliarDeBytes);//la direccion del siguiente registro segun la organizacion secuencial
 
@@ -1036,7 +1043,7 @@ namespace manejadorDeArchivosPro
                 this.escritor.Write(entidad.DireccionRegistros);
                 this.cierraElArchivo();*/
                 
-                //creaIndices(entidad);
+                creaIndices(entidad);
                 insetaSinTipoDeIndice(registro, entidad);
                // insertaIndices(entidad, registro);
 
@@ -1078,7 +1085,7 @@ namespace manejadorDeArchivosPro
         {
             List<object> res = new List<object>();
 
-            using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.PathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Open)))//Abre el archivo con el BinaryReader
+            using (BinaryReader lect = new BinaryReader(new FileStream(this.pathRegistros(en), FileMode.Open)))//Abre el archivo con el BinaryReader
             {
                 lect.BaseStream.Seek(direccion, SeekOrigin.Begin);//Se posciona en la posición del iterador
                 long direccionAux = lect.ReadInt64();
@@ -1256,13 +1263,13 @@ namespace manejadorDeArchivosPro
 
             bool mayoresEncontrados = false;
 
-            FileStream registroFile = File.OpenRead(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat");
+            FileStream registroFile = File.OpenRead(pathRegistros(en));
             long tamRegistroDatos = registroFile.Length;
             registroFile.Close();
 
             Atributo atributoLlaveSecuencial = en.getAtributoByTipoIndice(1)[0];
 
-            using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Open)))//Abre el archivo con el BinaryReader
+            using (BinaryReader lect = new BinaryReader(new FileStream(pathRegistros(en), FileMode.Open)))//Abre el archivo con el BinaryReader
             {
                 while (direccionDeRegistro > -1 && !mayoresEncontrados)
                 {
@@ -1271,7 +1278,7 @@ namespace manejadorDeArchivosPro
                         lect.BaseStream.Seek(direccionDeRegistro + en.offsetByKey(1), SeekOrigin.Begin);//el lector se posciona en la posición del iterador
                         int llaveLeida = lect.ReadInt32();
 
-                        if (llaveLeida >= Convert.ToInt32(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1)[0])]))// se tiene que insertar
+                        if (llaveLeida >= BitConverter.ToInt32(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1)[0])].ToArray(), 0))// se tiene que insertar
                         {
                             mayoresEncontrados = true;
                         }
@@ -1287,8 +1294,9 @@ namespace manejadorDeArchivosPro
                         lect.BaseStream.Seek(direccionDeRegistro + en.offsetByKey(1), SeekOrigin.Begin);//Se posciona en la posición del iterador
 
                         string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(en.getAtributoByTipoIndice(1)[0].Longitud));
+                       
 
-                        if (llaveLeida.CompareTo(Convert.ToString(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1)[0])])) >= 0)// se tiene que insertar
+                        if (llaveLeida.CompareTo(BitConverter.ToString(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1)[0])].ToArray())) >= 0)// se tiene que insertar
                         {
                             mayoresEncontrados = true;
                         }
@@ -1340,6 +1348,9 @@ namespace manejadorDeArchivosPro
                 }
             }
         }
+
+  
+
         #endregion
 
         #region IndicePrimario
@@ -1441,14 +1452,9 @@ namespace manejadorDeArchivosPro
             if(atributoAuxiliarPrimario.Tipo == 'E' || atributoAuxiliarPrimario.Tipo == 'e')
             {
                 List<byte> auxB = registro[indiceDeCampo];
-                int llaveInsersion = //  Convert.ToInt32(auxB.ToArray());
-
-                Convert.ToInt32(registro[entid.atributos.IndexOf(entid.getAtributoByTipoIndice(indice_Primario)[0])]);// se tiene que insertar;
-
+                int llaveInsersion = BitConverter.ToInt32(auxB.ToArray(), 0);// se tiene que insertar;
 
                     // registro[entid.atributos.IndexOf(entid.getAtributoByTipoIndice(1)[0])];
-
-
                     direccionAuxiliarPrimario = existeLlavePrimaria(llaveInsersion,entid);
             }
             else if (atributoAuxiliarPrimario.Tipo == 'C' || atributoAuxiliarPrimario.Tipo == 'c')

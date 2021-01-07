@@ -778,7 +778,7 @@ namespace manejadorDeArchivosPro
 
         private void comboBoxEntidad_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            updateIndices();
         }
 
         private void updateIndices()
