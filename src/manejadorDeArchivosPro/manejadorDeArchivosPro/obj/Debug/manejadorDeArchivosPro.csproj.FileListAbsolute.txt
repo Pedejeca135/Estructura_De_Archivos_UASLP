@@ -79,3 +79,5 @@ C:\Users\pjco9\Documents\ReposX\thisArchivos\Estructura_De_Archivos_UASLP\src\ma
 C:\Users\pjco9\Documents\ReposX\thisArchivos\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.csproj.CoreCompileInputs.cache
 C:\Users\pjco9\Documents\ReposX\thisArchivos\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.exe
 C:\Users\pjco9\Documents\ReposX\thisArchivos\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.pdb
+S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.AltaRegistroEntidad.resources
+S:\MASTER_ESTUDIOS\UASLP\UASLP-(2020-2021_I)\08.00_ESTRUCTURA_DE_ARCHIVOS\REPOS\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.Form1.resources

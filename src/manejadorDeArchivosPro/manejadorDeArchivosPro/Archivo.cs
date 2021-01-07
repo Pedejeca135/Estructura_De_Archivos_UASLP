@@ -18,19 +18,16 @@ namespace manejadorDeArchivosPro
 
     public class Archivo
     {
+        #region Constantes
         /****
          * Enumerables 
          * funcionan para tener en cuenta el tamaño de la entidad
          preferible cambiarlos a un lugar mas global */
-        int en_Nombre = 30;
-        int en_Tipo = 1;
-        int en_direccion = 8;
-
-        long directionDefault = -1;
-
-        FileStream indicePrimario;
-        FileStream indiceSecundario;
-        FileStream indiceArbolBPlus;
+        private const int en_Nombre = 30;
+        private const int en_Tipo = 1;
+        private const int en_direccion = 8;
+        private const long directionDefault = -1;
+        #endregion
 
         #region Variables_De_Instancia
 
@@ -75,6 +72,47 @@ namespace manejadorDeArchivosPro
                 }
             }
         }
+        
+
+        #endregion
+
+        #region Geters&Seters
+        public string Nombre
+        {
+            get { return this.nombre; }
+            set { this.nombre = value; }
+        }
+        public string PathName
+        {
+            get { return this.pathName; }
+            set { this.pathName = value; }
+        }
+        public long Cabecera
+        {
+            get { return this.cabecera; }
+        }
+        public long CabeceraEntidadesDesperdiciadas
+        {
+            get { return this.cabeceraEntidadesDesperdiciadas; }
+        }
+        public long CabeceraAtributosDesperdiciados
+        {
+            get { return this.cabeceraAtributosDesperdiciados; }
+        }
+        public long Length
+        {
+            get { return length; }
+        }
+        public List<Entidad> Entidades
+        {
+            get { return this.entidades; }
+        }
+
+
+        #endregion
+
+        #region Metodos
+
         public void Init()
         {
             archivo = new FileStream(this.pathName, FileMode.Create);//Crea el archivo en disco
@@ -169,45 +207,6 @@ namespace manejadorDeArchivosPro
 
         }
 
-        #endregion
-
-        #region Geters&Seters
-        public string Nombre
-        {
-            get { return this.nombre; }
-            set { this.nombre = value; }
-        }
-        public string PathName
-        {
-            get { return this.pathName; }
-            set { this.pathName = value; }
-        }
-        public long Cabecera
-        {
-            get { return this.cabecera; }
-        }
-        public long CabeceraEntidadesDesperdiciadas
-        {
-            get { return this.cabeceraEntidadesDesperdiciadas; }
-        }
-        public long CabeceraAtributosDesperdiciados
-        {
-            get { return this.cabeceraAtributosDesperdiciados; }
-        }
-        public long Length
-        {
-            get { return length; }
-        }
-        public List<Entidad> Entidades
-        {
-            get { return this.entidades; }
-        }
-
-
-        #endregion
-
-
-        #region Metodos
         public void altaEntidad(String nombre)
         {
             if (!existeEntidad(nombre))
@@ -703,11 +702,7 @@ namespace manejadorDeArchivosPro
                 this.archivo.Seek(en.Direccion + UtilStatic.offset_Entidad_sigDir, SeekOrigin.Begin);
                 this.escritor.Write(en.DireccionSiguiente);
                 this.cierraElArchivo();
-
-
             }
-
-
         }
 
         private Entidad getEntidadApuntando(Entidad enApuntaPasiva)
@@ -807,8 +802,6 @@ namespace manejadorDeArchivosPro
                         this.cierraElArchivo();
 
                     }
-
-
                     break;
                 }
             }
@@ -978,6 +971,8 @@ namespace manejadorDeArchivosPro
             this.cierraElArchivo();
         }
 
+        #region Registros
+
         public bool grabaRegistro(List<List<byte>> registro, Entidad entidad)
         {
             List<byte> listaAuxiliarDeBytes = new List<byte>();//se agrega su direccion en el registro
@@ -1060,45 +1055,6 @@ namespace manejadorDeArchivosPro
             return false;
         }
 
-        public void insertaIndices(Entidad entid, List<List<byte>> registro )
-        {
-            foreach (Atributo at in entid.atributos)
-            {
-                switch (at.TipoIndice)
-                {
-                    case 2:
-                        insertaPrimario(entid,registro);
-                        break;
-                    case 3:
-                        insertaSecundario(entid, registro);
-                        break;
-                    case 4:
-                        insertaArbol(entid, registro);
-                        break;
-                    case 5:
-                        insertaMultilista(entid, registro);
-                        break;
-                }
-            }
-
-        } 
-
-        public int insertaPrimario(Entidad entid, List<List<byte>> registro)
-        {
-            return -1;
-        }
-        public int insertaSecundario(Entidad entid, List<List<byte>> registro)
-        {
-            return -1;
-        }
-        public int insertaArbol(Entidad entid, List<List<byte>> registro)
-        {
-            return -1;
-        }
-        public int insertaMultilista(Entidad entid, List<List<byte>> registro)
-        {
-            return -1;
-        }
 
         public List<object> LeeRegistro(Entidad en, long direccion)
         {
@@ -1130,6 +1086,24 @@ namespace manejadorDeArchivosPro
                 return res;
             }
         }
+        #endregion
+
+
+        private Atributo getAtributoIndice(int tipoIndice, Entidad en)
+        {
+            foreach (Atributo at in en.atributos)
+            {
+                if (at.TipoIndice == tipoIndice)
+                {
+                    return at;
+                }
+            }
+            return null;
+        }
+
+        #endregion
+
+        #region indices
 
         private void creaIndices(Entidad en)
         {
@@ -1138,7 +1112,7 @@ namespace manejadorDeArchivosPro
                 switch (atr.TipoIndice)
                 {
                     case 2://Indice primario
-                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" +en.Nombre +"_" +atr.Nombre + "_P.idx"))//Crea el archivo en disco de datos
+                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_P.idx"))//Crea el archivo en disco de datos
                         {
                             indicePrimario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_P.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
 
@@ -1208,16 +1182,27 @@ namespace manejadorDeArchivosPro
             }
         }
 
-        private Atributo getAtributoIndice(int tipoIndice, Entidad en)
+        public void insertaIndices(Entidad entid, List<List<byte>> registro)
         {
-            foreach (Atributo at in en.atributos)
+            foreach (Atributo at in entid.atributos)
             {
-                if (at.TipoIndice == tipoIndice)
+                switch (at.TipoIndice)
                 {
-                    return at;
+                    case 2:
+                        insertaPrimario(entid, registro);
+                        break;
+                    case 3:
+                        insertaSecundario(entid, registro);
+                        break;
+                    case 4:
+                        insertaArbol(entid, registro);
+                        break;
+                    case 5:
+                        insertaMultilista(entid, registro);
+                        break;
                 }
             }
-            return null;
+
         }
 
         private void insetaSinTipoDeIndice(List<List<byte>> registro, Entidad en)
@@ -1228,7 +1213,7 @@ namespace manejadorDeArchivosPro
 
             FileStream registroFile;
 
-            string nombreDelArchivoDat = Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) +"_"+en.Nombre+".dat";
+            string nombreDelArchivoDat = Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + ".dat";
             if (!File.Exists(nombreDelArchivoDat))
             {
                 registroFile = new FileStream(nombreDelArchivoDat, FileMode.Create);
@@ -1251,7 +1236,7 @@ namespace manejadorDeArchivosPro
 
                 registro.Insert(0, listaAuxiliarDeBytes);
 
-               
+
                 //direccion de multilistas
                 listaAuxiliarDeBytes = new List<byte>();
                 long longAux = -1;
@@ -1382,8 +1367,10 @@ namespace manejadorDeArchivosPro
             }
         }
 
-
         #region IndicePrimario
+        //Indice primario = 2
+        FileStream indicePrimario;
+        
         public long existeLlavePrimaria(object insersion, Entidad en)
         {
             long res = -1;
@@ -1441,6 +1428,11 @@ namespace manejadorDeArchivosPro
             return -1;
         }
 
+        public int insertaPrimario(Entidad entid, List<List<byte>> registro)
+        {
+            return -1;
+        }
+
         public List<object> LeeCeldaPrimario(Entidad en, ref long direccionDeCelda)
         {
             List<object> res = new List<object>();
@@ -1455,7 +1447,7 @@ namespace manejadorDeArchivosPro
                     res.Add(llaveLeida);
                     long direccionDeIndice = lectorIdPAux.ReadInt64();
                     res.Add(direccionDeIndice);
-                    direccionDeCelda += ( atributoLlavePrimaria.Longitud + 8);
+                    direccionDeCelda += (atributoLlavePrimaria.Longitud + 8);
                 }
                 return res;
             }
@@ -1478,6 +1470,8 @@ namespace manejadorDeArchivosPro
         #endregion
 
         #region IndiceSecundario
+        //indice secundario = 3
+        FileStream indiceSecundario;
 
         public long existeLlaveSecundaria(object LlaveInsersion, Entidad en)
         {
@@ -1536,6 +1530,11 @@ namespace manejadorDeArchivosPro
             return -1;
         }
 
+        public int insertaSecundario(Entidad entid, List<List<byte>> registro)
+        {
+            return -1;
+        }
+
         public long direccionDeDirecciones(object Llave, Entidad en, Atributo atri)
         {
             long direccionAuxiliarLectura = this.existeLlaveSecundaria(Llave, en);
@@ -1557,6 +1556,8 @@ namespace manejadorDeArchivosPro
 
             return direccionSecundario;
         }
+
+
 
         public List<object> LeeCeldaSecundario(Entidad en, Atributo atributoSecundario, ref long direccionDeCelda)
         {
@@ -1591,7 +1592,7 @@ namespace manejadorDeArchivosPro
             return null;
         }
 
-        public long LeeCeldaSecundariodAuxiliar(Entidad en, Atributo atributoParaDirecciones,  ref long direccionSiguiente)
+        public long LeeCeldaSecundariodAuxiliar(Entidad en, Atributo atributoParaDirecciones, ref long direccionSiguiente)
         {
             long llaveLeida = -1;
             if (direccionSiguiente > -1)
@@ -1609,10 +1610,12 @@ namespace manejadorDeArchivosPro
 
         #endregion
 
-
         #region IndiceArbolB+
+        //indice Arbol = 4
         /*Cuando se trate de un arbol b+ se debe de tomar en cuenta que los nodos dentro de las hojas tienen una clave y aparte 
         la direccion de d*/
+
+        FileStream indiceArbolBPlus;
 
         public long existeLlaveArbol(object LlaveInsersion, Entidad en)
         {
@@ -1671,11 +1674,38 @@ namespace manejadorDeArchivosPro
             return -1;
         }
 
+        public int insertaArbol(Entidad entid, List<List<byte>> registro)
+        {
+            return -1;
+        }
+
 
 
         #endregion
-       
+
+        #region indiceMultilista
+        //indice Multlista = 5
+
+        FileStream indiceMultilista;
+        public int insertaMultilista(Entidad entid, List<List<byte>> registro)
+        {
+            return -1;
+        }
 
         #endregion
+
+        #region indiceHash
+        //indice Hash estático = 6
+
+        FileStream indiceHash;
+        public int insertaHash(Entidad entid, List<List<byte>> registro)
+        {
+            return -1;
+        }
+        #endregion
+
+
+        #endregion
+
     }
 }
