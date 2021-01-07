@@ -49,76 +49,68 @@ namespace manejadorDeArchivosPro
             // textBoxLong
             // 
             this.textBoxLong.Enabled = false;
-            this.textBoxLong.Location = new System.Drawing.Point(322, 49);
-            this.textBoxLong.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxLong.Location = new System.Drawing.Point(242, 40);
             this.textBoxLong.Name = "textBoxLong";
-            this.textBoxLong.Size = new System.Drawing.Size(135, 22);
+            this.textBoxLong.Size = new System.Drawing.Size(102, 20);
             this.textBoxLong.TabIndex = 39;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(250, 53);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(188, 43);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(63, 17);
+            this.label5.Size = new System.Drawing.Size(48, 13);
             this.label5.TabIndex = 38;
             this.label5.Text = "Longitud";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(27, 85);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(20, 69);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 17);
+            this.label4.Size = new System.Drawing.Size(30, 13);
             this.label4.TabIndex = 37;
             this.label4.Text = "Dato";
             // 
             // textBoxIndice
             // 
             this.textBoxIndice.Enabled = false;
-            this.textBoxIndice.Location = new System.Drawing.Point(90, 49);
-            this.textBoxIndice.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxIndice.Location = new System.Drawing.Point(68, 40);
             this.textBoxIndice.Name = "textBoxIndice";
-            this.textBoxIndice.Size = new System.Drawing.Size(151, 22);
+            this.textBoxIndice.Size = new System.Drawing.Size(114, 20);
             this.textBoxIndice.TabIndex = 36;
             // 
             // textBoxTipo
             // 
             this.textBoxTipo.Enabled = false;
-            this.textBoxTipo.Location = new System.Drawing.Point(295, 17);
-            this.textBoxTipo.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxTipo.Location = new System.Drawing.Point(221, 14);
             this.textBoxTipo.Name = "textBoxTipo";
-            this.textBoxTipo.Size = new System.Drawing.Size(161, 22);
+            this.textBoxTipo.Size = new System.Drawing.Size(122, 20);
             this.textBoxTipo.TabIndex = 35;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(25, 53);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(19, 43);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(45, 17);
+            this.label3.Size = new System.Drawing.Size(36, 13);
             this.label3.TabIndex = 33;
             this.label3.Text = "Indice";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(250, 21);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(188, 17);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 17);
+            this.label2.Size = new System.Drawing.Size(28, 13);
             this.label2.TabIndex = 32;
             this.label2.Text = "Tipo";
             // 
             // Anterior
             // 
-            this.Anterior.Location = new System.Drawing.Point(142, 112);
-            this.Anterior.Margin = new System.Windows.Forms.Padding(4);
+            this.Anterior.Location = new System.Drawing.Point(106, 91);
             this.Anterior.Name = "Anterior";
-            this.Anterior.Size = new System.Drawing.Size(100, 28);
+            this.Anterior.Size = new System.Drawing.Size(75, 23);
             this.Anterior.TabIndex = 31;
             this.Anterior.Text = "Anterior";
             this.Anterior.UseVisualStyleBackColor = true;
@@ -126,10 +118,9 @@ namespace manejadorDeArchivosPro
             // 
             // Siguiente
             // 
-            this.Siguiente.Location = new System.Drawing.Point(250, 112);
-            this.Siguiente.Margin = new System.Windows.Forms.Padding(4);
+            this.Siguiente.Location = new System.Drawing.Point(188, 91);
             this.Siguiente.Name = "Siguiente";
-            this.Siguiente.Size = new System.Drawing.Size(100, 28);
+            this.Siguiente.Size = new System.Drawing.Size(75, 23);
             this.Siguiente.TabIndex = 30;
             this.Siguiente.Text = "Siguiente";
             this.Siguiente.UseVisualStyleBackColor = true;
@@ -138,30 +129,27 @@ namespace manejadorDeArchivosPro
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 21);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(19, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 17);
+            this.label1.Size = new System.Drawing.Size(43, 13);
             this.label1.TabIndex = 29;
             this.label1.Text = "Atributo";
             // 
             // Cancelar
             // 
             this.Cancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancelar.Location = new System.Drawing.Point(30, 112);
-            this.Cancelar.Margin = new System.Windows.Forms.Padding(4);
+            this.Cancelar.Location = new System.Drawing.Point(22, 91);
             this.Cancelar.Name = "Cancelar";
-            this.Cancelar.Size = new System.Drawing.Size(100, 28);
+            this.Cancelar.Size = new System.Drawing.Size(75, 23);
             this.Cancelar.TabIndex = 28;
             this.Cancelar.Text = "Cancelar";
             this.Cancelar.UseVisualStyleBackColor = true;
             // 
             // Aceptar
             // 
-            this.Aceptar.Location = new System.Drawing.Point(358, 112);
-            this.Aceptar.Margin = new System.Windows.Forms.Padding(4);
+            this.Aceptar.Location = new System.Drawing.Point(268, 91);
             this.Aceptar.Name = "Aceptar";
-            this.Aceptar.Size = new System.Drawing.Size(100, 28);
+            this.Aceptar.Size = new System.Drawing.Size(75, 23);
             this.Aceptar.TabIndex = 27;
             this.Aceptar.Text = "Aceptar";
             this.Aceptar.UseVisualStyleBackColor = true;
@@ -170,27 +158,26 @@ namespace manejadorDeArchivosPro
             // 
             // textBoxDato
             // 
-            this.textBoxDato.Location = new System.Drawing.Point(90, 80);
-            this.textBoxDato.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxDato.Location = new System.Drawing.Point(68, 65);
             this.textBoxDato.Name = "textBoxDato";
-            this.textBoxDato.Size = new System.Drawing.Size(367, 22);
+            this.textBoxDato.Size = new System.Drawing.Size(276, 20);
             this.textBoxDato.TabIndex = 26;
+            this.textBoxDato.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxDato_KeyDown);
             // 
             // textBoxAtributo
             // 
             this.textBoxAtributo.Enabled = false;
-            this.textBoxAtributo.Location = new System.Drawing.Point(90, 17);
-            this.textBoxAtributo.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxAtributo.Location = new System.Drawing.Point(68, 14);
             this.textBoxAtributo.Name = "textBoxAtributo";
-            this.textBoxAtributo.Size = new System.Drawing.Size(151, 22);
+            this.textBoxAtributo.Size = new System.Drawing.Size(114, 20);
             this.textBoxAtributo.TabIndex = 34;
             this.textBoxAtributo.TextChanged += new System.EventHandler(this.textBoxAtributo_TextChanged);
             // 
             // AltaRegistroEntidad
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 170);
+            this.ClientSize = new System.Drawing.Size(357, 138);
             this.Controls.Add(this.textBoxLong);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -206,6 +193,7 @@ namespace manejadorDeArchivosPro
             this.Controls.Add(this.Aceptar);
             this.Controls.Add(this.textBoxDato);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "AltaRegistroEntidad";
             this.Text = "dd";
             this.Load += new System.EventHandler(this.AltaRegistroEntidad_Load);

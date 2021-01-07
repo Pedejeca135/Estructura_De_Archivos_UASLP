@@ -170,7 +170,27 @@ namespace manejadorDeArchivosPro
         private void AltaRegistroEntidad_Load(object sender, EventArgs e)
         {
 
-        }  
+        }
+
+        private void textBoxDato_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+
+                if (Aceptar.Enabled)
+                {
+                    this.Aceptar_Click(sender, e);
+                }
+                else
+                {
+                    this.Siguiente_Click(sender, e);
+                }
+            }
+        }
+
+
+
+
 
     }
 }

@@ -14,8 +14,6 @@ using System.Windows.Forms;
 
 namespace manejadorDeArchivosPro
 {
-
-
     public class Archivo
     {
         #region Constantes
@@ -125,7 +123,6 @@ namespace manejadorDeArchivosPro
             escritor.Write(cabeceraAtributosDesperdiciados);
             this.cierraElArchivo();
         }
-
 
         /**
         * Metodo que se encarga de leer las entidades guardadas
@@ -383,6 +380,15 @@ namespace manejadorDeArchivosPro
                     {
                         tipoIndiceNuevo = 4;
                     }
+                    else if (tipoIndice.Contains('5'))//Multilista
+                    {
+                        tipoIndiceNuevo = 5;
+                    }
+                   /* else if (tipoIndice.Contains('6'))//Hash
+                    {
+                        tipoIndiceNuevo = 6;
+                    }*/
+
 
                     foreach (byte b in BitConverter.GetBytes(tipoIndiceNuevo))//direccion a los atributos.
                     {
@@ -1105,6 +1111,8 @@ namespace manejadorDeArchivosPro
 
         #region indices
 
+        #region indicesMetodosComunes
+
         private void creaIndices(Entidad en)
         {
             foreach (Atributo atr in en.atributos)
@@ -1112,72 +1120,20 @@ namespace manejadorDeArchivosPro
                 switch (atr.TipoIndice)
                 {
                     case 2://Indice primario
-                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_P.idx"))//Crea el archivo en disco de datos
-                        {
-                            indicePrimario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_P.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
-
-                            using (BinaryWriter b = new BinaryWriter(indicePrimario))
-                            {
-                                long x = -1;
-                                for (int i = 0; i < 256; i++)
-                                {
-                                    b.Write(x);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            indicePrimario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_P.idx", FileMode.Open);//Crea el archivo en disco de datos
-                        }
+                        creaIndicePrimario(en, atr);
                         break;
                     case 3://Indice secundario
-                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_S.idx"))//Crea el archivo en disco de datos
-                        {
-                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_S.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
-
-                            using (BinaryWriter b = new BinaryWriter(indicePrimario))
-                            {
-                                long x = -1;
-                                for (int i = 0; i < 256; i++)
-                                {
-                                    b.Write(x);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_S.idx", FileMode.Open);//Crea el archivo en disco de datos
-                        }
+                        creaIndiceSecundario(en, atr);
                         break;
                     case 4://Indice arbol B+
-                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_B.idx"))//Crea el archivo en disco de datos
-                        {
-                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_B.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
-                        }
-                        else
-                        {
-                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_B.idx", FileMode.Open);//Crea el archivo en disco de datos
-                        }
+                        creaIndiceArbolB(en, atr);
                         break;
                     case 5://Indice  multilista
-                        if (!File.Exists(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_M.idx"))//Crea el archivo en disco de datos
-                        {
-                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_M.idx", FileMode.OpenOrCreate);//Crea el archivo en disco de datos
-
-                            using (BinaryWriter b = new BinaryWriter(indicePrimario))
-                            {
-                                long x = -1;
-                                for (int i = 0; i < 256; i++)
-                                {
-                                    b.Write(x);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            indiceSecundario = new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.pathName) + "_" + en.Nombre + "_" + atr.Nombre + "_M.idx", FileMode.Open);//Crea el archivo en disco de datos
-                        }
+                        creaIndiceMultilista(en, atr);
                         break;
+                        /*case 6: //for hash implementation
+                         * break
+                         */
                 }
             }
         }
@@ -1295,7 +1251,7 @@ namespace manejadorDeArchivosPro
                 {
                     if (atributoLlaveSecuencial.Tipo == 'E' || atributoLlaveSecuencial.Tipo == 'e')//es entero
                     {
-                        lect.BaseStream.Seek(direccionDeRegistro + en.offsetByKey(1), SeekOrigin.Begin);//Se posciona en la posición del iterador
+                        lect.BaseStream.Seek(direccionDeRegistro + en.offsetByKey(1), SeekOrigin.Begin);//el lector se posciona en la posición del iterador
                         int llaveLeida = lect.ReadInt32();
 
                         if (llaveLeida >= Convert.ToInt32(registro[en.atributos.IndexOf(en.getAtributoByTipoIndice(1)[0])]))// se tiene que insertar
@@ -1309,7 +1265,7 @@ namespace manejadorDeArchivosPro
                             direccionDeRegistro = lect.ReadInt64();//llave
                         }
                     }
-                    else
+                    else if(atributoLlaveSecuencial.Tipo == 'C' || atributoLlaveSecuencial.Tipo == 'c')
                     {
                         lect.BaseStream.Seek(direccionDeRegistro + en.offsetByKey(1), SeekOrigin.Begin);//Se posciona en la posición del iterador
 
@@ -1331,7 +1287,6 @@ namespace manejadorDeArchivosPro
                 }
             }
 
-
             using (BinaryWriter esc = new BinaryWriter(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + ".dat", FileMode.Open)))
             {
                 List<byte> listaAuxiliarDeBytes = new List<byte>();
@@ -1345,11 +1300,13 @@ namespace manejadorDeArchivosPro
                     registro.Insert(registro.Count - 1, listaAuxiliarDeBytes);
 
                     en.DireccionRegistros = tamRegistroDatos;
-                    this.abreElArchivo();
-                    escritor = new BinaryWriter(archivo);
-                    this.archivo.Seek(en.Direccion + UtilStatic.offset_Entidad_direccionReg, SeekOrigin.Current);
-                    this.escritor.Write(en.DireccionRegistros);
-                    this.cierraElArchivo();
+                     this.abreElArchivo();
+                     escritor = new BinaryWriter(archivo);
+                     this.archivo.Seek(en.Direccion + UtilStatic.offset_Entidad_direccionReg, SeekOrigin.Begin);
+                     this.escritor.Write(en.DireccionRegistros);
+                     this.cierraElArchivo();
+
+                   // this.grabaEnEntidad(en, UtilStatic.offset_Entidad_direccionReg,);
 
                     foreach (List<byte> lB in registro)
                     {
@@ -1366,11 +1323,17 @@ namespace manejadorDeArchivosPro
                 }
             }
         }
+        #endregion
 
         #region IndicePrimario
         //Indice primario = 2
         FileStream indicePrimario;
         
+        public string pathIndicePrimario(Entidad en, Atributo at)
+        {
+            return Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre +"_" + at.Nombre + "_P.idx";
+        }
+
         public long existeLlavePrimaria(object insersion, Entidad en)
         {
             long res = -1;
@@ -1380,7 +1343,7 @@ namespace manejadorDeArchivosPro
 
             if (atributoLlavePrimaria.Tipo == 'E' || atributoLlavePrimaria.Tipo == 'e')//es entero
             {
-                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                using (BinaryReader lect = new BinaryReader(new FileStream(pathIndicePrimario(en, atributoLlavePrimaria), FileMode.Open)))//Abre el archivo con el BinaryReader
                 {
                     while (direccionDeRegistro > -1)
                     {
@@ -1403,7 +1366,7 @@ namespace manejadorDeArchivosPro
             }
             else if (atributoLlavePrimaria.Tipo == 'C' || atributoLlavePrimaria.Tipo == 'c')
             {
-                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                using (BinaryReader lect = new BinaryReader(new FileStream(pathIndicePrimario(en, atributoLlavePrimaria), FileMode.Open)))//Abre el archivo con el BinaryReader
                 {
                     while (direccionDeRegistro > -1)
                     {
@@ -1428,6 +1391,30 @@ namespace manejadorDeArchivosPro
             return -1;
         }
 
+        const int blockSizePrimario = 2048;// el tamaño de bloque del indice primario es 2KB siempre tiene que ser un multiplo de 8
+
+        private void creaIndicePrimario(Entidad en, Atributo atr)
+        {
+            if (!File.Exists(pathIndicePrimario(en, atr)))//Crea el archivo en disco de datos
+            {
+                indicePrimario = new FileStream(pathIndicePrimario(en, atr), FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+
+                using (BinaryWriter b = new BinaryWriter(indicePrimario))
+                {
+                    long x = -1;
+                    for (int i = 0; i < blockSizePrimario / sizeof(long); i++)
+                    {
+                        b.Write(x);
+                    }
+                }
+            }
+            else
+            {
+                indicePrimario = new FileStream(pathIndicePrimario(en, atr), FileMode.Open);//Crea el archivo en disco de datos
+            }
+        }
+
+
         public int insertaPrimario(Entidad entid, List<List<byte>> registro)
         {
             return -1;
@@ -1440,7 +1427,7 @@ namespace manejadorDeArchivosPro
 
             if (atributoLlavePrimaria.Tipo == 'E' || atributoLlavePrimaria.Tipo == 'e')
             {
-                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))
+                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(pathIndicePrimario(en,atributoLlavePrimaria), FileMode.Open)))
                 {
                     lectorIdPAux.BaseStream.Seek(direccionDeCelda, SeekOrigin.Begin);
                     int llaveLeida = lectorIdPAux.ReadInt32();
@@ -1453,7 +1440,7 @@ namespace manejadorDeArchivosPro
             }
             else if (atributoLlavePrimaria.Tipo == 'C' || atributoLlavePrimaria.Tipo == 'c')
             {
-                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))
+                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(pathIndicePrimario(en,atributoLlavePrimaria), FileMode.Open)))
                 {
                     lectorIdPAux.BaseStream.Seek(direccionDeCelda, SeekOrigin.Begin);
                     String llaveLeida = UtilStatic.getStringByByteArray(lectorIdPAux.ReadBytes(atributoLlavePrimaria.Longitud));
@@ -1473,16 +1460,21 @@ namespace manejadorDeArchivosPro
         //indice secundario = 3
         FileStream indiceSecundario;
 
+        public string pathIndiceSecundario(Entidad en, Atributo at)
+        {
+            return Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + "_" + at.Nombre + "_S.idx";
+        }
+
         public long existeLlaveSecundaria(object LlaveInsersion, Entidad en)
         {
             long res = -1;
             long direccionDeRegistro = 0;
             long direccionAnterior = 0;
-            Atributo atributoLlavePrimaria = en.getAtributoIndice(2);
+            Atributo atributoLlaveSecundaria = en.getAtributoIndice(2);
 
-            if (atributoLlavePrimaria.Tipo == 'E' || atributoLlavePrimaria.Tipo == 'e')//es entero
+            if (atributoLlaveSecundaria.Tipo == 'E' || atributoLlaveSecundaria.Tipo == 'e')//es entero
             {
-                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_S.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                using (BinaryReader lect = new BinaryReader(new FileStream(pathIndiceSecundario(en,atributoLlaveSecundaria), FileMode.Open)))//Abre el archivo con el BinaryReader
                 {
                     while (direccionDeRegistro > -1)
                     {
@@ -1503,15 +1495,15 @@ namespace manejadorDeArchivosPro
                     }
                 }
             }
-            else if (atributoLlavePrimaria.Tipo == 'C' || atributoLlavePrimaria.Tipo == 'c')
+            else if (atributoLlaveSecundaria.Tipo == 'C' || atributoLlaveSecundaria.Tipo == 'c')
             {
-                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                using (BinaryReader lect = new BinaryReader(new FileStream(pathIndiceSecundario(en, atributoLlaveSecundaria), FileMode.Open)))//Abre el archivo con el BinaryReader
                 {
                     while (direccionDeRegistro > -1)
                     {
                         lect.BaseStream.Seek(direccionDeRegistro, SeekOrigin.Begin);//Se posciona en la posición del iterador
 
-                        string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(atributoLlavePrimaria.Longitud));
+                        string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(atributoLlaveSecundaria.Longitud));
 
                         if (llaveLeida.CompareTo(Convert.ToString(LlaveInsersion)) == 0)//no se podra insertar
                         {
@@ -1521,7 +1513,7 @@ namespace manejadorDeArchivosPro
                         else
                         {
                             direccionAnterior = direccionDeRegistro;
-                            lect.BaseStream.Seek(direccionDeRegistro + atributoLlavePrimaria.Longitud, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            lect.BaseStream.Seek(direccionDeRegistro + atributoLlaveSecundaria.Longitud, SeekOrigin.Begin);//Se posciona en la posición del iterador
                             direccionDeRegistro = lect.ReadInt64();//llave
                         }
                     }
@@ -1530,20 +1522,43 @@ namespace manejadorDeArchivosPro
             return -1;
         }
 
+
+        private void creaIndiceSecundario(Entidad en, Atributo atr)
+        {
+            if (!File.Exists(pathIndiceSecundario(en, atr)))//Crea el archivo en disco de datos
+            {
+                indiceSecundario = new FileStream(pathIndiceSecundario(en, atr), FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+
+                using (BinaryWriter b = new BinaryWriter(indicePrimario))
+                {
+                    long x = -1;
+                    for (int i = 0; i < 256; i++)
+                    {
+                        b.Write(x);
+                    }
+                }
+            }
+            else
+            {
+                indiceSecundario = new FileStream(pathIndiceSecundario(en, atr), FileMode.Open);//Crea el archivo en disco de datos
+            }
+        }
+
+
         public int insertaSecundario(Entidad entid, List<List<byte>> registro)
         {
             return -1;
         }
 
-        public long direccionDeDirecciones(object Llave, Entidad en, Atributo atri)
+        public long direccionDeDirecciones(object Llave, Entidad en, Atributo atr)
         {
             long direccionAuxiliarLectura = this.existeLlaveSecundaria(Llave, en);
             long direccionSecundario = -1;
 
             if (direccionAuxiliarLectura > -1)
             {
-                direccionAuxiliarLectura += atri.Longitud;
-                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + "_" + atri.Nombre + "_S.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                direccionAuxiliarLectura += atr.Longitud;
+                using (BinaryReader lect = new BinaryReader(new FileStream(pathIndiceSecundario(en, atr), FileMode.Open)))//Abre el archivo con el BinaryReader
                 {
                     lect.BaseStream.Seek(direccionAuxiliarLectura, SeekOrigin.Begin);
                     direccionSecundario = lect.ReadInt64();
@@ -1566,7 +1581,7 @@ namespace manejadorDeArchivosPro
 
             if (atributoLlaveSecundario.Tipo == 'E' || atributoLlaveSecundario.Tipo == 'e')
             {
-                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + "_" + atributoSecundario.Nombre + "_S.idx", FileMode.Open)))
+                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(pathIndiceSecundario(en, atributoSecundario), FileMode.Open)))
                 {
                     lectorIdPAux.BaseStream.Seek(direccionDeCelda, SeekOrigin.Begin);
                     int llaveLeida = lectorIdPAux.ReadInt32();
@@ -1579,7 +1594,7 @@ namespace manejadorDeArchivosPro
             }
             else if (atributoLlaveSecundario.Tipo == 'C' || atributoLlaveSecundario.Tipo == 'c')
             {
-                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + "_" + atributoSecundario.Nombre + "_S.idx", FileMode.Open)))
+                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(pathIndiceSecundario(en, atributoSecundario), FileMode.Open)))
                 {
                     String llaveLeida = UtilStatic.getStringByByteArray(lectorIdPAux.ReadBytes(atributoLlaveSecundario.Longitud));
                     res.Add(llaveLeida);
@@ -1597,7 +1612,7 @@ namespace manejadorDeArchivosPro
             long llaveLeida = -1;
             if (direccionSiguiente > -1)
             {
-                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + "_" + atributoParaDirecciones.Nombre + "_S.idx", FileMode.Open)))
+                using (BinaryReader lectorIdPAux = new BinaryReader(new FileStream(pathIndiceSecundario(en, atributoParaDirecciones), FileMode.Open)))
                 {
                     lectorIdPAux.BaseStream.Seek(direccionSiguiente, SeekOrigin.Begin);
                     llaveLeida = lectorIdPAux.ReadInt64();
@@ -1617,16 +1632,21 @@ namespace manejadorDeArchivosPro
 
         FileStream indiceArbolBPlus;
 
+        public string pathIndiceArbolBPlus(Entidad en, Atributo at)
+        {
+            return Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + "_" + at.Nombre + "_AB.idx";
+        }
+
         public long existeLlaveArbol(object LlaveInsersion, Entidad en)
         {
             long res = -1;
             long direccionDeRegistro = 0;
             long direccionAnterior = 0;
-            Atributo atributoLlavePrimaria = en.getAtributoIndice(2);
+            Atributo atributoLlaveAB = en.getAtributoIndice(4);
 
-            if (atributoLlavePrimaria.Tipo == 'E' || atributoLlavePrimaria.Tipo == 'e')//es entero
+            if (atributoLlaveAB.Tipo == 'E' || atributoLlaveAB.Tipo == 'e')//es entero
             {
-                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_S.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                using (BinaryReader lect = new BinaryReader(new FileStream(pathIndiceArbolBPlus(en, atributoLlaveAB), FileMode.Open)))//Abre el archivo con el BinaryReader
                 {
                     while (direccionDeRegistro > -1)
                     {
@@ -1647,15 +1667,15 @@ namespace manejadorDeArchivosPro
                     }
                 }
             }
-            else if (atributoLlavePrimaria.Tipo == 'C' || atributoLlavePrimaria.Tipo == 'c')
+            else if (atributoLlaveAB.Tipo == 'C' || atributoLlaveAB.Tipo == 'c')
             {
-                using (BinaryReader lect = new BinaryReader(new FileStream(Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + atributoLlavePrimaria.Nombre + "_P.idx", FileMode.Open)))//Abre el archivo con el BinaryReader
+                using (BinaryReader lect = new BinaryReader(new FileStream(pathIndiceArbolBPlus(en,atributoLlaveAB), FileMode.Open)))//Abre el archivo con el BinaryReader
                 {
                     while (direccionDeRegistro > -1)
                     {
                         lect.BaseStream.Seek(direccionDeRegistro, SeekOrigin.Begin);//Se posciona en la posición del iterador
 
-                        string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(atributoLlavePrimaria.Longitud));
+                        string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(atributoLlaveAB.Longitud));
 
                         if (llaveLeida.CompareTo(Convert.ToString(LlaveInsersion)) == 0)//no se podra insertar
                         {
@@ -1665,7 +1685,7 @@ namespace manejadorDeArchivosPro
                         else
                         {
                             direccionAnterior = direccionDeRegistro;
-                            lect.BaseStream.Seek(direccionDeRegistro + atributoLlavePrimaria.Longitud, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            lect.BaseStream.Seek(direccionDeRegistro + atributoLlaveAB.Longitud, SeekOrigin.Begin);//Se posciona en la posición del iterador
                             direccionDeRegistro = lect.ReadInt64();//llave
                         }
                     }
@@ -1673,6 +1693,19 @@ namespace manejadorDeArchivosPro
             }
             return -1;
         }
+
+        private void creaIndiceArbolB(Entidad en, Atributo at)
+        {
+            if (!File.Exists(pathIndiceArbolBPlus(en,at)))//Crea el archivo en disco de datos
+            {
+                indiceArbolBPlus = new FileStream(pathIndiceArbolBPlus(en, at), FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+            }
+            else
+            {
+                indiceArbolBPlus = new FileStream(pathIndiceArbolBPlus(en, at), FileMode.Open);//Crea el archivo en disco de datos
+            }
+        }
+
 
         public int insertaArbol(Entidad entid, List<List<byte>> registro)
         {
@@ -1687,6 +1720,32 @@ namespace manejadorDeArchivosPro
         //indice Multlista = 5
 
         FileStream indiceMultilista;
+        public string pathIndiceMultilista(Entidad en, Atributo at)
+        {
+            return Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + "_" + at.Nombre + "_M.idx";
+        }
+
+        private void creaIndiceMultilista(Entidad en, Atributo at)
+        {
+            if (!File.Exists(pathIndiceMultilista(en,at)))//Crea el archivo en disco de datos
+            {
+                indiceMultilista = new FileStream(pathIndiceMultilista(en,at), FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+
+                using (BinaryWriter b = new BinaryWriter(indicePrimario))
+                {
+                    long x = -1;
+                    for (int i = 0; i < 256; i++)
+                    {
+                        b.Write(x);
+                    }
+                }
+            }
+            else
+            {
+                indiceMultilista = new FileStream(pathIndiceMultilista(en, at), FileMode.Open);//Crea el archivo en disco de datos
+            }
+        }
+
         public int insertaMultilista(Entidad entid, List<List<byte>> registro)
         {
             return -1;

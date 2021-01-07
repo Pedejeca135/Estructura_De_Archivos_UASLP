@@ -92,7 +92,6 @@ namespace manejadorDeArchivosPro
 
         #endregion
 
-
         #region Metodos
         public void addAtributo(Atributo at)
         {
@@ -201,22 +200,54 @@ namespace manejadorDeArchivosPro
             return 0;
         }
 
+        public long getOffsetDeAtributo(Atributo atri)
+        {
+            //this.off
+            long res = 8;
+            foreach (Atributo atribut in this.atributos)
+            {
+                if (atribut.Equals(atri))
+                {
+                    return res;
+                }
+                else
+                {
+                    res += atribut.Longitud;
+                }
+            }
+            return -1;
+        }
+        public int offsetByKey(int key)
+        {
+            foreach (Atributo at in this.atributos)
+            {
+                if (at.TipoIndice == key)
+                {
+                    return getOffsetByAtributoIndex(this.atributos.IndexOf(at));
+                }
+            }
+            return 0;
+        }
+
         public int getOffsetMultilista(Atributo atributoMultilista)
         {
             int res = 8;
             foreach (Atributo at in this.atributos)
             {
                 res += at.Longitud;
-                if (atributoMultilista.Equals(at))
+            }
+            foreach (Atributo at in this.getAtributosMultilista())
+            {
+                if (at.Equals(atributoMultilista))
                 {
                     return res;
                 }
-                else if (at.TipoIndice == 5)
+                else
                 {
-                    res += 8;//sesuman por cada atributo multilista
+                    res += 8;
                 }
             }
-                return -1;
+            return -1;
         }
 
         public int getEntidadTamRegistro()
@@ -243,36 +274,6 @@ namespace manejadorDeArchivosPro
             return offSetSiguienteRegistro()+8;
         }
 
-        public int offsetByKey(int key)
-        {
-            foreach (Atributo at in this.atributos)
-            {
-                if (at.TipoIndice == key)
-                {
-                    return getOffsetByAtributoIndex(this.atributos.IndexOf(at));
-                }
-            }
-                return 0;
-        }
-
-        public long getOffsetDeAtributo(Atributo atri)
-        {
-            //this.off
-            long res = 8;
-            foreach (Atributo atribut in this.atributos)
-            {
-                if (atribut.Equals(atri))
-                {
-                    return res;
-                }
-                else
-                {
-                    res += atribut.Longitud;
-                }
-            }
-            return -1;
-        }
-
         #endregion
 
         public Atributo[] getAtributoByTipoIndice(int tipoIndice)
@@ -288,7 +289,7 @@ namespace manejadorDeArchivosPro
             return res.ToArray();
         }
 
-        public List<Atributo> getAtributosSecundario()
+       /*public List<Atributo> getAtributosSecundario()
         {
             List<Atributo> res = new List<Atributo>();
 
@@ -300,7 +301,7 @@ namespace manejadorDeArchivosPro
                 }
             }
             return res;
-        }
+        }*/
 
         public List<Atributo> getAtributosMultilista()
         {
@@ -321,21 +322,21 @@ namespace manejadorDeArchivosPro
         {
             if (tipoIndi.Contains("1"))//clave de busqueda.
             {
-                if(this.getAtributoByTipoIndice(1)!= null)
+                if(this.getAtributoByTipoIndice(1).Length != 0)
                 {
                     return false;
                 }
             }
-            else if (tipoIndi.Contains("2"))
+            else if (tipoIndi.Contains("2"))//indice primario
             {
-                if (this.getAtributoByTipoIndice(2) != null)
+                if (this.getAtributoByTipoIndice(2).Length != 0)
                 {
                     return false;
                 }
             }
-            else if (tipoIndi.Contains("4"))
+            else if (tipoIndi.Contains("4"))//indice Arbol
             {
-                if (this.getAtributoByTipoIndice(4) != null)
+                if (this.getAtributoByTipoIndice(4).Length != 0)
                 {
                     return false;
                 }

@@ -348,7 +348,7 @@ namespace manejadorDeArchivosPro
                             if (Int32.TryParse(ComboB_LongitudAtributo.Text, out longitudNuevoAtributo))
                             {
 
-                                if (!listaLongitud.Contains(longitudNuevoAtributo))
+                                if (!listaLongitud.Contains(longitudNuevoAtributo))//para mostrar en la lñista del combo box longitudes usadas antes
                                 {
                                     listaLongitud.Add(longitudNuevoAtributo);
                                 }
