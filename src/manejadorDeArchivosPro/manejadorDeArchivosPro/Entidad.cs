@@ -317,6 +317,9 @@ namespace manejadorDeArchivosPro
             return res;
         }
 
+       
+
+
 
         public bool canCreateLlave(String tipoIndi)
         {
@@ -357,6 +360,18 @@ namespace manejadorDeArchivosPro
             return null;
         }
 
+        public int getIndexByTipoIndice(int tipoIndice)
+        {
+            foreach (Atributo at in this.atributos)
+            {
+                if (at.TipoIndice == tipoIndice)
+                {
+                    return this.atributos.IndexOf(at);
+                }
+            }
+            return -1;
+        }
+
         public object objetoEnRegistro(Atributo atri, List<List<byte>> registro)
         {
             if(atri.Tipo == 'C' && atri.Tipo == 'c')
@@ -380,6 +395,15 @@ namespace manejadorDeArchivosPro
                 }
             }
             return null;
+        }
+
+        public int getIndexByAtributoName(string name)
+        {
+            return this.atributos.IndexOf(this.getAtributoByName(name));
+        }
+        public int getIndexByAtributo(Atributo at)
+        {
+            return this.atributos.IndexOf(at);
         }
 
         #endregion

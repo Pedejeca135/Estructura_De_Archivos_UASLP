@@ -25,6 +25,16 @@ namespace manejadorDeArchivosPro
         private const int en_Tipo = 1;
         private const int en_direccion = 8;
         private const long directionDefault = -1;
+
+        public const int indice_Nulo = 0;
+        public const int indice_Secuencial = 1;
+        public const int indice_Primario = 2;
+        public const int indice_Secundario = 3;
+        public const int indice_Arbol = 4;
+        public const int indice_Multilista = 5;
+        public const int indice_Hash = 6;
+
+
         #endregion
 
         #region Variables_De_Instancia
@@ -1012,6 +1022,7 @@ namespace manejadorDeArchivosPro
                 }
 
                 //direcciones multilista en el registro
+                listaAuxiliarDeBytes = new List<byte>();
                 foreach (Atributo at in entidad.getAtributosMultilista())
                 {
                     registro.Add(listaAuxiliarDeBytes);
@@ -1024,11 +1035,12 @@ namespace manejadorDeArchivosPro
                 this.archivo.Seek(entidad.Direccion + UtilStatic.offset_Entidad_direccionReg, SeekOrigin.Current);
                 this.escritor.Write(entidad.DireccionRegistros);
                 this.cierraElArchivo();*/
-                this.grabaEnEntidad(entidad, UtilStatic.offset_Entidad_direccionReg ,entidad.DireccionRegistros);
-
-                creaIndices(entidad);
+                
+                //creaIndices(entidad);
                 insetaSinTipoDeIndice(registro, entidad);
-                insertaIndices(entidad, registro);
+               // insertaIndices(entidad, registro);
+
+                this.grabaEnEntidad(entidad, UtilStatic.offset_Entidad_direccionReg, entidad.DireccionRegistros);
             }
             else//si si que los hay(registros)
             {
@@ -1161,6 +1173,11 @@ namespace manejadorDeArchivosPro
 
         }
 
+        private string pathRegistros(Entidad en)
+        {
+            return Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + ".dat";
+        }
+
         private void insetaSinTipoDeIndice(List<List<byte>> registro, Entidad en)
         {
             long direccionAnterior;// auxiliar que guarda la direccion del registro anterior
@@ -1169,7 +1186,7 @@ namespace manejadorDeArchivosPro
 
             FileStream registroFile;
 
-            string nombreDelArchivoDat = Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre + ".dat";
+            string nombreDelArchivoDat = pathRegistros(en);
             if (!File.Exists(nombreDelArchivoDat))
             {
                 registroFile = new FileStream(nombreDelArchivoDat, FileMode.Create);
@@ -1334,12 +1351,35 @@ namespace manejadorDeArchivosPro
             return Path.GetDirectoryName(this.pathName) + "\\" + Path.GetFileNameWithoutExtension(this.PathName) + "_" + en.Nombre +"_" + at.Nombre + "_P.idx";
         }
 
+        const int blockSizePrimario = 2048;// el tamaño de bloque del indice primario es 2KB siempre tiene que ser un multiplo de 8
+
+        private void creaIndicePrimario(Entidad en, Atributo atr)
+        {
+            if (!File.Exists(pathIndicePrimario(en, atr)))//Crea el archivo en disco de datos
+            {
+                indicePrimario = new FileStream(pathIndicePrimario(en, atr), FileMode.OpenOrCreate);//Crea el archivo en disco de datos
+
+                using (BinaryWriter b = new BinaryWriter(indicePrimario))
+                {
+                    long x = -1;
+                    for (int i = 0; i < blockSizePrimario / sizeof(long); i++)
+                    {
+                        b.Write(x);
+                    }
+                }
+            }
+            else
+            {
+                indicePrimario = new FileStream(pathIndicePrimario(en, atr), FileMode.Open);//Crea el archivo en disco de datos
+            }
+        }
+
         public long existeLlavePrimaria(object insersion, Entidad en)
         {
             long res = -1;
             long direccionDeRegistro = 0;
             long direccionAnterior = 0;
-            Atributo atributoLlavePrimaria = en.getAtributoIndice(2);
+            Atributo atributoLlavePrimaria = en.getAtributoIndice(indice_Primario);
 
             if (atributoLlavePrimaria.Tipo == 'E' || atributoLlavePrimaria.Tipo == 'e')//es entero
             {
@@ -1391,32 +1431,32 @@ namespace manejadorDeArchivosPro
             return -1;
         }
 
-        const int blockSizePrimario = 2048;// el tamaño de bloque del indice primario es 2KB siempre tiene que ser un multiplo de 8
-
-        private void creaIndicePrimario(Entidad en, Atributo atr)
-        {
-            if (!File.Exists(pathIndicePrimario(en, atr)))//Crea el archivo en disco de datos
-            {
-                indicePrimario = new FileStream(pathIndicePrimario(en, atr), FileMode.OpenOrCreate);//Crea el archivo en disco de datos
-
-                using (BinaryWriter b = new BinaryWriter(indicePrimario))
-                {
-                    long x = -1;
-                    for (int i = 0; i < blockSizePrimario / sizeof(long); i++)
-                    {
-                        b.Write(x);
-                    }
-                }
-            }
-            else
-            {
-                indicePrimario = new FileStream(pathIndicePrimario(en, atr), FileMode.Open);//Crea el archivo en disco de datos
-            }
-        }
-
 
         public int insertaPrimario(Entidad entid, List<List<byte>> registro)
         {
+            int indiceDeCampo = entid.getIndexByTipoIndice(indice_Primario) + 1;
+            Atributo atributoAuxiliarPrimario = entid.getAtributoByTipoIndice(indice_Primario)[0];
+            long direccionAuxiliarPrimario;
+
+            if(atributoAuxiliarPrimario.Tipo == 'E' || atributoAuxiliarPrimario.Tipo == 'e')
+            {
+                List<byte> auxB = registro[indiceDeCampo];
+                int llaveInsersion = //  Convert.ToInt32(auxB.ToArray());
+
+                Convert.ToInt32(registro[entid.atributos.IndexOf(entid.getAtributoByTipoIndice(indice_Primario)[0])]);// se tiene que insertar;
+
+
+                    // registro[entid.atributos.IndexOf(entid.getAtributoByTipoIndice(1)[0])];
+
+
+                    direccionAuxiliarPrimario = existeLlavePrimaria(llaveInsersion,entid);
+            }
+            else if (atributoAuxiliarPrimario.Tipo == 'C' || atributoAuxiliarPrimario.Tipo == 'c')
+            {
+                String llaveInsersion = UtilStatic.getStringByByteArray(registro.ElementAt(indiceDeCampo).ToArray());
+                direccionAuxiliarPrimario = existeLlavePrimaria(llaveInsersion, entid);
+            }
+
             return -1;
         }
 
@@ -1529,7 +1569,7 @@ namespace manejadorDeArchivosPro
             {
                 indiceSecundario = new FileStream(pathIndiceSecundario(en, atr), FileMode.OpenOrCreate);//Crea el archivo en disco de datos
 
-                using (BinaryWriter b = new BinaryWriter(indicePrimario))
+                using (BinaryWriter b = new BinaryWriter(indiceSecundario))
                 {
                     long x = -1;
                     for (int i = 0; i < 256; i++)
@@ -1711,7 +1751,6 @@ namespace manejadorDeArchivosPro
         {
             return -1;
         }
-
 
 
         #endregion

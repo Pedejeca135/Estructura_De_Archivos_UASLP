@@ -88,7 +88,7 @@ namespace manejadorDeArchivosPro
             {
                 ComboB_TipoAtributo.Text = atribu.Tipo.ToString();
                 ComboB_LongitudAtributo.Text = atribu.Longitud.ToString();
-                ComboB_TipoIndiceAtributo.SelectedIndex = atribu.TipoIndice;
+                ComboB_TipoIndiceAtributo.SelectedIndex = atribu.TipoIndice -1;
 
                 indice_CBIndice = this.ComboB_TipoIndiceAtributo.SelectedIndex;
                 indice_CBTipo = this.ComboB_TipoAtributo.SelectedIndex;
