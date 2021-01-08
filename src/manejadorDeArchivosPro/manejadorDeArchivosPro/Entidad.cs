@@ -174,7 +174,7 @@ namespace manejadorDeArchivosPro
 
         #region offsetDeRegistro
 
-        public int getOffsetByAtributoIndex(int index)
+        public long getOffsetByAtributoIndex(int index)
         {
             int res = 8;
             if(index >= this.atributos.Count)
@@ -188,7 +188,7 @@ namespace manejadorDeArchivosPro
             return res;
         }
 
-        public int getOffsetAtributoByName(string name)
+        public long getOffsetAtributoByName(string name)
         {
             foreach(Atributo atr in this.atributos)
             {
@@ -217,7 +217,7 @@ namespace manejadorDeArchivosPro
             }
             return -1;
         }
-        public int offsetByKey(int key)
+        public long offsetByKey(int key)
         {
             foreach (Atributo at in this.atributos)
             {
@@ -229,7 +229,7 @@ namespace manejadorDeArchivosPro
             return 0;
         }
 
-        public int getOffsetMultilista(Atributo atributoMultilista)
+        public long getOffsetMultilista(Atributo atributoMultilista)
         {
             int res = 8;
             foreach (Atributo at in this.atributos)
@@ -250,7 +250,7 @@ namespace manejadorDeArchivosPro
             return -1;
         }
 
-        public int getEntidadTamRegistro()
+        public long getEntidadTamRegistro()
         {
             int res = 0;
             foreach(Atributo at in this.atributos)
@@ -264,12 +264,12 @@ namespace manejadorDeArchivosPro
             return res;
         }
 
-        public int offSetSiguienteRegistro()
+        public long offSetSiguienteRegistro()
         {
             return 8 + getEntidadTamRegistro();
         }
 
-        public int getEntidadTamTotal()
+        public long getRegistroTamTotal()
         {
             return offSetSiguienteRegistro()+8;
         }

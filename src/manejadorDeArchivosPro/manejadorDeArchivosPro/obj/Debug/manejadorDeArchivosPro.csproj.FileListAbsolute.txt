@@ -31,7 +31,6 @@ C:\Users\pjco9\Documents\ReposTareas\Estructura_De_Archivos_UASLP\src\manejadorD
 C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\bin\Debug\manejadorDeArchivosPro.exe.config
 C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\bin\Debug\manejadorDeArchivosPro.exe
 C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\bin\Debug\manejadorDeArchivosPro.pdb
-C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.csprojAssemblyReference.cache
 C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.Aviso_Form.resources
 C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.CambiarNombreArchivo_Form.resources
 C:\Users\pjco9\Documents\ReposX\Estructura_De_Archivos_UASLP\src\manejadorDeArchivosPro\manejadorDeArchivosPro\obj\Debug\manejadorDeArchivosPro.ManejadorDeArchivos_Form.resources
