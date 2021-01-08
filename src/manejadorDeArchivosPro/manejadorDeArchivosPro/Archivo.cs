@@ -1422,6 +1422,75 @@ namespace manejadorDeArchivosPro
         }
 
 
+        public long direccionDeInsersion(object insersion, Entidad en)
+        {
+            long res = -1;
+            long direccionDeRegistro = 0;
+            long direccionAnterior = 0;
+            Atributo atributoLlavePrimaria = en.getAtributoIndice(indice_Primario);
+
+            if (atributoLlavePrimaria.Tipo == 'E' || atributoLlavePrimaria.Tipo == 'e')//es entero
+            {
+                using (BinaryReader lect = new BinaryReader(new FileStream(pathIndicePrimario(en, atributoLlavePrimaria), FileMode.Open)))//Abre el archivo con el BinaryReader
+                {
+                    while (direccionDeRegistro > -1)
+                    {
+                        lect.BaseStream.Seek(direccionDeRegistro, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                        int llaveLeida = lect.ReadInt32();
+
+                        int auxo = Convert.ToInt32(insersion);
+
+                        if (llaveLeida > auxo)// se tiene que insertar
+                        {
+                            res = direccionDeRegistro;
+                            break;
+                        }
+                        else if(llaveLeida < auxo)
+                        {
+                            direccionAnterior = direccionDeRegistro;
+                            lect.BaseStream.Seek(direccionDeRegistro + 4, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            direccionDeRegistro = lect.ReadInt64();//llave
+                        }
+                        else if (llaveLeida == auxo)
+                        {
+                            return -2;
+                        }
+                    }
+                }
+            }
+            else if (atributoLlavePrimaria.Tipo == 'C' || atributoLlavePrimaria.Tipo == 'c')
+            {
+                using (BinaryReader lect = new BinaryReader(new FileStream(pathIndicePrimario(en, atributoLlavePrimaria), FileMode.Open)))//Abre el archivo con el BinaryReader
+                {
+                    while (direccionDeRegistro > -1)
+                    {
+                        lect.BaseStream.Seek(direccionDeRegistro, SeekOrigin.Begin);//Se posciona en la posición del iterador
+
+                        string llaveLeida = UtilStatic.getStringByByteArray(lect.ReadBytes(atributoLlavePrimaria.Longitud));
+
+                        if (((string)insersion).CompareTo(Convert.ToString(llaveLeida)) > 0)//se debe insertar si la insersion es mayor a la llave leida en el indice
+                        {
+                            res = direccionDeRegistro;
+                            break;
+                        }
+                        else if (((string)insersion).CompareTo(Convert.ToString(llaveLeida)) < 0)
+                        {
+                            direccionAnterior = direccionDeRegistro;
+                            lect.BaseStream.Seek(direccionDeRegistro + atributoLlavePrimaria.Longitud, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            direccionDeRegistro = lect.ReadInt64();//llave
+                        }
+                        else if (((string)insersion).CompareTo(Convert.ToString(llaveLeida)) == 0)
+                        {
+
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
+
+
         public int insertaPrimario(Entidad entid, List<List<byte>> registro)
         {
             int indiceDeCampo = entid.getIndexByTipoIndice(indice_Primario) + 1;
