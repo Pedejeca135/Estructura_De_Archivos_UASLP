@@ -385,6 +385,19 @@ namespace manejadorDeArchivosPro
             return null;
         }
 
+        public object objetoEnPseudoRegistro(Atributo atri, List<List<byte>> registro)
+        {
+            if (atri.Tipo == 'C' && atri.Tipo == 'c')
+            {
+                return UtilStatic.getStringByByteArray(registro.ElementAt(this.atributos.IndexOf(this.getAtributoByName(atri.Nombre))).ToArray());
+            }
+            else if (atri.Tipo == 'E' && atri.Tipo == 'e')
+            {
+                return BitConverter.ToInt32(registro.ElementAt(this.atributos.IndexOf(this.getAtributoByName(atri.Nombre))).ToArray(), 0);
+            }
+            return null;
+        }
+
         public Atributo getAtributoByName(String name)
         {
             foreach(Atributo at in this.atributos)

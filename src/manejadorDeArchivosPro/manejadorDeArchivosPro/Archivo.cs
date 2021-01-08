@@ -991,7 +991,7 @@ namespace manejadorDeArchivosPro
 
         public bool grabaRegistro(List<List<byte>> registro, Entidad entidad)
         {
-            List<byte> listaAuxiliarDeBytes = new List<byte>();//se agrega su direccion en el registro
+              List<byte> listaAuxiliarDeBytes = new List<byte>();//se agrega su direccion en el registro
 
             if (entidad.DireccionRegistros == -1)//si aun no existe registro alguno
             {
@@ -1006,7 +1006,7 @@ namespace manejadorDeArchivosPro
                 Atributo atributoSecuencialAux = entidad.getAtributoByTipoIndice(1)[0];
                 bool banderaDeInsersion = true;
 
-                if (entidad.getAtributoByTipoIndice(indice_Primario).Length > 0 && existeLlavePrimaria(entidad.objetoEnRegistro(entidad.getAtributoByTipoIndice(indice_Primario)[0], registro), entidad) == -1 )
+                if (entidad.getAtributoByTipoIndice(indice_Primario).Length > 0 && existeLlavePrimaria(entidad.objetoEnPseudoRegistro(entidad.getAtributoByTipoIndice(indice_Primario)[0], registro), entidad) == -1 )
                 {
                     banderaDeInsersion = true;
                 }
@@ -1016,7 +1016,7 @@ namespace manejadorDeArchivosPro
                     MessageBox.Show("Ya existe una llave Primaria con el mismo valor", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                if (banderaDeInsersion && existeLlaveArbol(entidad.objetoEnRegistro(entidad.getAtributoByTipoIndice(indice_Arbol)[0], registro), entidad) == -1)
+                if (banderaDeInsersion && existeLlaveArbol(entidad.objetoEnPseudoRegistro(entidad.getAtributoByTipoIndice(indice_Arbol)[0], registro), entidad) == -1)
                 {
 
                 }
@@ -1209,7 +1209,9 @@ namespace manejadorDeArchivosPro
                 }
 
                 listaAuxiliarDeBytes = new List<byte>();
-                //direccion del registro al que apuntara                   
+
+                //direccion del registro al que apuntara        
+                direccionDeRegistro = direccionAnterior;
                 foreach (byte b in BitConverter.GetBytes(direccionDeRegistro))
                 {
                     listaAuxiliarDeBytes.Add(b);
@@ -1218,19 +1220,16 @@ namespace manejadorDeArchivosPro
 
                 registro.Add(listaAuxiliarDeBytes);
 
-                en.DireccionRegistros = tamRegistroDatos;
-                this.abreElArchivo();
-                escritor = new BinaryWriter(archivo);
-                this.archivo.Seek(en.Direccion + UtilStatic.offset_Entidad_direccionReg, SeekOrigin.Current);
-                this.escritor.Write(en.DireccionRegistros);
-                this.cierraElArchivo();
                 esc.Seek(0, SeekOrigin.End);
+
                 foreach (List<byte> lB in registro)
                 {
                     esc.Write(lB.ToArray());
                 }
 
             }
+            en.DireccionRegistros = tamRegistroDatos;
+            grabaEnEntidad(en, UtilStatic.offset_Entidad_direccionReg, en.DireccionRegistros);
         }
 
         private void insertaSecuencial(List<List<byte>> registro, Entidad en)
@@ -1433,7 +1432,39 @@ namespace manejadorDeArchivosPro
             {
                 List<byte> auxB = registro[indiceDeCampo];
                 int llaveInsersion = BitConverter.ToInt32(auxB.ToArray(), 0);// se tiene que insertar;
-                direccionAuxiliarPrimario = existeLlavePrimaria(llaveInsersion,entid);
+
+                long direccionAnterior;
+                long direccionDeRegistro =  direccionAnterior = 0;
+
+                using (BinaryReader lect = new BinaryReader(new FileStream(pathIndicePrimario(entid, atributoAuxiliarPrimario), FileMode.Open)))//Abre el archivo con el BinaryReader
+                {
+                    while (direccionDeRegistro > -1)
+                    {
+                        lect.BaseStream.Seek(direccionDeRegistro, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                        int llaveLeida = lect.ReadInt32();
+
+                        int insersionInt = Convert.ToInt32(llaveInsersion);
+
+                        if (insersionInt > llaveLeida)// se tiene que insertar
+                        {
+                            res = direccionDeRegistro;
+                            break;
+                        }
+                        else
+                        {
+                            direccionAnterior = direccionDeRegistro;
+                            lect.BaseStream.Seek(direccionDeRegistro + 4, SeekOrigin.Begin);//Se posciona en la posición del iterador
+                            direccionDeRegistro = lect.ReadInt64();//llave
+                        }
+                    }
+                }
+
+
+
+
+
+
+
             }
             else if (atributoAuxiliarPrimario.Tipo == 'C' || atributoAuxiliarPrimario.Tipo == 'c')
             {
